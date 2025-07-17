@@ -1,5 +1,7 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; */
+
+  font-family: "EB Garamond", serif;
   line-height: 1.5;
   font-weight: 400;
 }
@@ -18,4 +20,11 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+p {
+  width: 50%;
+  margin: auto;
+  text-align: left;
+  font-size: 1.2em;
 }
