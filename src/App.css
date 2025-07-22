@@ -16,6 +16,7 @@ h1 {
 
 #information {
   display: flex;
+  padding-top: 0.5%;
 }
 
 #locations, #description, #items, .option {
@@ -32,7 +33,7 @@ h1 {
 #description {
   width: 60%;
   padding: 1%;
-  background-color: gainsboro;
+  background-color: rgba(235, 235, 235);
 }
 
 #items {
@@ -55,11 +56,12 @@ h1 {
   width: 47.5%; /* leave 0.5 for horizontal space of margins & padding */
   padding: 1%;
   cursor: pointer;
+  /* background-color: rgba(245, 245, 245); */
   transition: background-color 0.25s;
 }
 
 .option:hover {
-  background-color: gainsboro;
+  background-color: rgba(235, 235, 235);
 }
 
 .location:hover, .item:hover {
@@ -68,5 +70,11 @@ h1 {
 }
 
 .location:hover, .item:hover {
-  background-color: gainsboro;
+  /* background-color: gainsboro; */
+  background-color: rgba(235, 235, 235);
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+h1, #description, .option {
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.2);
 }
