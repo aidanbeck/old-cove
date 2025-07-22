@@ -1,6 +1,72 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  font-family: "EB Garamond", serif;
+  color: #213547;
+  background-color: #ffffff;
+
+  font-size: larger;
+}
+
+h1 {
+  background-color: lightblue;
+  margin: 0;
+  padding: 0.25%;
+  padding-left: 20%;
+}
+
+
+#information {
+  display: flex;
+}
+
+#locations, #description, #items, .option {
+  margin: 0.25%;
+  border-radius: 5px;
+}
+
+#locations {
+  width: 15%;
+  margin-left: 5%;
+  text-align: right;
+}
+
+#description {
+  width: 60%;
+  padding: 1%;
+  background-color: gainsboro;
+}
+
+#items {
+  width: 15%;
+  margin-right: 5%;
+}
+
+
+
+#options {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin-right: 20.25%;
+  margin-left: 20.25%;
+  margin-top: 1%;
+}
+
+.option {
+  width: 47.5%; /* leave 0.5 for horizontal space of margins & padding */
+  padding: 1%;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+.option:hover {
+  background-color: gainsboro;
+}
+
+.location:hover, .item:hover {
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.location:hover, .item:hover {
+  background-color: gainsboro;
 }
