@@ -12,7 +12,9 @@ function App() {
           <div class="location">ocean vista</div>
           <div class="location">ol' reliable</div>
         </div>
-        <div id="description">Description</div>
+        <div id="description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit ex iusto qui maiores. Rerum consequuntur a, debitis quisquam modi nostrum excepturi magnam. Voluptatum ab numquam aut incidunt deserunt nemo reprehenderit.
+        Suscipit accusamus atque odit doloremque laborum minus commodi tempora amet eveniet nulla quo numquam illo at facere dolorem sint inventore corrupti exercitationem, vel voluptate aperiam dolorum impedit temporibus officia? Aspernatur?
+        Debitis, cumque ratione! Adipisci quam nulla rem dolorum commodi, facilis, quia et nisi recusandae harum deleniti accusamus provident, perferendis ullam repellendus temporibus. Nisi quaerat facere sit modi minima eius perspiciatis.</div>
         <div id="items">
           <div class="item">🔑 golden key</div>
           <div class="item">🪓 dull axe</div> 
