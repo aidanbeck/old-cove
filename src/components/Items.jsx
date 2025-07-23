@@ -1,14 +1,14 @@
-function Locations() {
+function Items(props) {
+
+    let itemsJSX = props.items.map( (item, index) => {
+        return <div key={index} className="item">{item}</div>
+    });
+
     return (
         <div id="items">
-            <div class="item">🔑 golden key</div>
-            <div class="item">🪓 dull axe</div> 
-            <div class="item">🔨 rusty hammer</div> 
-            <div class="item">🩹 bandage</div> 
-            <div class="item">🔦 torch</div> 
-            <div class="item">📧 sealed letter</div> 
+            {itemsJSX}
         </div>
     );
 }
 
-export default Locations;
+export default Items;

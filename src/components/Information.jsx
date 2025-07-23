@@ -18,12 +18,21 @@ const rooms = [
     ]
 ]
 
+const items = [
+    "🔑 golden key",
+    "🪓 dull axe",
+    "🔨 rusty hammer", 
+    "🩹 bandage",
+    "🔦 torch", 
+    "📧 sealed letter" 
+]
+
 function Information() {
     return (
         <div id="information">
             <Locations />
             <Description description={rooms[2]}/>
-            <Items />
+            <Items items={items}/>
         </div>
     );
 }
