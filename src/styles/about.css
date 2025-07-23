@@ -9,7 +9,7 @@
     overflow-y: auto;
 }
 
-table, p {
+#aboutScreen > table, #aboutScreen > p {
     background-color: rgb(0,0,0,0.5);
     color: white;
     width: 100%
@@ -26,6 +26,6 @@ caption, h2 {
     background-color: rgb(0,0,0,0.8);
 }
 
-p {
+#aboutScreen > p {
     text-align: center;
 }
