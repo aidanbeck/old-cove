@@ -1,0 +1,31 @@
+#aboutScreen {
+    background-image: url('../assets/beach_at_beverly_lessblurred.png');
+    background-size: cover;
+    background-position-y: 90%;
+    
+    position: fixed;
+    inset: 0;
+
+    overflow-y: auto;
+}
+
+table, p {
+    background-color: rgb(0,0,0,0.5);
+    color: white;
+    width: 100%
+}
+img {
+    width: 30vh;
+}
+.painting {
+    text-align: right;
+}
+
+caption, h2 {
+    text-align: center;
+    background-color: rgb(0,0,0,0.8);
+}
+
+p {
+    text-align: center;
+}
