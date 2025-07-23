@@ -1,0 +1,12 @@
+#playScreen {
+    /* This makes the background image fill the height of the screen, not worrying about width. */
+    background-image: url('../assets/calm_sea_blurred.png');
+    background-size: cover;
+    background-position-y: 90%;
+
+    /* This makes the div fill up the entire screen. */
+    position: fixed;
+    inset: 0;
+
+    overflow-y: auto; /* without this the user cannot scroll down */
+}
