@@ -62,15 +62,23 @@ class World {
         this.currentRoom = this.rooms[id];
         this.giveLocation(id);
     }
-    choosePath(index) {
+    isValidOption(index) {
         let path = this.currentRoom.paths[index];
 
         // Get Conditionals
         let playerHasNeededItem = path.require == '' || this.hasItem(path.require);
         let playerHasGivenItem = this.hasItem(path.giveItem);
-        let pathHasItemToGive = path.giveItem != '';
 
         if (playerHasNeededItem && !playerHasGivenItem) {
+            return true;
+        }
+        return false;
+    }
+    choosePath(index) {
+        let path = this.currentRoom.paths[index];
+        let pathHasItemToGive = path.giveItem != '';
+
+        if (this.isValidOption(index)) {
             if (pathHasItemToGive) { this.giveItem(path.giveItem); }
             this.moveTo(path.toId);
         }
@@ -94,7 +102,7 @@ let townPaths = [
 let lighthousePaths = [
     new Path("sandy beach", "return to the beach"),
     new Path("lighthouse", "take key", [], '', 'key'),
-    new Path("the light", "destroy the barrel.", ['you break the barrel with the axe'], 'axe')
+    new Path("the light", "destroy the barrel.", ['you break the barrel with the axe'], "🪓 dull axe")
 ]
 
 let lightPaths = [
@@ -108,7 +116,7 @@ let cavePaths = [
 
 let storagePaths = [
     new Path("cave", "return to the cave"),
-    new Path("storage room", "take axe", [], '', 'axe')
+    new Path("storage room", "take axe", [], '', "🪓 dull axe")
 ]
 
 let rooms = {

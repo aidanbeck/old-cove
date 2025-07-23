@@ -9,20 +9,21 @@ function Game() {
 
   const [worldState, setWorldData] = useState(world);
 
-  const handleChange = (e) => {
+  const handleChange = (type, value) => {
 
     // This is a little hacky, could I somehow return just what changes? or have choosePath() change the state of worldData instead of world?
-    world.choosePath(e);
+    if (type == "option") {
+      world.choosePath(value);
+    }
+    
     setWorldData( (prevData) => ({...world }) );
   }
-
-  let paths = worldState.currentRoom.paths;
 
   return (
     <div id="playScreen">
       <h1><Link id="backToTitle" to='/'>Old Cove</Link></h1>
       <Information world={worldState}/>
-      <Options options={paths} handleChange={handleChange}/>
+      <Options world={worldState} handleChange={handleChange} validateOption={worldState.isValidOption}/>
     </div>
   )
 }

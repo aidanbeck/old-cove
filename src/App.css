@@ -71,10 +71,23 @@ h1 {
   transition: background-color 0.25s;
 }
 
-.option:hover {
+.option:hover:not(.locked) {
   color: #213547;
   background-color: rgba(235, 235, 235);
   text-shadow: 1px 2px 2px rgb(0, 0, 0, 0.2);
+}
+
+.option > span {
+  font-size: 1.2vw;
+}
+.option > hr {
+  margin-bottom: 1%;
+  margin-top: 0%;
+}
+
+.locked {
+  cursor:default;
+  opacity: 0.3;
 }
 
 .location, .item {
