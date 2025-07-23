@@ -1,17 +1,18 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import Information from './components/Information';
-import Options from './components/Options';
+import Game from './components/Game';
+import Title from './components/Title';
 
 import './App.css';
 
 function App() {
   return (
-    <>
-      <h1>Old Cove</h1>
-      <Information />
-      <Options />
-    </>
+    <Router>
+      <Routes>
+        <Route path="" element={<Title />}/>
+        <Route path="/play" element={<Game />}/>
+      </Routes>
+    </Router>
   )
 }
 
