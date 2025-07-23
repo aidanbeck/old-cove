@@ -3,7 +3,7 @@
   color: #213547;
   background-color: #ffffff;
 
-  font-size: larger;
+  font-size: 2vw;
 
 }
 
@@ -58,7 +58,7 @@ h1 {
 
   margin-right: 20.25%;
   margin-left: 20.25%;
-  margin-top: 1%;
+  margin-top: 0.5%;
 }
 
 .option {
@@ -84,6 +84,7 @@ h1 {
   padding-left: 6px;
 
   transition: padding-right 0.25s;
+  white-space: nowrap; /* if text is too long, it still only takes one line. keep an eye on this, it might break things. but I think it looks better. */
 }
 
 .location:hover:not(.currentLocation) {

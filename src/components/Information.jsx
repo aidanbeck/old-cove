@@ -38,7 +38,7 @@ function Information() {
     return (
         <div id="information">
             <Locations locations={locations} currentLocation="a sandy beach"/>
-            <Description description={rooms[2]}/>
+            <Description description={rooms[1]}/>
             <Items items={items}/>
         </div>
     );
