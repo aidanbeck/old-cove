@@ -27,10 +27,17 @@ const items = [
     "📧 sealed letter" 
 ]
 
+const locations = [
+    "the lighthouse",
+    "a sandy beach",
+    "ocean vista",
+    "ol' reliable"
+]
+
 function Information() {
     return (
         <div id="information">
-            <Locations />
+            <Locations locations={locations} currentLocation="a sandy beach"/>
             <Description description={rooms[2]}/>
             <Items items={items}/>
         </div>
