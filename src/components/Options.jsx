@@ -1,7 +1,7 @@
 function Options(props) {
 
   let optionsJSX = props.options.map( (option, index) => {
-    return <div key={index} className="option">{option}</div>
+    return <div key={index} className="option">{option.prompt}</div>
   });
 
   return (

@@ -2,23 +2,19 @@ import { Outlet, Link } from "react-router-dom";
 import Information from './Information';
 import Options from './Options';
 
+import world from '../scripts/room';
+
 import '../styles/play.css';
 
-const choices = [
-  "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
-  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, totam!",
-  "Lorem ipsum dolor sit.",
-  "Lorem ipsum dolor sit amet consectetur.",
-  "Lorem ipsum dolor sit amet.",
-  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, nemo animi."
-]
-
 function Game() {
+
+  let paths = world.currentRoom.paths;
+
   return (
     <div id="playScreen">
       <h1><Link id="backToTitle" to='/'>Old Cove</Link></h1>
-      <Information />
-      <Options options={choices}/>
+      <Information world={world}/>
+      <Options options={paths}/>
     </div>
   )
 }
