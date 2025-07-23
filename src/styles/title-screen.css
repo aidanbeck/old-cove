@@ -6,6 +6,14 @@
     /* This makes the div fill up the entire screen. */
     position: fixed;
     inset: 0;
+
+    animation: wander 20s ease-in-out infinite;
+}
+
+@keyframes wander {
+    50% {
+        background-position:100%, 0%;
+    }
 }
 
 #titleElements {
@@ -28,6 +36,14 @@
         rgb(0, 0, 0, 0)
     );
     
+    /* should I keep this? might want to tone this affect down */
+    animation: shine 4s ease-in-out infinite;
+}
+
+@keyframes shine {
+    50% {
+        text-shadow: -3px 5px 4px black, 2px -2px 60px white;
+    }
 }
 
 #titleName {
@@ -41,9 +57,12 @@
     margin: 3%;
     text-shadow: 2px 3px 8px black;
     text-decoration-line: none;
+
+    transition: all 0.5s ease-out;
 }
 
 #titleBegin:hover, #titleAbout:hover {
     text-decoration-line:underline;
     text-shadow: 0 0 2px #fff;
+    padding-left: 4%;
 }
