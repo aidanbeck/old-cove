@@ -27,7 +27,7 @@ class World {
         this.locations = locations;
         this.inventory = inventory;
 
-        this.currentRoom = rooms[currentId];
+        this.moveTo(currentId); // updates currentRoom and adds location if it is needed
     }
 
     hasItem(item) {
@@ -112,32 +112,33 @@ let storagePaths = [
 ]
 
 let rooms = {
-    "sandy beach": new Room("sandy beach", "the beach is sandy", beachPaths),
-    "town": new Room("town", "everyone's moved on now.", townPaths),
-    "lighthouse": new Room("lighthouse", "the lighthouse shines bright. There is a barrel blocking the way in.", lighthousePaths),
-    "cave": new Room("cave", "It's hard to see in here", cavePaths),
-    "storage room": new Room('storage room', "no one's been here for a long time", storagePaths),
-    "the light": new Room ('the light', "the view is beautiful.", lightPaths)
+    "sandy beach": new Room("sandy beach", ["the beach is sandy"], beachPaths, "sandy beach"),
+    "town": new Room("town", ["everyone's moved on now."], townPaths, "town"),
+    "lighthouse": new Room("lighthouse", ["the lighthouse shines bright. There is a barrel blocking the way in."], lighthousePaths, "lighthouse"),
+    "cave": new Room("cave", ["It's hard to see in here"], cavePaths, "cave"),
+    "storage room": new Room('storage room', ["no one's been here for a long time"], storagePaths, "storage room"),
+    "the light": new Room ('the light', ["the view is beautiful."], lightPaths, "the light")
 }
 
-let gameWorld = new World(rooms, "sandy beach");
+let gameWorld = new World(rooms, "sandy beach", [], ["📧 sealed letter"]);
 
+export default gameWorld;
 
 // Testing
 
-function logStatus() {
-    console.log(gameWorld.currentRoom.description, gameWorld.inventory);
-}
-logStatus();
-gameWorld.choosePath(1); logStatus();
-gameWorld.choosePath(0); logStatus();
-gameWorld.choosePath(0); logStatus();
-gameWorld.choosePath(1); logStatus();
-gameWorld.choosePath(0); logStatus();
-gameWorld.choosePath(2); logStatus();
-gameWorld.choosePath(1); logStatus();
-gameWorld.choosePath(1); logStatus();
-gameWorld.choosePath(0); logStatus();
-gameWorld.choosePath(0); logStatus();
-gameWorld.choosePath(0); logStatus();
-gameWorld.choosePath(2); logStatus();
+// function logStatus() {
+//     console.log(gameWorld.currentRoom.description, gameWorld.inventory);
+// }
+// logStatus();
+// gameWorld.choosePath(1); logStatus();
+// gameWorld.choosePath(0); logStatus();
+// gameWorld.choosePath(0); logStatus();
+// gameWorld.choosePath(1); logStatus();
+// gameWorld.choosePath(0); logStatus();
+// gameWorld.choosePath(2); logStatus();
+// gameWorld.choosePath(1); logStatus();
+// gameWorld.choosePath(1); logStatus();
+// gameWorld.choosePath(0); logStatus();
+// gameWorld.choosePath(0); logStatus();
+// gameWorld.choosePath(0); logStatus();
+// gameWorld.choosePath(2); logStatus();
