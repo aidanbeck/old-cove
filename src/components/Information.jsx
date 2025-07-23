@@ -17,7 +17,7 @@ function Information(props) {
 
     return (
         <div id="information">
-            <Locations locations={world.locations} currentLocation={world.currentId}/>
+            <Locations world={world} locations={world.locations} currentLocation={world.currentId} handleChange={props.handleChange}/>
             <Description description={room.description}/>
             <Items items={world.inventory}/>
         </div>

@@ -6,7 +6,7 @@ function Locations(props) {
       return <div key={index} className="location currentLocation">{location}</div>
     }
 
-    return <div key={index} className="location">{location}</div>
+    return <div key={index} className="location" onClick={() => props.handleChange("location", location)}>{location}</div>
   });
 
   return (

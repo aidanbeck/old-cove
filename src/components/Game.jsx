@@ -15,6 +15,10 @@ function Game() {
     if (type == "option") {
       world.choosePath(value);
     }
+
+    if (type == "location") {
+      world.moveTo(value);
+    }
     
     setWorldData( (prevData) => ({...world }) );
   }
@@ -22,8 +26,8 @@ function Game() {
   return (
     <div id="playScreen">
       <h1><Link id="backToTitle" to='/'>Old Cove</Link></h1>
-      <Information world={worldState}/>
-      <Options world={worldState} handleChange={handleChange} validateOption={worldState.isValidOption}/>
+      <Information world={worldState} handleChange={handleChange}/>
+      <Options world={worldState} handleChange={handleChange}/>
     </div>
   )
 }
