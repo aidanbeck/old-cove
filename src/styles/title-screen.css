@@ -11,8 +11,10 @@
 }
 
 @keyframes wander {
+    /* moves the photo back & forth */
     50% {
         background-position:100%, 0%;
+        background-size: auto 110vh;
     }
 }
 
@@ -41,6 +43,7 @@
 }
 
 @keyframes shine {
+    /* by offsetting and changing the intensity of the white and black text shadows, it creates shining affect */
     50% {
         text-shadow: -3px 5px 4px black, 2px -2px 60px white;
     }
@@ -62,6 +65,7 @@
 }
 
 #titleBegin:hover, #titleAbout:hover {
+    /* glow, underline, and move to the right when selected */
     text-decoration-line:underline;
     text-shadow: 0 0 2px #fff;
     padding-left: 4%;
