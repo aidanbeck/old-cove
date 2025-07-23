@@ -1,0 +1,49 @@
+#titleScreen {
+    /* This makes the background image fill the height of the screen, not worrying about width. */
+    background-image: url('../assets/the_much_resounding_sea_1967.9.1.jpg');
+    background-size: auto 100vh;
+
+    /* This makes the div fill up the entire screen. */
+    position: fixed;
+    inset: 0;
+}
+
+#titleElements {
+    position: absolute;
+    bottom: 10%;
+    left: 0%;
+    padding: 2%;
+    border-radius: 10px;
+
+    user-select: none;
+    
+    color: white;
+    font-weight: bold;
+    text-shadow: 3px 5px 10px black, 0 0 10px white; /* glows AND has a shadow, super cool!! */
+    
+    background: linear-gradient(
+        rgb(0, 0, 0, 0) 0%,
+        rgb(0, 0, 0, 0.5) 10%,
+        rgb(0, 0, 0, 0.1) 90%,
+        rgb(0, 0, 0, 0)
+    );
+    
+}
+
+#titleName {
+    font-size: 12.5vh;
+}
+
+#titleBegin, #titleAbout {
+    font-size: 4.1vh;
+    font-weight: 600;
+    color: white;
+    margin: 3%;
+    text-shadow: 2px 3px 8px black;
+    text-decoration-line: none;
+}
+
+#titleBegin:hover, #titleAbout:hover {
+    text-decoration-line:underline;
+    text-shadow: 0 0 2px #fff;
+}
