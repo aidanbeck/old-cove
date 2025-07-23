@@ -4,6 +4,7 @@ import Game from './components/Game';
 import Title from './components/Title';
 
 import './App.css';
+import './styles/responsive.css';
 
 function App() {
   return (

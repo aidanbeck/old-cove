@@ -1,0 +1,17 @@
+/* phones */
+@media only screen and (max-width: 600px) {
+    #description { width: 100%; }
+    #locations { display: none; }
+    #items {display: none; }
+    #options {width: 100%; margin: 0; }
+    .option {width: 100%; padding: 5%; margin-top: 3px; }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1040px) {
+    #description { width: 68%; margin: 0;}
+    #locations { width: 20%; margin: 0; margin-right: 2%;}
+    #items {width: 20%; margin: 0; margin-left: 2%;}
+    .item, .location {width: 100%; padding: 0;}
+    #options {width: 100%; margin: 0; margin-top: 2%; }
+    .option {width: 39.5%; padding: 5%; }
+}

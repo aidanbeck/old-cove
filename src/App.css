@@ -115,6 +115,7 @@ h1 {
     rgb(255, 255, 255, 0.75) 90%
   );
 
+  text-decoration-line: underline; /* unsure if I should keep this */
   padding-right: 8%;
 }
 
