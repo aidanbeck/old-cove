@@ -10,7 +10,6 @@ function FeedbackForm() {
     
     const { name, value } = e.target; // makes code readible. this grabs e.target.name and e.target.value, and lets you use them as just `name` and `value.
         setFormData( (prevData) => ({...prevData, [name]: value }) );
-        // console.log(formData);
     }
 
     return (
