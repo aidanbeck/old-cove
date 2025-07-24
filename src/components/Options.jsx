@@ -11,7 +11,8 @@ function Options(props) {
     }
 
     let playerHasGivenItem = world.inventory.includes(option.giveItem);
-    if (playerHasGivenItem) { // player already has the item. cross out the element.
+    let optionLimitHit = option.limit <= 0;
+    if (playerHasGivenItem || optionLimitHit) { // player already has the item. cross out the element.
       return <div key={index} className={optionClass + " locked"}><strike>{option.prompt}</strike></div>;
     }
 

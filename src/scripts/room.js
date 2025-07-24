@@ -32,13 +32,14 @@ class Item {
 }
 
 class Path {
-    constructor(toId, prompt, description=[], require='', giveItem='', alters=[]) {
+    constructor(toId, prompt, description=[], require='', giveItem='', alters=[], limit = Infinity) {
         this.toId = toId; // key/title of the room path goes to
         this.prompt = prompt; // text that shows in option
         this.require = require; // item required to select option
         this.description = description; // paragraphs shown on screen when option selected
         this.giveItem = giveItem; // item that is given when selected, and item that if had, hides this option.
         this.alters = alters; // an array of AlterPath's and AlterDesc's
+        this.limit = limit; // how many times the option can be made
     }
 }
 
@@ -145,8 +146,9 @@ class World {
         // Get Conditionals
         let playerHasNeededItem = path.require == '' || this.hasItem(path.require);
         let playerHasGivenItem = this.hasItem(path.giveItem);
+        let optionLimitHit = path.limit <= 0;
 
-        if (playerHasNeededItem && !playerHasGivenItem) {
+        if (playerHasNeededItem && !playerHasGivenItem && !optionLimitHit) {
             return true;
         }
         return false;
@@ -162,6 +164,8 @@ class World {
             for (let alter of path.alters) {
                 this.implementAlter(alter);
             }
+
+            path.limit--; //deecrement limit to keep track of how many times path has been taken.
 
             if (path.description.length > 0) {
                 this.describeOption(path); // describe action of path, then return to room once continue pressed.
@@ -191,14 +195,14 @@ let townPaths = [
 
 let lighthouseAlters = [
     new AlterDesc("lighthouse", ["The lighthouse shines bright. The barrel lies in fragments, revealing the door."]),
-    new AlterPath("lighthouse", 2, new Path("the light", "enter the lighthouse."))
+    new AlterPath("lighthouse", 3, new Path("the light", "enter the lighthouse."))
 ]
 
 
 let lighthousePaths = [
     new Path("sandy beach", "return to the beach"),
     new Path("lighthouse", "take key", ["You take the key."], '', key),
-    new Path("lighthouse", "destroy the barrel.", ['you break the barrel with the axe'], axe, '', lighthouseAlters)
+    new Path("lighthouse", "destroy the barrel.", ['you break the barrel with the axe'], axe, '', lighthouseAlters, 1)
 ]
 
 let lightPaths = [
