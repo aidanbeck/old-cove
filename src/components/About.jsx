@@ -9,40 +9,74 @@ import image3 from '../assets/beach_at_beverly_1978.6.5.jpg';
 function Title () {
     return (
         <div id="aboutScreen">
-            <h1><Link id="backToTitle" to='/'>Back To Title Screen</Link></h1>
+            <header>
+                <h2>About</h2>
+                <nav>
+                    <Link id="back" to='/'>Return</Link>
+                </nav>
+            </header>
+            <main>
+                <section>
+                    <h2>Old Cove</h2>
+                    <p>This project has been created by Aidan Beck for the LaunchCode 2025 Online Cohort.</p>
+                    <p>Old Cove is a text based adventure game. It attempts to showcase an interesting world and allow the user to have an impact on it.</p>
 
-            <p>
-                <h2>About Old Cove</h2>
-                Text describing primary features of old cove.
-            </p>
+                    <br/>
+                </section>
+                <br/><br/>
+                <section>
+                    <h2>How To Play</h2>
+                    <p>Upon starting the story, a description will be displayed and you will be prompted with options. Read the description and choose an option to explore the enviornment.</p>
+                    <p>Some options might require an item you don't have yet. You can see the items you posess by looking to the right of the description.</p>
+                    <p>If you want to go back to an area you've been before, you can do this quickly by clicking on its name in the list to the left of the description.</p>
 
-            <ul>
-                <li>Primary feature of Old Cove.</li>
-                <li>Another primary feature.</li>
-                <li>Yet another.</li>
-            </ul>
+                    <br/>
+                </section>
+                <br/><br/>
+                <section>
+                    <h2>Features I'd Like To Add</h2>
+                    <p>There are a lot of features I would still like to implement in the future. Here are the main ones.</p>
+                    <ul>
+                        <li>A fleshed out, thematically notable storyline.</li>
+                        <li>An ending to the game, or multiple endings.</li>
+                        <li>More background images that change depending on the area.</li>
+                        <li>An option to load in your own level file to enable custom experiences.</li>
+                        <li>A built in level builder.</li>
+                    </ul>
 
-            <table>
-                <caption>Painting Credits</caption>
-                <tbody>
-                    <tr>
-                        <td class="painting"><a href="https://www.nga.gov/artworks/50729-much-resounding-sea"><img src={image1}/></a></td>
-                        <td><strong>The Much Resounding Sea</strong><br/><em>Thomas Moran</em> 1884</td>
+                    <br/>
+                </section>
+                <br/><br/>
+                <section id="projects">
+                    <table>
+                        <caption>Painting Credits</caption>
+                        <br/>
+                        <tbody>
+                            <tr>
+                                <td class="painting"><a href="https://www.nga.gov/artworks/50729-much-resounding-sea"><img src={image1} alt="a painting of the ocean waves. A small patch of sand represents the beach in the bottom left corner. This painting was used on the main menu, where it animated from left to right giving the illusion of moving waves."/></a></td>
+                                <td><strong>The Much Resounding Sea</strong><br/><em>Thomas Moran</em> 1884</td>
 
-                    </tr>
-                    <tr>
-                        <td class="painting"><a href="https://www.nga.gov/artworks/66408-calm-sea"><img src={image2} id="calmSea"/></a></td>
-                        <td><strong>Calm Sea</strong><br/><em>Gustave Courbet</em><br/>1866</td>
-                    </tr>
-                    <tr>
-                        <td class="painting"><a href="https://www.nga.gov/artworks/56574-beach-beverly"><img src={image3}/></a></td>
-                        <td><strong>Beach at Beverly</strong><br/><em>John Frederick Kensett</em><br/>Between 1869 and 1872</td>
-                    </tr>
-                </tbody>
-                
-            </table>
-
-            <footer></footer>
+                            </tr>
+                            <tr>
+                                <td class="painting"><a href="https://www.nga.gov/artworks/66408-calm-sea"><img src={image2} alt="a painting of a still ocean. The beach is visible as a small strip of sand along the bottom, and the water extends to the horizon. The piece is mostly dominated by a sky, grey but not gloomy. This piece was blurred out and used for the background of the interactive page." id="calmSea"/></a></td>
+                                <td><strong>Calm Sea</strong><br/><em>Gustave Courbet</em><br/>1866</td>
+                            </tr>
+                            <tr>
+                                <td class="painting"><a href="https://www.nga.gov/artworks/56574-beach-beverly"><img src={image3} alt="a painting of a cove. There are large rocks and a green tree on the left side of the painting, but the ocean and sky cover the right half. This piece was blurred out and used as the background for the about page (this page)."/></a></td>
+                                <td><strong>Beach at Beverly</strong><br/><em>John Frederick Kensett</em><br/>Between 1869 and 1872</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>All paintings used in this project are in the public domain. Click on an image to see its corresponding page on the National Gallery of Art.</p>
+                    <br/>
+                </section>
+                <footer>
+                    <span>&copy; 2025 Aidan Beck</span> 
+                    <a href="github.com/aidanbeck">My Github</a>
+                    <a href="launchcode.org">LaunchCode</a>
+                    <a href="nga.gov">National Gallery of Art</a>
+                </footer>
+            </main>
         </div>
     )
 }

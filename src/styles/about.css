@@ -8,24 +8,61 @@
 
     overflow-y: auto;
 }
+nav {
+    position:absolute;
+    left: 1%;
+    top: 4%;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+#back {
+    color: white;
+}
 
-#aboutScreen > table, #aboutScreen > p {
+h2, h3, caption, header { /* elements that go on top of sections */
+    text-align: center;
+    background-color: rgb(0,0,0,0.5);
+    width: 100%;
+    color: white;
+    margin: 0;
+}
+
+section {
     background-color: rgb(0,0,0,0.5);
     color: white;
     width: 100%
+}
+
+p, ul {
+    width: 50%;
+    margin-left:25%;
+}
+
+footer {
+    font-size: 0.9em;
+	text-align: center;
+	
+	margin-top: 5%;
+    padding-top: 2%;
+    padding-bottom: 30px;
+    color: white;
+
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+}
+footer > a {
+    color: white;
+    margin-left: 1%;
+}
+
+
+
+/* painting credit section */
+table, caption {
+    width: 100%;
 }
 img {
     width: 30vh;
 }
 .painting {
     text-align: right;
-}
-
-caption, h2 {
-    text-align: center;
-    background-color: rgb(0,0,0,0.8);
-}
-
-#aboutScreen > p {
-    text-align: center;
 }
