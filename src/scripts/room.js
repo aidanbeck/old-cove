@@ -3,6 +3,8 @@
 // to make a titled locatin, set the giveLocation option to a key name of a room. That location will then send the player to that room. You can set multiple rooms to the same location
 // so you could have lighthouse1, lighthouse2, but have them all give "lighthouse". This way it will show you that you're in a lighthouse.
 
+// to make a choice influence the current room, set the starting path to the same room. set the alter path to the new room with a new description, and overwrite the og path.
+
 // can this edit a description of a room? can a room's description change if it has that item?
 
 class AlterPath { // used to change a path.
@@ -51,7 +53,24 @@ class World {
 
         this.lastLocation = '';
 
+        this.rooms["description-room"] = new Room("description-room", []);
+        
         this.moveTo(currentId); // updates currentRoom and adds location if it is needed
+    }
+
+    describeOption(path) {
+        if (path.description.length == 0) {
+            return; // don't describe if path has no description.
+        }
+        let returnRoom = this.currentId;
+
+        let continuePath = new Path(returnRoom, "Continue.");
+        this.rooms["description-room"] = new Room("description-room", path.description, [continuePath], ""); //create a new room with the description and a simple continue.
+        
+        this.moveTo("description-room");
+
+        //this is messy, return to clean up if I have time.
+        //could be more concise, but I have a deadline.
     }
 
     hasItem(item) {
@@ -127,11 +146,16 @@ class World {
                 this.implementAlter(alter);
             }
 
-            this.moveTo(path.toId);
+            if (path.description.length > 0) {
+                this.describeOption(path); // describe action of path, then return to room once continue pressed.
+            } else {
+                this.moveTo(path.toId);
+            }
+            
+
+            
         }
     }
-    
-    
 }
 
 
@@ -153,7 +177,7 @@ let lighthouseAlters = [
 
 let lighthousePaths = [
     new Path("sandy beach", "return to the beach"),
-    new Path("lighthouse", "take key", [], '', 'key'),
+    new Path("lighthouse", "take key", ["You take the key. It is old and rusty."], '', 'key'),
     new Path("lighthouse", "destroy the barrel.", ['you break the barrel with the axe'], "🪓 dull axe", '', lighthouseAlters)
 ]
 
