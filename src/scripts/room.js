@@ -27,6 +27,8 @@ class World {
         this.locations = locations;
         this.inventory = inventory;
 
+        this.lastLocation = '';
+
         this.moveTo(currentId); // updates currentRoom and adds location if it is needed
     }
 
@@ -50,9 +52,15 @@ class World {
         return false;
     }
     giveLocation(id) {
-        // this assumes id's == locations/titles!! should be fine, but beware!
-        if (this.locations.includes(id)) {
-            return; // prevents having the same location twice.
+
+        if (id == '') {
+            return; //prevents giving empty locations
+        }
+
+        this.lastLocation = id;
+
+        if (this.locations.includes(id) || id == '') {
+            return; // prevents having the same location twice,
         }
         this.locations[this.locations.length] = id;
     }
@@ -60,7 +68,7 @@ class World {
     moveTo(id) {
         this.currentId = id;
         this.currentRoom = this.rooms[id];
-        this.giveLocation(id);
+        this.giveLocation(this.currentRoom.giveLocation);
     }
     isValidOption(index) {
         let path = this.currentRoom.paths[index];
@@ -120,11 +128,11 @@ let storagePaths = [
 ]
 
 let rooms = {
-    "sandy beach": new Room("sandy beach", ["the beach is sandy"], beachPaths, "sandy beach"),
-    "town": new Room("town", ["everyone's moved on now."], townPaths, "town"),
+    "sandy beach": new Room("sandy beach", ["the beach is sandy"], beachPaths, ""),
+    "town": new Room("town", ["everyone's moved on now."], townPaths, ""),
     "lighthouse": new Room("lighthouse", ["the lighthouse shines bright. There is a barrel blocking the way in."], lighthousePaths, "lighthouse"),
     "cave": new Room("cave", ["It's hard to see in here"], cavePaths, "cave"),
-    "storage room": new Room('storage room', ["no one's been here for a long time"], storagePaths, "storage room"),
+    "storage room": new Room('storage room', ["no one's been here for a long time"], storagePaths, ""),
     "the light": new Room ('the light', ["the view is beautiful."], lightPaths, "the light")
 }
 
