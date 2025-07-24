@@ -33,7 +33,7 @@ section {
     width: 100%
 }
 
-p, ul {
+section > p, ul {
     width: 50%;
     margin-left:25%;
 }
