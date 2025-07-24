@@ -2,7 +2,7 @@ import { Outlet, Link } from "react-router-dom";
 import { useState } from 'react';
 import Information from './Information';
 import Options from './Options';
-import world from '../scripts/room';
+import world from '../scripts/story';
 import '../styles/play.css';
 
 function Game() {
