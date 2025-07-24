@@ -19,6 +19,10 @@ function Game() {
     if (type == "location") {
       world.moveTo(value);
     }
+
+    if (type == "item") {
+      world.describeItem(value);
+    }
     
     setWorldData( (prevData) => ({...world }) );
   }

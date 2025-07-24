@@ -19,7 +19,7 @@ function Information(props) {
         <div id="information">
             <Locations world={world} locations={world.locations} currentLocation={world.lastLocation} handleChange={props.handleChange}/>
             <Description description={room.description}/>
-            <Items items={world.inventory}/>
+            <Items items={world.inventory} handleChange={props.handleChange}/>
         </div>
     );
 }

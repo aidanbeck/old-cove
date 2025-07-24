@@ -25,7 +25,7 @@ class AlterDesc { // used to change a description.
 }
 
 class Item {
-    constructor(string, description=[]) {
+    constructor(string, description=["This item doesn't have a description."]) {
         this.string = string;
         this.description = description;
     }
@@ -72,12 +72,21 @@ class World {
         let returnRoom = this.currentId;
 
         let continuePath = new Path(returnRoom, "Continue.");
-        this.rooms["description-room"] = new Room("description-room", path.description, [continuePath], ""); //create a new room with the description and a simple continue.
+        this.rooms["description-option"] = new Room("description-option", path.description, [continuePath], ""); //create a new room with the description and a simple continue.
         
-        this.moveTo("description-room");
+        this.moveTo("description-option");
 
         //this is messy, return to clean up if I have time.
         //could be more concise, but I have a deadline.
+    }
+
+    describeItem(item) {
+        let returnRoom = this.currentId;
+        let continuePath = new Path(returnRoom, "...");
+        this.rooms["description-item"] = new Room("description-item", item.description, [continuePath], "");
+        this.moveTo("description-item");
+        
+        //could combine with above
     }
 
     hasItem(item) {
@@ -166,8 +175,8 @@ class World {
     }
 }
 
-let axe = new Item("🪓 dull axe", "You hold its wooden handle carefully to avoid splinters.");
-let key = new Item("🔑 golden key", "It shines, but you can't make out your reflection.")
+let axe = new Item("🪓 dull axe", ["You hold its wooden handle carefully to avoid splinters."]);
+let key = new Item("🔑 golden key", ["It shines, but you can't make out your reflection."])
 
 // Create World Data
 let beachPaths = [
@@ -215,25 +224,6 @@ let rooms = {
     "the light": new Room ('the light', ["the view is beautiful."], lightPaths, "the light")
 }
 
-let gameWorld = new World(rooms, "sandy beach", [], [key]);
+let gameWorld = new World(rooms, "sandy beach", [], []);
 
 export default gameWorld;
-
-// Testing
-
-// function logStatus() {
-//     console.log(gameWorld.currentRoom.description, gameWorld.inventory);
-// }
-// logStatus();
-// gameWorld.choosePath(1); logStatus();
-// gameWorld.choosePath(0); logStatus();
-// gameWorld.choosePath(0); logStatus();
-// gameWorld.choosePath(1); logStatus();
-// gameWorld.choosePath(0); logStatus();
-// gameWorld.choosePath(2); logStatus();
-// gameWorld.choosePath(1); logStatus();
-// gameWorld.choosePath(1); logStatus();
-// gameWorld.choosePath(0); logStatus();
-// gameWorld.choosePath(0); logStatus();
-// gameWorld.choosePath(0); logStatus();
-// gameWorld.choosePath(2); logStatus();
