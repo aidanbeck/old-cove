@@ -1,6 +1,7 @@
 import { Outlet, Link } from "react-router-dom";
 import '../styles/title-screen.css';
 import '../styles/about.css';
+import FeedbackForm from "./FeedbackForm";
 
 import image1 from '../assets/the_much_resounding_sea_1967.9.1.jpg';
 import image2 from '../assets/calm_sea_cropped.jpg';
@@ -25,15 +26,6 @@ function Title () {
                 </section>
                 <br/><br/>
                 <section>
-                    <h2>How To Play</h2>
-                    <p>Upon starting the story, a description will be displayed and you will be prompted with options. Read the description and choose an option to explore the enviornment.</p>
-                    <p>Some options might require an item you don't have yet. You can see the items you posess by looking to the right of the description.</p>
-                    <p>If you want to go back to an area you've been before, you can do this quickly by clicking on its name in the list to the left of the description.</p>
-
-                    <br/>
-                </section>
-                <br/><br/>
-                <section>
                     <h2>Features I'd Like To Add</h2>
                     <p>There are a lot of features I would still like to implement in the future. Here are the main ones.</p>
                     <ul>
@@ -43,7 +35,13 @@ function Title () {
                         <li>An option to load in your own level file to enable custom experiences.</li>
                         <li>A built in level builder.</li>
                     </ul>
-
+                    <br/>
+                </section>
+                <br/><br/>
+                <section>
+                    <h2>Feedback</h2>
+                    <p>If you have a bug to report, a feature you'd like to suggest, or any thoughts on the game - I'd love to hear about them. <br/><em>Note: This form is currently not functional.</em></p>
+                    <FeedbackForm/>
                     <br/>
                 </section>
                 <br/><br/>
