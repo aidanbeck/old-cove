@@ -11,7 +11,10 @@ function Game() {
 
   const handleChange = (type, value) => {
 
-    // This is a little hacky, could I somehow return just what changes? or have choosePath() change the state of worldData instead of world?
+    // am I understanding best practice? this feels hacky.
+    // maybe I should have had a handleChange or handleClick function within each component.
+    // will change if time allows.
+    
     if (type == "option") {
       world.choosePath(value);
     }
@@ -24,7 +27,7 @@ function Game() {
       world.describeItem(value);
     }
     
-    setWorldData( (prevData) => ({...world }) );
+    setWorldData( {...world } );
   }
 
   return (

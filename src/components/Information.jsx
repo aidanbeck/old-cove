@@ -2,24 +2,18 @@ import Locations from './Locations';
 import Description from './Description';
 import Items from './Items';
 
-let items = [
-    "🔑 golden key",
-    "🪓 dull axe",
-    "🔨 rusty hammer", 
-    "🩹 bandage",
-    "🔦 torch", 
-    "📧 sealed letter" 
-]
-
 function Information(props) {
-    let world = props.world;
-    let room = world.currentRoom;
+
+    let { handleChange, world } = props;
+    let { locations, lastLocation, inventory} = world;
+    let description = world.currentRoom.description;
+
 
     return (
         <div id="information">
-            <Locations world={world} locations={world.locations} currentLocation={world.lastLocation} handleChange={props.handleChange}/>
-            <Description description={room.description}/>
-            <Items items={world.inventory} handleChange={props.handleChange}/>
+            <Locations locations={locations} currentLocation={lastLocation} handleChange={handleChange}/>
+            <Description description={description}/>
+            <Items items={inventory} handleChange={handleChange}/>
         </div>
     );
 }

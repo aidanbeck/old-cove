@@ -26,7 +26,7 @@ function FeedbackForm() {
             <span>{formData.feedback.length}/200 characters.</span> {/* wow! that is so cool! */}
 
             <p>
-                <h3>Preview</h3>
+                <u>Preview</u><br/>
                 Name: {formData.name}<br/>
                 Email: {formData.email}<br/>
                 Feedback: {formData.feedback}<br/>

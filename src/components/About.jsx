@@ -1,11 +1,10 @@
 import { Outlet, Link } from "react-router-dom";
-import '../styles/title-screen.css';
-import '../styles/about.css';
 import FeedbackForm from "./FeedbackForm";
-
 import image1 from '../assets/the_much_resounding_sea_1967.9.1.jpg';
 import image2 from '../assets/calm_sea_cropped.jpg';
 import image3 from '../assets/beach_at_beverly_1978.6.5.jpg';
+import '../styles/title-screen.css';
+import '../styles/about.css';
 
 function Title () {
     return (
@@ -46,21 +45,21 @@ function Title () {
                 </section>
                 <br/><br/>
                 <section id="projects">
+                    <h2>Painting Credits</h2>
+                    <br/>
                     <table>
-                        <caption>Painting Credits</caption>
-                        <br/>
                         <tbody>
                             <tr>
-                                <td class="painting"><a href="https://www.nga.gov/artworks/50729-much-resounding-sea"><img src={image1} alt="a painting of the ocean waves. A small patch of sand represents the beach in the bottom left corner. This painting was used on the main menu, where it animated from left to right giving the illusion of moving waves."/></a></td>
+                                <td className="painting"><a href="https://www.nga.gov/artworks/50729-much-resounding-sea"><img src={image1} alt="a painting of the ocean waves. A small patch of sand represents the beach in the bottom left corner. This painting was used on the main menu, where it animated from left to right giving the illusion of moving waves."/></a></td>
                                 <td><strong>The Much Resounding Sea</strong><br/><em>Thomas Moran</em> 1884</td>
 
                             </tr>
                             <tr>
-                                <td class="painting"><a href="https://www.nga.gov/artworks/66408-calm-sea"><img src={image2} alt="a painting of a still ocean. The beach is visible as a small strip of sand along the bottom, and the water extends to the horizon. The piece is mostly dominated by a sky, grey but not gloomy. This piece was blurred out and used for the background of the interactive page." id="calmSea"/></a></td>
+                                <td className="painting"><a href="https://www.nga.gov/artworks/66408-calm-sea"><img src={image2} alt="a painting of a still ocean. The beach is visible as a small strip of sand along the bottom, and the water extends to the horizon. The piece is mostly dominated by a sky, grey but not gloomy. This piece was blurred out and used for the background of the interactive page." id="calmSea"/></a></td>
                                 <td><strong>Calm Sea</strong><br/><em>Gustave Courbet</em><br/>1866</td>
                             </tr>
                             <tr>
-                                <td class="painting"><a href="https://www.nga.gov/artworks/56574-beach-beverly"><img src={image3} alt="a painting of a cove. There are large rocks and a green tree on the left side of the painting, but the ocean and sky cover the right half. This piece was blurred out and used as the background for the about page (this page)."/></a></td>
+                                <td className="painting"><a href="https://www.nga.gov/artworks/56574-beach-beverly"><img src={image3} alt="a painting of a cove. There are large rocks and a green tree on the left side of the painting, but the ocean and sky cover the right half. This piece was blurred out and used as the background for the about page (this page)."/></a></td>
                                 <td><strong>Beach at Beverly</strong><br/><em>John Frederick Kensett</em><br/>Between 1869 and 1872</td>
                             </tr>
                         </tbody>

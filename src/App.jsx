@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import Game from './components/Game';
 import Title from './components/Title';
 import About from './components/About';
+import Game from './components/Game';
 
 import './App.css';
 import './styles/responsive.css';
