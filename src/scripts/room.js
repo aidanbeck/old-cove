@@ -32,7 +32,7 @@ class Item {
 }
 
 class Path {
-    constructor(toId, prompt, description=[], require='', giveItem='', alters=[], limit = Infinity) {
+    constructor(toId, prompt, description=[], giveItem='', require='', takesItem=false, alters=[], limit = Infinity) {
         this.toId = toId; // key/title of the room path goes to
         this.prompt = prompt; // text that shows in option
         this.require = require; // item required to select option
@@ -40,6 +40,7 @@ class Path {
         this.giveItem = giveItem; // item that is given when selected, and item that if had, hides this option.
         this.alters = alters; // an array of AlterPath's and AlterDesc's
         this.limit = limit; // how many times the option can be made
+        this.takesItem = takesItem; // determines if the path takes the item.
     }
 }
 
@@ -70,7 +71,7 @@ class World {
         if (path.description.length == 0) {
             return; // don't describe if path has no description.
         }
-        let returnRoom = this.currentId;
+        let returnRoom = path.toId;
 
         let continuePath = new Path(returnRoom, "Continue.");
         this.rooms["description-option"] = new Room("description-option", path.description, [continuePath], ""); //create a new room with the description and a simple continue.
@@ -166,6 +167,10 @@ class World {
             }
 
             path.limit--; //deecrement limit to keep track of how many times path has been taken.
+            if (path.requires != '' && path.takesItem) { //take the item if a player has it
+                let itemIndex = this.inventory.indexOf(path.requires);
+                this.inventory.splice(itemIndex,1);
+            }
 
             if (path.description.length > 0) {
                 this.describeOption(path); // describe action of path, then return to room once continue pressed.
@@ -201,8 +206,8 @@ let lighthouseAlters = [
 
 let lighthousePaths = [
     new Path("sandy beach", "return to the beach"),
-    new Path("lighthouse", "take key", ["You take the key."], '', key),
-    new Path("lighthouse", "destroy the barrel.", ['you break the barrel with the axe'], axe, '', lighthouseAlters, 1)
+    new Path("lighthouse", "take key", ["You take the key."], key),
+    new Path("lighthouse", "destroy the barrel.", ["you break the barrel with the axe.", "It snaps in half, but gets the job done."], '', axe, true, lighthouseAlters, 1)
 ]
 
 let lightPaths = [
@@ -211,12 +216,12 @@ let lightPaths = [
 
 let cavePaths = [
     new Path("sandy beach", "exit the cave"),
-    new Path ("storage room", "open locked door", [], key)
+    new Path ("storage room", "open locked door", ["the door creaks open"], '', key)
 ]
 
 let storagePaths = [
     new Path("cave", "return to the cave"),
-    new Path("storage room", "take axe", [], '', axe)
+    new Path("storage room", "take axe", ["you pick it up"], axe)
 ]
 
 let rooms = {
