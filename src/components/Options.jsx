@@ -3,6 +3,8 @@ function Options(props) {
   let world = props.world;
   let options = world.currentRoom.paths;
 
+  console.log(world.inventory);
+
   let optionsJSX = options.map( (option, index) => {
 
     let optionClass = "option";
@@ -21,13 +23,14 @@ function Options(props) {
     }
 
     let playerHasNeededItem = world.inventory.includes(option.require);
-    if (playerHasNeededItem) { // player doesn't have a required item, they should come back.
-      return <div key={index} className={optionClass} onClick={() => props.handleChange("option", index)}><span>use {option.require}</span><hr/> {option.prompt}</div>;
-    } else {
-      return <div key={index} className={optionClass + " locked"}><span>Requires {option.require}</span><hr/> {option.prompt}</div>;
+    if (playerHasNeededItem) { 
+      return <div key={index} className={optionClass} onClick={() => props.handleChange("option", index)}><span>use {option.require.string}</span><hr/> {option.prompt}</div>;
+    } else { // player doesn't have a required item, they should come back.
+      return <div key={index} className={optionClass + " locked"}><span>Requires {option.require.string}</span><hr/> {option.prompt}</div>;
     }
 
-    
+    //debug
+    return <div key={index} className={optionClass} onClick={() => props.handleChange("option", index)}>{option.prompt}</div>
 
     
   });

@@ -24,6 +24,13 @@ class AlterDesc { // used to change a description.
     }
 }
 
+class Item {
+    constructor(string, description=[]) {
+        this.string = string;
+        this.description = description;
+    }
+}
+
 class Path {
     constructor(toId, prompt, description=[], require='', giveItem='', alters=[]) {
         this.toId = toId; // key/title of the room path goes to
@@ -74,6 +81,7 @@ class World {
     }
 
     hasItem(item) {
+
         if (this.inventory.includes(item)) {
             return true;
         }
@@ -158,6 +166,8 @@ class World {
     }
 }
 
+let axe = new Item("🪓 dull axe", "You hold its wooden handle carefully to avoid splinters.");
+let key = new Item("🔑 golden key", "It shines, but you can't make out your reflection.")
 
 // Create World Data
 let beachPaths = [
@@ -175,10 +185,11 @@ let lighthouseAlters = [
     new AlterPath("lighthouse", 2, new Path("the light", "enter the lighthouse."))
 ]
 
+
 let lighthousePaths = [
     new Path("sandy beach", "return to the beach"),
-    new Path("lighthouse", "take key", ["You take the key. It is old and rusty."], '', 'key'),
-    new Path("lighthouse", "destroy the barrel.", ['you break the barrel with the axe'], "🪓 dull axe", '', lighthouseAlters)
+    new Path("lighthouse", "take key", ["You take the key."], '', key),
+    new Path("lighthouse", "destroy the barrel.", ['you break the barrel with the axe'], axe, '', lighthouseAlters)
 ]
 
 let lightPaths = [
@@ -187,12 +198,12 @@ let lightPaths = [
 
 let cavePaths = [
     new Path("sandy beach", "exit the cave"),
-    new Path ("storage room", "open locked door", [], 'key')
+    new Path ("storage room", "open locked door", [], key)
 ]
 
 let storagePaths = [
     new Path("cave", "return to the cave"),
-    new Path("storage room", "take axe", [], '', "🪓 dull axe")
+    new Path("storage room", "take axe", [], '', axe)
 ]
 
 let rooms = {
@@ -204,7 +215,7 @@ let rooms = {
     "the light": new Room ('the light', ["the view is beautiful."], lightPaths, "the light")
 }
 
-let gameWorld = new World(rooms, "sandy beach", [], ["📧 sealed letter"]);
+let gameWorld = new World(rooms, "sandy beach", [], [key]);
 
 export default gameWorld;
 
