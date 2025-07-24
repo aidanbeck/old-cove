@@ -1,5 +1,6 @@
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import '../styles/title-screen.css';
+
 function Title () {
     return (
         <div id="titleScreen">

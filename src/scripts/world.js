@@ -1,4 +1,4 @@
-class AlterPath { // used to change a path.
+class AlterPath { // used to alter a path.
     constructor(roomId, pathIndex, pathObject) {
         this.roomId = roomId;
         this.pathOrDesc = "path";
@@ -7,7 +7,7 @@ class AlterPath { // used to change a path.
     }
 }
 
-class AlterDesc { // used to change a description.
+class AlterDesc { // used to alter a description.
     constructor(roomId, description=[]) {
         this.roomId = roomId;
         this.pathOrDesc = "desc";
@@ -39,47 +39,52 @@ class Room {
     constructor(title = "untitled", description = ['blank'], paths = [], giveLocation='') {
         this.title = title; // key & location text
         this.description = description; // array of paragraphs
-        this.paths = paths; //array of path objects
-        this.giveLocation = giveLocation; // add key to location list
+        this.paths = paths; // array of path objects
+        this.giveLocation = giveLocation; // id/title to be added to the location list
     }
 }
 
 class World {
     constructor(rooms = {}, currentId, locations=[], inventory=[]) {
-        this.rooms = rooms;
-        this.currentId = currentId;
-        this.locations = locations;
-        this.inventory = inventory;
+        this.rooms = rooms; // object of rooms objects. Not an array, the keys are used to identify each room.
+        this.currentId = currentId; // the title of the room the user is in
+        this.locations = locations; // a list of titles/ids the user has collected and can revisit
+        this.inventory = inventory; // item objects array
 
-        this.lastLocation = '';
+        this.lastLocation = ''; // this is the last *collected* id/title the player *visited*. It exists to highlight their most recently visited location.
 
-        this.rooms["description-room"] = new Room("description-room", []);
+        this.rooms["description-room"] = new Room("description-room", []); // this is for displaying descriptions between rooms. It is admittedly a bit hacky.
         
+        this.currentRoom; // a reference to the room object the user is currently in.
         this.moveTo(currentId); // updates currentRoom and adds location if it is needed
     }
 
     describeOption(path) {
-        if (path.description.length == 0) {
-            return; // don't describe if path has no description.
-        }
-        let returnRoom = path.toId;
+        if (path.description.length == 0) { return; } // don't describe if path has no description.
+
+        let returnRoom = path.toId; // room user should be returned to after description
 
         let continuePath = new Path(returnRoom, "Continue.");
-        this.rooms["description-option"] = new Room("description-option", path.description, [continuePath], ""); //create a new room with the description and a simple continue.
+        this.rooms["description-option"] = new Room("description-option", path.description, [continuePath], ""); // create a new room with the description and a simple continue.
         
         this.moveTo("description-option");
 
         //this is messy, return to clean up if I have time.
-        //could be more concise, but I have a deadline.
+        //could be more clean, but I have a deadline.
     }
 
     describeItem(item) {
+        
         let returnRoom = this.currentId;
+
+        if (this.currentId == "description-item") { // if user is already reading an item,
+            returnRoom = this.currentRoom.paths[0].toId; // don't return to that item, return to what that item is returning to
+        }
+        
+        // otherwise it's the same hacky method as before.
         let continuePath = new Path(returnRoom, "...");
         this.rooms["description-item"] = new Room("description-item", item.description, [continuePath], "");
         this.moveTo("description-item");
-        
-        //could combine with above
     }
 
     hasItem(item) {
@@ -116,6 +121,8 @@ class World {
         this.locations[this.locations.length] = id;
     }
 
+    /* takes a path's alter objects and applies their values to their target rooms. */
+    /* this is used to make changes to the world when an option is selected. */
     implementAlter(alter) {
         let room = this.rooms[alter.roomId];
 
@@ -168,8 +175,6 @@ class World {
             } else {
                 this.moveTo(path.toId);
             }
-            
-
             
         }
     }
