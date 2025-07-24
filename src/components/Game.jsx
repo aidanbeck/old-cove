@@ -1,4 +1,4 @@
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from 'react';
 import Information from './Information';
 import Options from './Options';

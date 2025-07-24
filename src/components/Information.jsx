@@ -8,7 +8,6 @@ function Information(props) {
     let { locations, lastLocation, inventory} = world;
     let description = world.currentRoom.description;
 
-
     return (
         <div id="information">
             <Locations locations={locations} currentLocation={lastLocation} handleChange={handleChange}/>

@@ -7,8 +7,7 @@ function FeedbackForm() {
     );
 
     const handleChange = (e) => {
-    
-    const { name, value } = e.target; // makes code readible. this grabs e.target.name and e.target.value, and lets you use them as just `name` and `value.
+        const { name, value } = e.target;
         setFormData( (prevData) => ({...prevData, [name]: value }) );
     }
 
@@ -23,7 +22,7 @@ function FeedbackForm() {
             <label>Feedback:
                 <textarea name="feedback" maxLength="200" onChange={handleChange}></textarea>
             </label><br/>
-            <span>{formData.feedback.length}/200 characters.</span> {/* wow! that is so cool! */}
+            <span>{formData.feedback.length}/200 characters.</span>
 
             <p>
                 <u>Preview</u><br/>
