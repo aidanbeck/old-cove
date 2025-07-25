@@ -52,7 +52,7 @@ R['rock cave 2'] = new Room(
         new Path('sandy beach','Climb.',['You scamper up the rocks and past the threshold, emerging into the open.']),
         new Path('rock cave','Descend.', ['You walk back into the darkness.'])
     ],
-    '' //giveLocation
+    'rock cave' //giveLocation
 );
 
 R['rock cave 3'] = new Room(
@@ -64,7 +64,7 @@ R['rock cave 3'] = new Room(
         new Path('rock cave','Turn around.', ['You return, moving with even more caution.']),
         new Path('rock cave 4','Descend.', [], '', rope), //TODO
     ],
-    '' //giveLocation
+    'rock cave' //giveLocation
 );
 
 
@@ -92,7 +92,7 @@ R['sandy beach 2'] = new Room(
         new Path('ol\' reliable','Investigate the boat.', ['You brush a thin layer of sand off the side of its stern.']),
         new Path('sandy beach','Head towards Rock Cave.')
     ],
-    '' //giveLocation
+    'sandy beach' //giveLocation
 );
 
 R['ol\' reliable'] = new Room(
@@ -110,10 +110,11 @@ R['ol\' reliable'] = new Room(
 
 R['a road'] = new Room(
     '',
-    ['At the top of the hill, the trail connect to a dirt road. It doesn\'t look like anyone has been here in a long time. The road continues towards the lighthouse, passing a tent marked with a red cross.'],
+    ['At the top of the hill, the trail connects to a dirt road. It doesn\'t look like anyone has been here in a long time. The road continues towards the lighthouse, passing a tent marked with a red cross.'],
     [
         new Path('infirmary tent','Enter the infirmary tent.', ['You push open the flaps and duck into the tent.']),
-        new Path('lighthouse','Walk to the lighthouse', ['You begin walking towards it, before stopping in shock. The light has turned on.'])
+        new Path('lighthouse','Walk to the lighthouse', ['You begin walking towards it, before stopping in shock. The light has turned on.']),
+        new Path('sandy beach 2', 'Head down the trail.', ["It's easier on the way down"])
     ],
     'a road' //giveLocation
 );
@@ -128,7 +129,7 @@ R['infirmary tent'] = new Room(
         new Path('infirmary tent','Search the coat.',["You search the pockets. In the last one you check, you find a key."], key),
         
     ],
-    '' //giveLocation
+    'infirmary tent' //giveLocation
 );
 
 
@@ -154,10 +155,10 @@ R['lighthouse 2'] = new Room(
     ['There is a table inside with a hammer and a handwritten note.'],
     [
         new Path('lighthouse', 'Exit.'),
-        new Path('lighthouse 2','Take Hammer',['Maybe you could fix the door?'], hammer),
-        new Path('lighthouse 2','Read Note', ['It says...', '"Thank you for playing my demo! My deadline is in 10 minutes, so that\'s all there is for now -Developer"','What a strange thing to find.'])
+        new Path('lighthouse 2','Take Hammer.',['Maybe you could fix the door?'], hammer),
+        new Path('lighthouse 2','Read Note.', ['It says...', '"Thank you for playing my demo! My deadline is in 10 minutes, so that\'s all there is for now -Developer".','What a strange thing to find.'])
     ],
-    '' //giveLocation
+    'lighthouse' //giveLocation
 );
 
 

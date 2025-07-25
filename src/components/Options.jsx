@@ -29,9 +29,9 @@ function Options(props) {
     /* Creates options with requirements. */
     let playerHasNeededItem = world.inventory.includes(option.require);
     if (playerHasNeededItem) { 
-      return <div key={index} className={optionClass} onClick={() => handleChange("option", index)}><span>use {option.require.string}</span><hr/> {option.prompt}</div>;
+      return <div key={index} className={optionClass} onClick={() => handleChange("option", index)}><span>Use {option.require.string}.</span><hr/> {option.prompt}</div>;
     } else { // player doesn't have a required item, they should come back.
-      lockedJSX[lockedJSX.length] = <div key={index} className={optionClass + " locked"}><span>Requires {option.require.string}</span><hr/> {option.prompt}</div>;
+      lockedJSX[lockedJSX.length] = <div key={index} className={optionClass + " locked"}><span>Requires {option.require.string}.</span><hr/> {option.prompt}</div>;
       return;
     }
     

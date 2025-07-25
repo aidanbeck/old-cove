@@ -110,9 +110,11 @@ h1 {
   padding-right: 6px;
   padding-left: 6px;
 
-  transition: padding-right 0.25s;
+  transition: padding 0.25s;
   white-space: nowrap; /* if text is too long, it still only takes one line. keep an eye on this, it might break things. but I think it looks better. */
 }
+
+/* .location { transiton: padding-right: 0.25s} */
 
 .location:hover:not(.currentLocation) {
   color: white;
@@ -125,7 +127,7 @@ h1 {
   );
 }
 
-.item:hover {
+.item:hover:not(.currentItem) {
   color: white;
   text-shadow: 1px 1px 2px rgb(255, 255, 255, 0.5);
 
@@ -145,6 +147,17 @@ h1 {
 
   text-decoration-line: underline; /* unsure if I should keep this */
   padding-right: 8%;
+}
+
+.currentItem {
+  background: linear-gradient(
+    to left,
+    rgb(0, 0, 0, 0) 10%,
+    rgb(255, 255, 255, 0.75) 90%
+  );
+
+  text-decoration-line: underline; /* unsure if I should keep this */
+  padding-left: 8%;
 }
 
 

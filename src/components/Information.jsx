@@ -12,7 +12,7 @@ function Information(props) {
         <div id="information">
             <Locations locations={locations} currentLocation={lastLocation} handleChange={handleChange}/>
             <Description description={description}/>
-            <Items items={inventory} handleChange={handleChange}/>
+            <Items items={inventory} description={description} handleChange={handleChange}/>
         </div>
     );
 }
