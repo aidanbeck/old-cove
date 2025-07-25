@@ -19,21 +19,22 @@ let bandage = new Item("🩹 bandage", ["You can't get hurt in this game... can 
 let rope = new Item("🧵 rope", ["A long time ago, this was used to tie ships to the docks in the harbor."]);
 let shell = new Item("🐚 sea shell", ['You lift it up to your ear.','The familar sound of waves greets you like a call from an old friend.']);
 
-R['i'] = new Room(
-    '',
-    ['d'],
+// Template
+R['id'] = new Room(
+    'title',
+    ['descriptions'],
     [
         new Path('id','prompt',[]),
-        new Path('id','prompt')
+        new Path('id','prompt',[])
     ],
-    '' //giveLocation
+    'giveLocation'
 );
 
 
 
 R["rock cave"] = new Room(
     "rock cave",
-    [ // descriptions
+    [
         "It is too dark to see. The air is cold and still.",
         "You feel around in a panic, finding the ground after a moment.",
         "It feels like stone."
@@ -42,7 +43,7 @@ R["rock cave"] = new Room(
         new Path("rock cave 3", 'Stumble left.', ['The floor slopes downwards as you cautiously inch forward.']),
         new Path("rock cave 2", 'Stumble right.', ['You feel your way against the ground, clinging to any surface you can find.']),
     ],
-    'rock cave', // giveLocation
+    'rock cave',
 );
 
 R['rock cave 2'] = new Room(
@@ -52,7 +53,7 @@ R['rock cave 2'] = new Room(
         new Path('sandy beach','Climb.',['You scamper up the rocks and past the threshold, emerging into the open.']),
         new Path('rock cave','Descend.', ['You walk back into the darkness.'])
     ],
-    'rock cave' //giveLocation
+    'rock cave'
 );
 
 R['rock cave 3'] = new Room(
@@ -64,7 +65,7 @@ R['rock cave 3'] = new Room(
         new Path('rock cave','Turn around.', ['You return, moving with even more caution.']),
         new Path('rock cave 4','Descend.', [], '', rope), //TODO
     ],
-    'rock cave' //giveLocation
+    'rock cave'
 );
 
 
@@ -79,7 +80,7 @@ R['sandy beach'] = new Room(
         new Path("sandy beach", "Take the seashell.", ["It's beautiful."], shell),
         new Path('rock cave 2','Enter the cave.'),
     ],
-    'sandy beach' //giveLocation
+    'sandy beach'
 );
 
 R['sandy beach 2'] = new Room(
@@ -92,7 +93,7 @@ R['sandy beach 2'] = new Room(
         new Path('ol\' reliable','Investigate the boat.', ['You brush a thin layer of sand off the side of its stern.']),
         new Path('sandy beach','Head towards Rock Cave.')
     ],
-    'sandy beach' //giveLocation
+    'sandy beach'
 );
 
 R['ol\' reliable'] = new Room(
@@ -104,7 +105,7 @@ R['ol\' reliable'] = new Room(
         new Path('ol\' reliable','Salvage axe.', ['You unlock the door. With your bare hands, you dig it out of the sand.'], axe, key),
         new Path('sandy beach 2','Return to the beach.')
     ],
-    'ol\' reliable' //giveLocation
+    'ol\' reliable'
 );
 
 
@@ -116,7 +117,7 @@ R['a road'] = new Room(
         new Path('lighthouse','Walk to the lighthouse', ['You begin walking towards it, before stopping in shock. The light has turned on.']),
         new Path('sandy beach 2', 'Head down the trail.', ["It's easier on the way down"])
     ],
-    'a road' //giveLocation
+    'a road'
 );
 
 R['infirmary tent'] = new Room(
@@ -129,7 +130,7 @@ R['infirmary tent'] = new Room(
         new Path('infirmary tent','Search the coat.',["You search the pockets. In the last one you check, you find a key."], key),
         
     ],
-    'infirmary tent' //giveLocation
+    'infirmary tent'
 );
 
 
@@ -147,7 +148,7 @@ R['lighthouse'] = new Room(
             new AlterPath('lighthouse',2,new Path('lighthouse 2', 'Enter.', ['You hesitate before walking inside.']))
         ], 1)
     ],
-    'lighthouse' //giveLocation
+    'lighthouse'
 );
 
 R['lighthouse 2'] = new Room(
@@ -158,58 +159,8 @@ R['lighthouse 2'] = new Room(
         new Path('lighthouse 2','Take Hammer.',['Maybe you could fix the door?'], hammer),
         new Path('lighthouse 2','Read Note.', ['It says...', '"Thank you for playing my demo! My deadline is in 10 minutes, so that\'s all there is for now -Developer".','What a strange thing to find.'])
     ],
-    'lighthouse' //giveLocation
+    'lighthouse'
 );
-
-
-
-
-
-// Create World Data
-let beachPaths = [
-    new Path("lighthouse", "go to lighthouse"),
-    new Path("town", "go to the town"),
-    new Path("cave", "go to the cave")
-]
-
-let townPaths = [
-    new Path ("sandy beach", "return to the beach.")
-]
-
-let lighthouseAlters = [
-    new AlterDesc("lighthouse", ["The lighthouse shines bright. The barrel lies in fragments, revealing the door."]),
-    new AlterPath("lighthouse", 3, new Path("the light", "enter the lighthouse."))
-]
-
-
-let lighthousePaths = [
-    new Path("sandy beach", "return to the beach"),
-    new Path("lighthouse", "take key", ["You take the key."], key),
-    new Path("lighthouse", "destroy the barrel.", ["you break the barrel with the axe.", "It snaps in half, but gets the job done."], '', axe, true, lighthouseAlters, 1)
-]
-
-let lightPaths = [
-    new Path("lighthouse", "climb back down")
-]
-
-let cavePaths = [
-    new Path("sandy beach", "exit the cave"),
-    new Path ("storage room", "open locked door", ["the door creaks open"], '', key)
-]
-
-let storagePaths = [
-    new Path("cave", "return to the cave"),
-    new Path("storage room", "take axe", ["you pick it up"], axe)
-]
-
-let rooms = {
-    "sandy beach": new Room("sandy beach", ["the beach is sandy"], beachPaths, ""),
-    "town": new Room("town", ["everyone's moved on now."], townPaths, ""),
-    "lighthouse": new Room("lighthouse", ["the lighthouse shines bright. There is a barrel blocking the way in."], lighthousePaths, "lighthouse"),
-    "cave": new Room("cave", ["It's hard to see in here"], cavePaths, "cave"),
-    "storage room": new Room('storage room', ["no one's been here for a long time"], storagePaths, ""),
-    "the light": new Room ('the light', ["the view is beautiful."], lightPaths, "the light")
-}
 
 let gameWorld = new World(R, "rock cave", [], []);
 
