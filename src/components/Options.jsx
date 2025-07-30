@@ -1,37 +1,37 @@
 function Options(props) {
 
   let { world, handleChange } = props;
-  let options = world.currentRoom.paths;
+  let paths = world.positionRoom.paths;
 
-  let lockedJSX = []; // jsx for unselectable options.
-  let optionsJSX = options.map( (option, index) => {
+  let lockedOptionsJSX = []; // jsx for unselectable options.
+  let optionsJSX = paths.map( (path, index) => {
 
     /* This block lets css handle an odd number of options by adding the 'finalOption' class */
     let optionClass = "option"; // Set the default class to 'option'
-    if (options.length % 2 !== 0 && index == 0) { // if this is the first of an odd number of options,
+    if (paths.length % 2 !== 0 && index == 0) { // if this is the first of an odd number of options,
       optionClass = "option finalOption"; // add the 'finalOption' class.
     }
 
     /* Creates options that are crossed out */
-    let playerHasGivenItem = world.inventory.includes(option.giveItem);
-    let optionLimitHit = option.limit <= 0;
-    if (playerHasGivenItem || optionLimitHit) { // player already has the item. cross out the element.
-      lockedJSX[lockedJSX.length] = <div key={index} className={optionClass + " locked"}><strike>{option.prompt}</strike></div>;
+    let playerHasGivenItem = world.items.includes(path.givenItem);
+    let optionLimitHit = path.limit <= 0;
+    if (playerHasGivenItem || optionLimitHit) { // cross out the element.
+      lockedOptionsJSX[lockedOptionsJSX.length] = <div key={index} className={optionClass + " locked"}><strike>{path.buttonPrompt}</strike></div>;
       return;
     }
 
     /* Creates options that are normal */
-    let playerDoesntNeedItem = option.require == '';
+    let playerDoesntNeedItem = path.requiredItem == '';
     if (playerDoesntNeedItem) {
-      return <div key={index} className={optionClass} onClick={() => handleChange("option", index)}>{option.prompt}</div>
+      return <div key={index} className={optionClass} onClick={() => handleChange("option", index)}>{path.buttonPrompt}</div>
     }
 
     /* Creates options with requirements. */
-    let playerHasNeededItem = world.inventory.includes(option.require);
+    let playerHasNeededItem = world.items.includes(path.requiredItem);
     if (playerHasNeededItem) { 
-      return <div key={index} className={optionClass} onClick={() => handleChange("option", index)}><span>Use {option.require.string}.</span><hr/> {option.prompt}</div>;
+      return <div key={index} className={optionClass} onClick={() => handleChange("option", index)}><span>Use {path.requiredItem.name}.</span><hr/> {path.buttonPrompt}</div>;
     } else { // player doesn't have a required item, they should come back.
-      lockedJSX[lockedJSX.length] = <div key={index} className={optionClass + " locked"}><span>Requires {option.require.string}.</span><hr/> {option.prompt}</div>;
+      lockedOptionsJSX[lockedOptionsJSX.length] = <div key={index} className={optionClass + " locked"}><span>Requires {path.requiredItem.name}.</span><hr/> {path.buttonPrompt}</div>;
       return;
     }
     
@@ -40,7 +40,7 @@ function Options(props) {
   return (
     <div id="options">
       {optionsJSX}
-      {lockedJSX}
+      {lockedOptionsJSX}
     </div>
   );
 }

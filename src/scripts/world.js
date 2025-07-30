@@ -1,6 +1,6 @@
 class AlterPath { // used to alter a path.
-    constructor(roomId, pathIndex, pathObject) {
-        this.roomId = roomId;
+    constructor(targetKey, pathIndex, pathObject) {
+        this.targetKey = targetKey;
         this.pathOrDesc = "path";
         this.pathIndex = pathIndex;
         this.newPath = pathObject;
@@ -8,66 +8,63 @@ class AlterPath { // used to alter a path.
 }
 
 class AlterDesc { // used to alter a description.
-    constructor(roomId, description=[]) {
-        this.roomId = roomId;
+    constructor(targetKey, paragraphs=[]) {
+        this.targetKey = targetKey;
         this.pathOrDesc = "desc";
-        this.newDescription = description;
+        this.newParagraphs = paragraphs;
     }
 }
 
 class Item {
-    constructor(string, description=["This item doesn't have a description."]) {
-        this.string = string;
-        this.description = description;
+    constructor(name, paragraphs=["This item doesn't have a description."]) {
+        this.name = name;
+        this.paragraphs = paragraphs;
     }
 }
 
 class Path {
-    constructor(toId, prompt, description=[], giveItem='', require='', takesItem=false, alters=[], limit = Infinity) {
-        this.toId = toId; // key/title of the room path goes to
-        this.prompt = prompt; // text that shows in option
-        this.require = require; // item required to select option
-        this.description = description; // paragraphs shown on screen when option selected
-        this.giveItem = giveItem; // item that is given when selected, and item that if had, hides this option.
-        this.alters = alters; // an array of AlterPath's and AlterDesc's
+    constructor(targetKey, buttonPrompt, paragraphs=[], givenItem='', requiredItem='', takesItem=false, alterations=[], limit = Infinity) {
+        this.targetKey = targetKey; // key/title of the room path goes to
+        this.buttonPrompt = buttonPrompt; // text that shows in option
+        this.requiredItem = requiredItem; // item required to select option
+        this.paragraphs = paragraphs; // paragraphs shown on screen when option selected
+        this.givenItem = givenItem; // item that is given when selected, and item that if had, hides this option.
+        this.alterations = alterations; // an array of AlterPath's and AlterDesc's
         this.limit = limit; // how many times the option can be made
         this.takesItem = takesItem; // determines if the path takes the item.
     }
 }
 
 class Room {
-    constructor(title = "untitled", description = ['blank'], paths = [], giveLocation='') {
-        this.title = title; // key & location text
-        this.description = description; // array of paragraphs
+    constructor(paragraphs = ['blank'], paths = [], givenLocation='') {
+        this.paragraphs = paragraphs; // array of paragraphs
         this.paths = paths; // array of path objects
-        this.giveLocation = giveLocation; // id/title to be added to the location list
+        this.givenLocation = givenLocation; // id/title to be added to the location list
     }
 }
 
 class World {
-    constructor(rooms = {}, currentId, locations=[], inventory=[]) {
+    constructor(rooms = {}, position, locations=[], items=[]) {
         this.rooms = rooms; // object of rooms objects. Not an array, the keys are used to identify each room.
-        this.currentId = currentId; // the title of the room the user is in
+        this.positon = position; // the targetKey of the room the user is in
         this.locations = locations; // a list of titles/ids the user has collected and can revisit
-        this.inventory = inventory; // item objects array
+        this.items = items; // item objects array
 
         this.lastLocation = ''; // this is the last *collected* id/title the player *visited*. It exists to highlight their most recently visited location.
-
-        this.rooms["description-room"] = new Room("description-room", []); // this is for displaying descriptions between rooms. It is admittedly a bit hacky.
         
-        this.currentRoom; // a reference to the room object the user is currently in.
-        this.moveTo(currentId); // updates currentRoom and adds location if it is needed
+        this.positionRoom; // a reference to the room object the user is currently in.
+        this.moveTo(position); // updates positionRoom and adds location if it is needed
     }
 
-    describeOption(path) {
-        if (path.description.length == 0) { return; } // don't describe if path has no description.
+    describePath(path) {
+        if (path.paragraphs.length == 0) { return; } // don't describe if path has no description.
 
-        let returnRoom = path.toId; // room user should be returned to after description
+        let returnRoom = path.targetKey; // room returned to after description
 
         let continuePath = new Path(returnRoom, "Continue.");
-        this.rooms["description-option"] = new Room("description-option", path.description, [continuePath], ""); // create a new room with the description and a simple continue.
+        this.rooms["description-path"] = new Room(path.paragraphs, [continuePath]); // create a new room with the paragraphs and a simple continue.
         
-        this.moveTo("description-option");
+        this.moveTo("description-path");
 
         //this is messy, return to clean up if I have time.
         //could be more clean, but I have a deadline.
@@ -75,105 +72,94 @@ class World {
 
     describeItem(item) {
         
-        let returnRoom = this.currentId;
+        let returnKey = this.position;
 
-        if (this.currentId == "description-item") { // if user is already reading an item,
-            returnRoom = this.currentRoom.paths[0].toId; // don't return to that item, return to what that item is returning to
+        if (this.position == "description-item") { // if user is already reading an item,
+            returnKey = this.positionRoom.paths[0].targetKey; // don't return to that item, return to what that item is returning to
         }
-        
+
         // otherwise it's the same hacky method as before.
-        let continuePath = new Path(returnRoom, "...");
-        this.rooms["description-item"] = new Room("description-item", item.description, [continuePath], "");
+        let continuePath = new Path(returnKey, "...");
+        this.rooms["description-item"] = new Room(item.paragraphs, [continuePath]);
         this.moveTo("description-item");
     }
 
     hasItem(item) {
-
-        if (this.inventory.includes(item)) {
-            return true;
-        }
-        return false;
+        return this.items.includes(item);
     }
     giveItem(item) {
-        if (this.inventory.includes(item)) {
-            return; // prevents having the same item twice. Needed?
-        }
-        this.inventory[this.inventory.length] = item;
+        if (this.hasItem(item)) { return; } // prevents having the same item twice. Needed?
+        this.items.push(item);
     }
 
     hasLocation(location) {
-        if (this.locations.includes(location)) {
-            return true;
-        }
-        return false;
+        return this.locations.includes(location);
     }
-    giveLocation(id) {
+    giveLocation(key) {
 
-        if (id == '') {
-            return; //prevents giving empty locations
-        }
+        if (key == '') { return; } // blocks empty location strings
+        if (this.hasLocation(key)) { return; } // blocks duplicate location strings
 
-        this.lastLocation = id;
-
-        if (this.locations.includes(id) || id == '') {
-            return; // prevents having the same location twice,
-        }
-        this.locations[this.locations.length] = id;
+        this.lastLocation = key;
+        this.locations[this.locations.length] = key;
     }
 
-    /* takes a path's alter objects and applies their values to their target rooms. */
+    /* takes a path's alterations and applies their values to their target rooms. */
     /* this is used to make changes to the world when an option is selected. */
-    implementAlter(alter) {
-        let room = this.rooms[alter.roomId];
+    implementAlteration(alteration) {
+        let room = this.rooms[alteration.targetKey];
 
-        if (alter.pathOrDesc == "path") {
-            room.paths[alter.pathIndex] = alter.newPath;
+        if (alteration.pathOrDesc == "path") {
+            room.paths[alteration.pathIndex] = alteration.newPath;
         }
-        if (alter.pathOrDesc == "desc") {
-            room.description = alter.newDescription;
+        if (alteration.pathOrDesc == "desc") {
+            room.paragraphs = alteration.newParagraphs;
         }
     }
 
-    moveTo(id) {
-        this.currentId = id;
-        this.currentRoom = this.rooms[id];
-        this.giveLocation(this.currentRoom.giveLocation);
+    moveTo(key) {
+        this.position = key;
+        this.positionRoom = this.rooms[key];
+        this.giveLocation(this.positionRoom.givenLocation);
     }
-    isValidOption(index) {
-        let path = this.currentRoom.paths[index];
+    isValidPath(pathIndex) { // user and path meet all requirements to select the path
+        let path = this.positionRoom.paths[pathIndex];
 
         // Get Conditionals
-        let playerHasNeededItem = path.require == '' || this.hasItem(path.require);
-        let playerHasGivenItem = this.hasItem(path.giveItem);
-        let optionLimitHit = path.limit <= 0;
+        let playerHasNeededItem = path.requiredItem == '' || this.hasItem(path.requiredItem);
+        let playerHasGivenItem = this.hasItem(path.givenItem);
+        let limitHit = path.limit <= 0;
 
-        if (playerHasNeededItem && !playerHasGivenItem && !optionLimitHit) {
+        if (playerHasNeededItem && !playerHasGivenItem && !limitHit) {
             return true;
         }
+        
         return false;
     }
     choosePath(index) {
-        let path = this.currentRoom.paths[index];
-        let pathHasItemToGive = path.giveItem != '';
+        let path = this.positionRoom.paths[index];
+        let pathHasItemToGive = path.givenItem != '';
 
-        if (this.isValidOption(index)) {
-            if (pathHasItemToGive) { this.giveItem(path.giveItem); }
+        if (this.isValidPath(index)) {
+            if (pathHasItemToGive) { this.giveItem(path.givenItem); }
 
             // apply alternates
-            for (let alter of path.alters) {
-                this.implementAlter(alter);
+            for (let alteration of path.alterations) {
+                this.implementAlteration(alteration);
             }
 
-            path.limit--; //deecrement limit to keep track of how many times path has been taken.
-            if (path.requires != '' && path.takesItem) { //take the item if a player has it
-                let itemIndex = this.inventory.indexOf(path.requires);
-                this.inventory.splice(itemIndex,1);
+            path.limit--; //deecrement limit to track how many times path can be taken.
+
+            // take the required item (if supposed to)
+            if (path.requiredItem != '' && path.takesItem) {
+                let itemIndex = this.items.indexOf(path.requiredItem);
+                this.items.splice(itemIndex,1);
             }
 
-            if (path.description.length > 0) {
-                this.describeOption(path); // describe action of path, then return to room once continue pressed.
+            if (path.paragraphs.length > 0) {
+                this.describePath(path); // describe action of path, then return to room once continue pressed.
             } else {
-                this.moveTo(path.toId);
+                this.moveTo(path.targetKey); // move without description.
             }
             
         }

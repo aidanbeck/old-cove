@@ -1,8 +1,8 @@
 function Description(props) {
 
-    let { description } = props;
+    let { paragraphs } = props;
 
-    let paragraphsJSX = description.map( (paragraph, index) => {
+    let paragraphsJSX = paragraphs.map( (paragraph, index) => {
         return <p key={index}>{paragraph}</p>
     });
 

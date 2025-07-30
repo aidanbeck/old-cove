@@ -1,4 +1,4 @@
-import { AlterPath, AlterDesc, Item, Path, Room, World } from './world';
+import { AlterPath, AlterDesc, Item, Path, Room, World } from './world.js';
 
 // to make a "give item" option, make the option link to the room it's in. Have it give an item. Make a description of the user picking it up.
 
@@ -21,7 +21,6 @@ let shell = new Item("🐚 sea shell", ['You lift it up to your ear.','The famil
 
 // Template
 R['id'] = new Room(
-    'title',
     ['descriptions'],
     [
         new Path('id','prompt',[]),
@@ -33,7 +32,6 @@ R['id'] = new Room(
 
 
 R["rock cave"] = new Room(
-    "rock cave",
     [
         "It is too dark to see. The air is cold and still.",
         "You feel around in a panic, finding the ground after a moment.",
@@ -47,7 +45,6 @@ R["rock cave"] = new Room(
 );
 
 R['rock cave 2'] = new Room(
-    '',
     ['There is light!', 'The edges of the cave are dim but visible. Ahead is a gradual climb leading to a small opening. It glows white from the sky behind it.'],
     [
         new Path('sandy beach','Climb.',['You scamper up the rocks and past the threshold, emerging into the open.']),
@@ -57,7 +54,6 @@ R['rock cave 2'] = new Room(
 );
 
 R['rock cave 3'] = new Room(
-    '',
     ['You extend your foot to feel the ground ahead of you, but are met only with air. You bend your leg to feel the extent of the dropoff, but you cannot feel the bottom.',
         'You drop a nearby rock over the side and hear it knock against the sides of the cavern.', 'Each knock sounds farther and farther away.'
     ],
@@ -71,7 +67,6 @@ R['rock cave 3'] = new Room(
 
 
 R['sandy beach'] = new Room(
-    '',
     ['The wind flows over the beach and carries the smell of sea salt. A strip of sand runs between a tall cliff and crashing waves.',
         'Rock Cave is embedded in the cliff. On a large rock near the entrance, a conch shell sits propped up as if it were displayed there.'
     ],
@@ -84,7 +79,6 @@ R['sandy beach'] = new Room(
 );
 
 R['sandy beach 2'] = new Room(
-    '',
     ['The cliff veers away from the ocean and the beach widens. In the distance, you can see a lighthouse over a large hill. Overgrown with shrubs and driftwood, a trail zig-zags to the top.',
         'On the beach, an old sailboat lays on its side. Piles of sand have accumulated at its base, all but burying it.'
     ],
@@ -97,7 +91,6 @@ R['sandy beach 2'] = new Room(
 );
 
 R['ol\' reliable'] = new Room(
-    '',
     ['Written on the stern in faded paint is the ship\'s name: "ol\' reliable". It remains mostly intact despite its situation.',
         'The cabin door is locked, and through the window you can see it\'s filled with sand that covers most of its contents. However, an old axe still seems salvageable.'
     ],
@@ -110,7 +103,6 @@ R['ol\' reliable'] = new Room(
 
 
 R['a road'] = new Room(
-    '',
     ['At the top of the hill, the trail connects to a dirt road. It doesn\'t look like anyone has been here in a long time. The road continues towards the lighthouse, passing a tent marked with a red cross.'],
     [
         new Path('infirmary tent','Enter the infirmary tent.', ['You push open the flaps and duck into the tent.']),
@@ -121,7 +113,6 @@ R['a road'] = new Room(
 );
 
 R['infirmary tent'] = new Room(
-    '',
     ['Small single bunks line the sides of the tent, each with a trunk beneath it. An old coat hangs on the closest bed post. You might be able to find some supplies.'],
     [
         new Path('a road', 'Exit the tent.', ["You're happy to be out of there."]),
@@ -135,7 +126,6 @@ R['infirmary tent'] = new Room(
 
 
 R['lighthouse'] = new Room(
-    '',
     ['The lighthouse sits on the edge of a cliff, defiantly piercing the seascape behind it.',
         'You try the door, but it seems jammed.'
     ],
@@ -145,14 +135,13 @@ R['lighthouse'] = new Room(
             'The axe head snaps from the end of the handle, embedding itself in the door as it lurches wide open.'
         ], '', axe, true, [
             new AlterDesc('lighthouse', ['The lighthouse sits on the edge of a cliff, defiantly piercing the seascape behind it.', 'The door is wide open, the head of an axe embedded into its front.', 'What used to be a handle is now splinters on the ground.']),
-            new AlterPath('lighthouse',2,new Path('lighthouse 2', 'Enter.', ['You hesitate before walking inside.']))
+            new AlterPath('lighthouse',2,new Path('lighthouse 2', 'Enter.', ['You hesitate before walking inside.'])),
         ], 1)
     ],
     'lighthouse'
 );
 
 R['lighthouse 2'] = new Room(
-    '',
     ['There is a table inside with a hammer and a handwritten note.'],
     [
         new Path('lighthouse', 'Exit.'),
@@ -162,6 +151,6 @@ R['lighthouse 2'] = new Room(
     'lighthouse'
 );
 
-let gameWorld = new World(R, "rock cave", [], []);
+let gameWorld = new World(R, "rock cave");
 
 export default gameWorld;
