@@ -98,9 +98,11 @@ class World {
     giveLocation(key) {
 
         if (key == '') { return; } // blocks empty location strings
-        if (this.hasLocation(key)) { return; } // blocks duplicate location strings
 
         this.lastLocation = key;
+
+        if (this.hasLocation(key)) { return; } // blocks duplicate location strings
+
         this.locations[this.locations.length] = key;
     }
 
