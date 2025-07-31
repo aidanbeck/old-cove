@@ -69,9 +69,9 @@ function Title () {
                 </section>
                 <footer>
                     <span>&copy; 2025 Aidan Beck</span> 
-                    <a href="github.com/aidanbeck">My Github</a>
-                    <a href="launchcode.org">LaunchCode</a>
-                    <a href="nga.gov">National Gallery of Art</a>
+                    <a href="https://www.github.com/aidanbeck">My Github</a>
+                    <a href="https://www.launchcode.org">LaunchCode</a>
+                    <a href="https://www.nga.gov">National Gallery of Art</a>
                 </footer>
             </main>
         </div>
