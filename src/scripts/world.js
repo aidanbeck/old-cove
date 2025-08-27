@@ -11,14 +11,18 @@ class Item {
 */
 
 class World {
-    constructor(rooms = {}, position, locations=[], items=[]) {
-        this.rooms = rooms; // object of rooms objects. Not an array, the keys are used to identify each room.
-        this.positon = position; // the targetKey of the room the user is in
-        this.locations = locations; // a list of titles/ids the user has collected and can revisit
-        this.items = items; // item objects array
+    constructor(rooms = {}, items={}, signals=[], inventory=[], locations=[], position) {
 
+        //STATIC
+        this.rooms = rooms; // object of rooms objects. Not an array, the keys are used to identify each room.
+        this.items = items; // object of item objects. Keys are used to identify each item.
+
+        //DYNAMIC
+        this.signals = signals; // array of state-changing signal strings. 
+        this.inventory = inventory; // array of item key strings.
+        this.locations = locations; // a list of titles/ids the user has collected and can revisit
         this.lastLocation = ''; // this is the last *collected* id/title the player *visited*. It exists to highlight their most recently visited location.
-        
+        this.positon = position; // the targetKey of the room the user is in
         this.positionRoom; // a reference to the room object the user is currently in.
         this.moveTo(position); // updates positionRoom and adds location if it is needed
     }
