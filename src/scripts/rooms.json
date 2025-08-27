@@ -1,0 +1,140 @@
+{
+    "rooms": {
+        "lighthouse": {
+            "default": {
+                "key": "lighthouse",
+                "givenLocations": [
+                    "lighthouse"
+                ],
+                "paragraphs": [
+                    {
+                        "default": "The lighthouse sits on the edge of a cliff, defiantly piercing the seascape behind it."
+                    },
+                    {
+                        "default": "You try the door, but it seems jammed.",
+                        "breakIn": "The door is wide open, the head of an axe embedded into its front."
+                    },
+                    {
+                        "default": "",
+                        "breakIn": "What used to be a handle is now splinters on the ground."
+                    }
+                ],
+                "paths": [
+                    {
+                        "default": {
+                            "targetKey": "a road",
+                            "buttonPrompt": "Return to the road.",
+                            "paragraphs": [
+                                {
+                                    "default": "You walk back down the road."
+                                }
+                            ],
+                            "changeSignals": [],
+                            "limit": null,
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    },
+                    {
+                        "default": {
+                            "targetKey": "lighthouse",
+                            "buttonPrompt": "Force it open.",
+                            "paragraphs": [
+                                {
+                                    "default": "You swing the axe at the door— it doesn't budge. You try again, harder this time, and it cracks."
+                                },
+                                {
+                                    "default": "The axe head snaps from the end of the handle, embedding itself in the door as it lurches wide open."
+                                }
+                            ],
+                            "changeSignals": [
+                                "breakIn"
+                            ],
+                            "limit": 1,
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": [
+                                "axe"
+                            ]
+                        },
+                        "breakIn": {
+                            "targetKey": "lighthouse 2",
+                            "buttonPrompt": "Enter.",
+                            "paragraphs": [
+                                {
+                                    "default": "You hesitate before walking inside."
+                                }
+                            ],
+                            "changeSignals": [],
+                            "limit": null,
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    }
+                ]
+            }
+        },
+        "living room": {
+            "default": {
+                "key": "living room",
+                "givenLocations": [
+                    "lighthouse"
+                ],
+                "paragraphs": [
+                    {
+                        "default": "It's a beautiful living room."
+                    }
+                ],
+                "paths": [
+                    {
+                        "default": {
+                            "targetKey": "lighthouse",
+                            "buttonPrompt": "Leave the room.",
+                            "paragraphs": [
+                                {
+                                    "default": "You leave."
+                                }
+                            ],
+                            "changeSignals": [],
+                            "limit": null,
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    }
+                ]
+            },
+            "flashback": {
+                "key": "living room",
+                "givenLocations": [
+                    "lighthouse"
+                ],
+                "paragraphs": [
+                    {
+                        "default": "The paint still smells-new."
+                    }
+                ],
+                "paths": [
+                    {
+                        "default": {
+                            "targetKey": "lighthouse",
+                            "buttonPrompt": "Leave the newly painted room",
+                            "paragraphs": [
+                                {
+                                    "default": "You leave."
+                                }
+                            ],
+                            "changeSignals": [],
+                            "limit": null,
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
