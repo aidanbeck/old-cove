@@ -1,20 +1,3 @@
-class AlterPath { // used to alter a path.
-    constructor(targetKey, pathIndex, pathObject) {
-        this.targetKey = targetKey;
-        this.pathOrDesc = "path";
-        this.pathIndex = pathIndex;
-        this.newPath = pathObject;
-    }
-}
-
-class AlterDesc { // used to alter a description.
-    constructor(targetKey, paragraphs=[]) {
-        this.targetKey = targetKey;
-        this.pathOrDesc = "desc";
-        this.newParagraphs = paragraphs;
-    }
-}
-
 class Item {
     constructor(name, paragraphs=["This item doesn't have a description."]) {
         this.name = name;
@@ -22,26 +5,10 @@ class Item {
     }
 }
 
-class Path {
-    constructor(targetKey, buttonPrompt, paragraphs=[], givenItem='', requiredItem='', takesItem=false, alterations=[], limit = Infinity) {
-        this.targetKey = targetKey; // key/title of the room path goes to
-        this.buttonPrompt = buttonPrompt; // text that shows in option
-        this.requiredItem = requiredItem; // item required to select option
-        this.paragraphs = paragraphs; // paragraphs shown on screen when option selected
-        this.givenItem = givenItem; // item that is given when selected, and item that if had, hides this option.
-        this.alterations = alterations; // an array of AlterPath's and AlterDesc's
-        this.limit = limit; // how many times the option can be made
-        this.takesItem = takesItem; // determines if the path takes the item.
-    }
-}
-
-class Room {
-    constructor(paragraphs = ['blank'], paths = [], givenLocation='') {
-        this.paragraphs = paragraphs; // array of paragraphs
-        this.paths = paths; // array of path objects
-        this.givenLocation = givenLocation; // id/title to be added to the location list
-    }
-}
+/*
+    I've removed the Path, Room, and Alter classes because they are outdated compated to Syntaxlor.
+    Eventually, I will remake the classes, and Syntaxlor might call *their* constructors.
+*/
 
 class World {
     constructor(rooms = {}, position, locations=[], items=[]) {
@@ -167,4 +134,4 @@ class World {
         }
     }
 }
-export { AlterPath, AlterDesc, Item, Path, Room, World };
+export { Item, World };
