@@ -15,15 +15,43 @@ let items = {
     "shell": new Item("🐚 sea shell", ['You lift it up to your ear.','The familar sound of waves greets you like a call from an old friend.'])
 }
 
-// create new room with functions
+// library
 let newPara = new Paragraph("It's the library!");
 newPara.addAlteration("burned", "Oh no! The library burned down!");
 let newPath = new Path("exit the door", "outside", [], [], [], ["pamphlet"], []);
 newPath.addAlteration("burned", "exit the window", "outside", [], ["getCut"], ["axe"], ["glass shard"], []);
 let newRoom = new Room("library", [newPara], [newPath]);
 
-console.log(JSON.stringify(newRoom));
+// outside
+let newPara2 = new Paragraph("It's the outside! The library is nearby.");
+newPara2.addAlteration("burned", "The fresh outside air is overwhelmed by smoke.");
+let newPath2 = new Path("enter the library", "library", [], [], ["key"], [], []);
+let newPath3 = new Path("set library on fire", "outside", [], ["burned"], [], [], ["match"]); //evil!
+newPath3.addAlteration("burned","Empty","outside", [], [], [], [], []);
+let newRoom2 = new Room("outside", [newPara2], [newPath2, newPath3]);
 
-let gameWorld = new World(rooms, items, [], ["axe"], ["lighthouse"], "lighthouse");
+let roomies = {
+    "library": newRoom,
+    "outside": newRoom2
+}
+
+let gameWorld = new World(roomies, items, [], ["axe", "match", "key"], ["library"], "library");
+
+function printRoom() {
+    let roomAlteration = gameWorld.getAlteration(gameWorld.positionRoom);
+    let paragraph0 = gameWorld.getAlteration(roomAlteration.paragraphs[0]);
+    let prompts = roomAlteration.paths;
+    console.log(paragraph0);
+    console.log(prompts);
+    console.log(gameWorld.inventory);
+    console.log(gameWorld.signals);
+    console.log("\n");
+}
+
+printRoom();
+gameWorld.choosePath(0);
+printRoom();
+gameWorld.choosePath(1);
+printRoom();
 
 export default gameWorld;

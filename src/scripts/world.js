@@ -1,7 +1,10 @@
 class Item {
-    constructor(name, paragraphs=["This item doesn't have a description."]) {
+    constructor(name, paragraphs=["This item doesn't have a description."]) { // takes strings for paragraphs input, not actual Paragraph classes
         this.name = name;
-        this.paragraphs = paragraphs;
+        this.paragraphs = [];
+        for (let i = 0; i < paragraphs.length; i++) {
+            this.paragraphs[i] = new Paragraph(paragraphs[i]); // does not currently allow for alternate items- might add later.
+        }
     }
 }
 
@@ -59,8 +62,8 @@ class World {
         this.moveTo(position); // updates positionRoom and adds location if it is needed
     }
 
-    getAlteration(alterations, signals) { // retrieves the proper alteration of a Room, Path, or Paragraph
-        for (let signal of signals) {
+    getAlteration(alterations) { // retrieves the proper alteration of a Room, Path, or Paragraph
+        for (let signal of this.signals) {
             if (signal in alterations) { // if corresponding alteration exists
                 return alterations[signal]; // !!! does not account for competing alterations
             }
@@ -68,112 +71,126 @@ class World {
         return alterations["default"];
     }
 
-    describePath(path) {
-        if (path.paragraphs.length == 0) { return; } // don't describe if path has no description.
+    showPathParagraphs(path) {
+        let alterationPath = this.getAlteration(path);
 
-        let returnRoom = path.targetKey; // room returned to after description
+        if (alterationPath.paragraphs.length == 0) { return; } // don't describe if path has no description.
 
-        let continuePath = new Path(returnRoom, "Continue.");
-        this.rooms["description-path"] = new Room(path.paragraphs, [continuePath]); // create a new room with the paragraphs and a simple continue.
-        
+        let returnKey = alterationPath.targetKey; // room returned to after description
+        new Path("Continue.", returnKey);
+        this.rooms["description-path"] = new Room('', alterationPath.paragraphs, [continuePath]); // create a new room with the paragraphs and a simple continue.
         this.moveTo("description-path");
 
         //this is messy, return to clean up if I have time.
         //could be more clean, but I have a deadline.
     }
 
-    describeItem(item) {
+    showItemParagraphs(item) {
         
         let returnKey = this.position;
 
         if (this.position == "description-item") { // if user is already reading an item,
-            returnKey = this.positionRoom.paths[0].targetKey; // don't return to that item, return to what that item is returning to
+            returnKey = this.positionRoom.paths[0]["default"].targetKey; // don't return to that item, return to what that item is returning to
         }
 
         // otherwise it's the same hacky method as before.
-        let continuePath = new Path(returnKey, "...");
-        this.rooms["description-item"] = new Room(item.paragraphs, [continuePath]);
+        let continuePath = new Path("...", returnKey);
+        this.rooms["description-path"] = new Room('', item.paragraphs, [continuePath]); // should there be alterationItems?
         this.moveTo("description-item");
     }
 
-    hasItem(item) {
-        return this.items.includes(item);
+    hasItem(itemKey) {
+        return this.inventory.includes(itemKey);
     }
-    giveItem(item) {
-        if (this.hasItem(item)) { return; } // prevents having the same item twice. Needed?
-        this.items.push(item);
+    giveItems(items) {
+        for (let itemKey of items) {
+            if (this.hasItem(itemKey)) { return; } // prevents having the same item twice
+            this.inventory.push(itemKey);
+        }
     }
 
-    hasLocation(location) {
-        return this.locations.includes(location);
+    hasLocation(key) {
+        return this.locations.includes(key);
     }
     giveLocation(key) {
 
-        if (key == '') { return; } // blocks empty location strings
+        if (key == '') { return; } // block empty location strings
 
         this.lastLocation = key;
 
-        if (this.hasLocation(key)) { return; } // blocks duplicate location strings
+        if (this.hasLocation(key)) { return; } // block duplicate location strings
 
         this.locations[this.locations.length] = key;
     }
 
-    /* takes a path's alterations and applies their values to their target rooms. */
-    /* this is used to make changes to the world when an option is selected. */
-    implementAlteration(alteration) {
-        let room = this.rooms[alteration.targetKey];
-
-        if (alteration.pathOrDesc == "path") {
-            room.paths[alteration.pathIndex] = alteration.newPath;
-        }
-        if (alteration.pathOrDesc == "desc") {
-            room.paragraphs = alteration.newParagraphs;
-        }
+    moveTo(roomKey) {
+        this.position = roomKey;
+        this.positionRoom = this.rooms[roomKey];
+        let roomAlteration = this.getAlteration(this.positionRoom);
+        this.giveLocation(roomAlteration.givenLocation);
     }
-
-    moveTo(key) {
-        this.position = key;
-        this.positionRoom = this.rooms[key];
-        this.giveLocation(this.positionRoom.givenLocation);
-    }
-    isValidPath(pathIndex) { // user and path meet all requirements to select the path
-        let path = this.positionRoom.paths[pathIndex];
+    isValidPath(pathIndex) { // true if user and path meet all requirements to select the path
+        let roomAlteration = this.getAlteration(this.positionRoom);
+        let path = roomAlteration.paths[pathIndex];
+        let pathAlteration = this.getAlteration(path);
 
         // Get Conditionals
-        let playerHasNeededItem = path.requiredItem == '' || this.hasItem(path.requiredItem);
-        let playerHasGivenItem = this.hasItem(path.givenItem);
-        let limitHit = path.limit <= 0;
+        let playerHasTakenItems = true;
+        for (let item of pathAlteration.takenItems) {
+            if (!this.hasItem(item)) {
+                playerHasTakenItems = false;
+            }
+        }
 
-        if (playerHasNeededItem && !playerHasGivenItem && !limitHit) {
+        let playerHasRequiredItems = true;
+        for (let item of pathAlteration.requiredItems) {
+            if (!this.hasItem(item)) {
+                playerHasRequiredItems = false;
+            }
+        }
+
+        let playerHasGivenItems = false;
+        for (let item of pathAlteration.givenItems) {
+            if (this.hasItem(item)) {
+                playerHasGivenItems = true;
+            }
+        }
+        
+        if (playerHasTakenItems && playerHasRequiredItems && !playerHasGivenItems) {
             return true;
         }
         
         return false;
     }
     choosePath(index) {
-        let path = this.positionRoom.paths[index];
-        let pathHasItemToGive = path.givenItem != '';
+        let roomAlteration = this.getAlteration(this.positionRoom)
+        let path = roomAlteration.paths[index];
+        let pathAlteration = this.getAlteration(path);
+        let pathHasItemsToGive = pathAlteration.givenItems.length > 0;
+        let pathHasSignalsToGive = pathAlteration.signals.length > 0;
 
         if (this.isValidPath(index)) {
-            if (pathHasItemToGive) { this.giveItem(path.givenItem); }
 
-            // apply alternates
-            for (let alteration of path.alterations) {
-                this.implementAlteration(alteration);
+            //give items
+            if (pathHasItemsToGive) { this.giveItems(pathAlteration.givenItems); }
+
+            // take items
+            for (let itemKey of pathAlteration.takenItems) {
+                let itemIndex = this.inventory.indexOf(itemKey)
+                this.inventory.splice(itemIndex,1);
             }
 
-            path.limit--; //deecrement limit to track how many times path can be taken.
-
-            // take the required item (if supposed to)
-            if (path.requiredItem != '' && path.takesItem) {
-                let itemIndex = this.items.indexOf(path.requiredItem);
-                this.items.splice(itemIndex,1);
+            //give signals
+            for (let signal of pathAlteration.signals) {
+                if (!this.signals.includes(signal)) {
+                    this.signals.push(signal);
+                }
             }
-
-            if (path.paragraphs.length > 0) {
-                this.describePath(path); // describe action of path, then return to room once continue pressed.
+            
+            if (pathAlteration.paragraphs.length > 0) {
+                this.showPathParagraphs(pathAlteration); // describe action of path, then return to room once continue pressed.
             } else {
-                this.moveTo(path.targetKey); // move without description.
+                this.moveTo(pathAlteration.targetKey); // move without description.
             }
             
         }
