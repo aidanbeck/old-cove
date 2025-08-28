@@ -12,14 +12,6 @@ class Paragraph {
     addAlteration(signal, text) {
         this[signal] = text;
     }
-    static getAlteration(paragraph, signals) { // should be retooled as a world function, usable by anything with alterations.
-        for (let signal of signals) {
-            if (signal in paragraph) { // if corresponding alteration exists
-                return paragraph[signal]; // !!! does not account for competing alterations
-            }
-        }
-        return paragraph["default"];
-    }
 }
 
 class Path {
@@ -65,6 +57,15 @@ class World {
         this.positon = position; // the targetKey of the room the user is in
         this.positionRoom; // a reference to the room object the user is currently in.
         this.moveTo(position); // updates positionRoom and adds location if it is needed
+    }
+
+    getAlteration(alterations, signals) { // retrieves the proper alteration of a Room, Path, or Paragraph
+        for (let signal of signals) {
+            if (signal in alterations) { // if corresponding alteration exists
+                return alterations[signal]; // !!! does not account for competing alterations
+            }
+        }
+        return alterations["default"];
     }
 
     describePath(path) {
