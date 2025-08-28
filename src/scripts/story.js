@@ -1,8 +1,8 @@
-import { AlterPath, AlterDesc, Item, Path, Room, World } from './world.js';
-import rooms from './rooms.json' with { type: 'json' };
+import { Item, Paragraph, Path, Room, World } from './world.js';
+import compiledRooms from './rooms.json' with { type: 'json' };
 
-let rooms = rooms.rooms; // I will decide later if syntaxlor will compile to an entire world, or just rooms.
-                         // For now, forgive the messy conversion.
+let rooms = compiledRooms.rooms; // I will decide later if syntaxlor will compile to an entire world, or just rooms.
+                                 // For now, forgive the messy conversion.
 
 let items = {
     "axe": new Item("🪓 dull axe", ["You hold its wooden handle carefully to avoid splinters."]),
@@ -15,9 +15,15 @@ let items = {
     "shell": new Item("🐚 sea shell", ['You lift it up to your ear.','The familar sound of waves greets you like a call from an old friend.'])
 }
 
+// create new room with functions
+let newPara = new Paragraph("It's the library!");
+newPara.addAlteration("burned", "Oh no! The library burned down!");
+let newPath = new Path("exit the door", "outside", [], [], [], ["pamphlet"], []);
+newPath.addAlteration("burned", "exit the window", "outside", [], ["getCut"], ["axe"], ["glass shard"], []);
+let newRoom = new Room("library", [newPara], [newPath]);
 
+console.log(JSON.stringify(newRoom));
 
-let gameWorld = new World(rooms.rooms, "lighthouse", ["lighthouse"], "axe");
+let gameWorld = new World(rooms, items, [], ["axe"], ["lighthouse"], "lighthouse");
 
-console.log(gameWorld);
 export default gameWorld;

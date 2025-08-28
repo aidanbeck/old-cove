@@ -5,10 +5,50 @@ class Item {
     }
 }
 
-/*
-    I've removed the Path, Room, and Alter classes because they are outdated compated to Syntaxlor.
-    Eventually, I will remake the classes, and Syntaxlor might call *their* constructors.
-*/
+class Paragraph {
+    constructor(text) {
+        this.addAlteration("default", text);
+    }
+    addAlteration(signal, text) {
+        this[signal] = text;
+    }
+    static getAlteration(paragraph, signals) { // should be retooled as a world function, usable by anything with alterations.
+        for (let signal of signals) {
+            if (signal in paragraph) { // if corresponding alteration exists
+                return paragraph[signal]; // !!! does not account for competing alterations
+            }
+        }
+        return paragraph["default"];
+    }
+}
+
+class Path {
+    constructor(buttonPrompt="prompt", targetKey='', paragraphs=[], signals=[], requiredItems=[], givenItems=[], takenItems=[]) {
+        this.addAlteration("default", buttonPrompt, targetKey, paragraphs, signals, requiredItems, givenItems, takenItems);
+    }
+    addAlteration(signal, buttonPrompt="prompt", targetKey='', paragraphs=[], signals=[], requiredItems=[], givenItems=[], takenItems=[]) {
+        this[signal] = {};
+        this[signal].buttonPrompt = buttonPrompt;
+        this[signal].targetKey = targetKey; // key of the room button moves to
+        this[signal].paragraphs = paragraphs;
+        this[signal].signals = signals;
+        this[signal].requiredItems = requiredItems;
+        this[signal].givenItems = givenItems;
+        this[signal].takenItems = takenItems;
+    }
+}
+
+class Room {
+    constructor(givenLocation = '', paragraphs=[], paths=[]) {
+        this.addAlteration("default", givenLocation, paragraphs, paths);
+    }
+    addAlteration(signal, givenLocation = '', paragraphs=[], paths=[]) {
+        this[signal] = {};
+        this[signal].givenLocation = givenLocation;
+        this[signal].paragraphs = paragraphs;
+        this[signal].paths = paths;
+    }
+}
 
 class World {
     constructor(rooms = {}, items={}, signals=[], inventory=[], locations=[], position) {
@@ -138,4 +178,4 @@ class World {
         }
     }
 }
-export { Item, World };
+export { Item, Paragraph, Path, Room, World };
