@@ -12,7 +12,11 @@ let items = {
     "envelope": new Item("📧 envelope", ['\"Dear...\"', "You can't bear to read the rest."]),
     "bandage": new Item("🩹 bandage", ["You can't get hurt in this game... can you?"]),
     "rope": new Item("🧵 rope", ["A long time ago, this was used to tie ships to the docks in the harbor."]),
-    "shell": new Item("🐚 sea shell", ['You lift it up to your ear.','The familar sound of waves greets you like a call from an old friend.'])
+    "shell": new Item("🐚 sea shell", ['You lift it up to your ear.','The familar sound of waves greets you like a call from an old friend.']),
+
+    "pamphlet": new Item("📄 pamphlet", ["It outlines various library & summer reading programs."]),
+    "match": new Item("📍 match", ["One strike can set anything ablaze."])
+
 }
 
 // library
@@ -26,6 +30,7 @@ let newRoom = new Room("library", [newPara], [newPath]);
 let newPara2 = new Paragraph("It's the outside! The library is nearby.");
 newPara2.addAlteration("burned", "The fresh outside air is overwhelmed by smoke.");
 let newPath2 = new Path("enter the library", "library", [], [], ["key"], [], []);
+newPath2.addAlteration("burned", "enter the flame-covered door", "library", [], [], ["axe"], [], []);
 let newPath3 = new Path("set library on fire", "outside", [], ["burned"], [], [], ["match"]); //evil!
 newPath3.addAlteration("burned","Empty","outside", [], [], [], [], []);
 let newRoom2 = new Room("outside", [newPara2], [newPath2, newPath3]);
