@@ -182,7 +182,7 @@ class World {
         // Get Conditionals
         let playerHasAllTakenItems = this.playerHasItems(pathAlteration.takenItems);
         let playerHasAllRequiredItems = this.playerHasItems(pathAlteration.requiredItems);
-        let playerHasAllGivenItems = this.playerHasItems(pathAlteration.givenItems);
+        let playerHasAllGivenItems = this.playerHasItems(pathAlteration.givenItems) && pathAlteration.givenItems.length > 0;
 
         if (playerHasAllTakenItems && playerHasAllRequiredItems && !playerHasAllGivenItems) {
             return true;
