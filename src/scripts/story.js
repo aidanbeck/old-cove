@@ -47,16 +47,16 @@ function printRoom() {
     let paragraph0 = gameWorld.getAlteration(roomAlteration.paragraphs[0]);
     let prompts = roomAlteration.paths;
     console.log(paragraph0);
-    console.log(prompts);
     console.log(gameWorld.inventory);
     console.log(gameWorld.signals);
     console.log("\n");
 }
 
 // printRoom();
-// gameWorld.choosePath(0);
-// printRoom();
 // gameWorld.choosePath(1);
 // printRoom();
+// gameWorld.choosePath(0);
+// printRoom();
+
 
 export default gameWorld;
