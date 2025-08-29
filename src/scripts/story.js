@@ -53,10 +53,10 @@ function printRoom() {
     console.log("\n");
 }
 
-printRoom();
-gameWorld.choosePath(0);
-printRoom();
-gameWorld.choosePath(1);
-printRoom();
+// printRoom();
+// gameWorld.choosePath(0);
+// printRoom();
+// gameWorld.choosePath(1);
+// printRoom();
 
 export default gameWorld;

@@ -71,6 +71,23 @@ class World {
         return alterations["default"];
     }
 
+    /*
+        retrieves an array of strings
+        corresponding to the alteration paragraphs of the positionRoom.
+        a "getter" for what paragraphs should be displayed on screen for external use.
+    */
+    getCurrentParagraphs() {
+
+        let alterationRoom = this.getAlteration(this.positionRoom);
+        let alterationParagraphs = [];
+
+        for (let paragraph of alterationRoom.paragraphs) {
+            let alterationParagraph = this.getAlteration(paragraph);
+            alterationParagraphs.push(alterationParagraph);
+        }
+        return alterationParagraphs;
+    }
+
     showPathParagraphs(path) {
         let alterationPath = this.getAlteration(path);
 
