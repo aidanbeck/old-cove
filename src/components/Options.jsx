@@ -1,7 +1,7 @@
 function Options(props) {
 
   let { world, handleChange } = props;
-  let paths = world.positionRoom.paths;
+  let paths = world.getCurrentPaths();
 
   let lockedOptionsJSX = []; // jsx for unselectable options.
   let optionsJSX = paths.map( (path, index) => {
@@ -13,7 +13,7 @@ function Options(props) {
     }
 
     /* Creates options that are crossed out */
-    let playerHasGivenItem = world.items.includes(path.givenItem);
+    let playerHasGivenItem = world.inventory.includes(path.givenItem);
     let optionLimitHit = path.limit <= 0;
     if (playerHasGivenItem || optionLimitHit) { // cross out the element.
       lockedOptionsJSX[lockedOptionsJSX.length] = <div key={index} className={optionClass + " locked"}><strike>{path.buttonPrompt}</strike></div>;
@@ -27,7 +27,7 @@ function Options(props) {
     }
 
     /* Creates options with requirements. */
-    let playerHasNeededItem = world.items.includes(path.requiredItem);
+    let playerHasNeededItem = world.inventory.includes(path.requiredItem);
     if (playerHasNeededItem) { 
       return <div key={index} className={optionClass} onClick={() => handleChange("option", index)}><span>Use {path.requiredItem.name}.</span><hr/> {path.buttonPrompt}</div>;
     } else { // player doesn't have a required item, they should come back.

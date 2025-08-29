@@ -88,6 +88,23 @@ class World {
         return alterationParagraphs;
     }
 
+    /*
+        retrieves an array of paths
+        corresponding to the alteration paths of positionRoom
+        a "getter" for what paths should be displayed on screen for external use
+        identical to getCurrentParagraphs except for variable names, could they be combined into a "getAlterations" method?
+    */
+    getCurrentPaths() {
+        let alterationRoom = this.getAlteration(this.positionRoom);
+        let alterationPaths = [];
+
+        for (let path of alterationRoom.paths) {
+            let alterationPath = this.getAlteration(path);
+            alterationPaths.push(alterationPath);
+        }
+        return alterationPaths;
+    }
+
     showPathParagraphs(path) {
         let alterationPath = this.getAlteration(path);
 
