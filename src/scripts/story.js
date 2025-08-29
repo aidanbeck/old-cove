@@ -40,7 +40,7 @@ let roomies = {
     "outside": newRoom2
 }
 
-let gameWorld = new World(roomies, items, [], ["axe", "match", "key"], ["library"], "library");
+let gameWorld = new World(roomies, items, [], ["axe", "match", "key"], ["outside"], "outside");
 
 function printRoom() {
     let roomAlteration = gameWorld.getAlteration(gameWorld.positionRoom);

@@ -16,6 +16,7 @@ function Game() {
     // will change if time allows.
     
     if (type == "option") {
+      console.log(`choose ${value}`);
       world.choosePath(value);
     }
 

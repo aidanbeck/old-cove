@@ -13,27 +13,30 @@ function Options(props) {
     }
 
     /* Creates options that are crossed out */
-    let playerHasGivenItem = world.inventory.includes(path.givenItem);
-    let optionLimitHit = path.limit <= 0;
-    if (playerHasGivenItem || optionLimitHit) { // cross out the element.
+    let playerHasAllGivenItems = world.playerHasItems(path.givenItems);
+    // !!! I should add another way for elements to be crossed out, emulating the "limit" feature, but with signals!
+    if (playerHasAllGivenItems && path.givenItems.length > 0) { // cross out the element.
       lockedOptionsJSX[lockedOptionsJSX.length] = <div key={index} className={optionClass + " locked"}><strike>{path.buttonPrompt}</strike></div>;
       return;
     }
 
     /* Creates options that are normal */
-    let playerDoesntNeedItem = path.requiredItem == '';
+    let playerDoesntNeedItem = path.requiredItems.length == 0 && path.takenItems.length == 0;
     if (playerDoesntNeedItem) {
       return <div key={index} className={optionClass} onClick={() => handleChange("option", index)}>{path.buttonPrompt}</div>
     }
 
     /* Creates options with requirements. */
-    let playerHasNeededItem = world.inventory.includes(path.requiredItem);
-    if (playerHasNeededItem) { 
-      return <div key={index} className={optionClass} onClick={() => handleChange("option", index)}><span>Use {path.requiredItem.name}.</span><hr/> {path.buttonPrompt}</div>;
+    let playerHasAllRequiredItems = world.playerHasItems(path.requiredItems);
+    let playerHasAllTakenItems = world.playerHasItems(path.takenItems);
+    if (playerHasAllRequiredItems && playerHasAllTakenItems) { // player has everything needed
+      return <div key={index} className={optionClass} onClick={() => handleChange("option", index)}><span>Use {path.requiredItems[0]}.</span><hr/> {path.buttonPrompt}</div>;
     } else { // player doesn't have a required item, they should come back.
-      lockedOptionsJSX[lockedOptionsJSX.length] = <div key={index} className={optionClass + " locked"}><span>Requires {path.requiredItem.name}.</span><hr/> {path.buttonPrompt}</div>;
+      lockedOptionsJSX[lockedOptionsJSX.length] = <div key={index} className={optionClass + " locked"}><span>Requires {path.requiredItems[0]}.</span><hr/> {path.buttonPrompt}</div>;
       return;
     }
+    // !!! this displays path.requiredItems[0] for testing, but it should not in release! This block needs to account for multiple items, some required and some taken
+    // it also needs to use the item key to get the actual item!
     
   });
 

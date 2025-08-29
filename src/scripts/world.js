@@ -163,34 +163,28 @@ class World {
         let roomAlteration = this.getAlteration(this.positionRoom);
         this.giveLocation(roomAlteration.givenLocation);
     }
+
+    playerHasItems(items) { // returns true if player has all items of an input set
+        let playerHasAllInputItems = true;
+        for (let item of items) {
+            if (!this.hasItem(item)) {
+                playerHasAllInputItems = false;
+            }
+        }
+
+        return playerHasAllInputItems;
+    }
     isValidPath(pathIndex) { // true if user and path meet all requirements to select the path
         let roomAlteration = this.getAlteration(this.positionRoom);
         let path = roomAlteration.paths[pathIndex];
         let pathAlteration = this.getAlteration(path);
 
         // Get Conditionals
-        let playerHasTakenItems = true;
-        for (let item of pathAlteration.takenItems) {
-            if (!this.hasItem(item)) {
-                playerHasTakenItems = false;
-            }
-        }
+        let playerHasAllTakenItems = this.playerHasItems(pathAlteration.takenItems);
+        let playerHasAllRequiredItems = this.playerHasItems(pathAlteration.requiredItems);
+        let playerHasAllGivenItems = this.playerHasItems(pathAlteration.givenItems);
 
-        let playerHasRequiredItems = true;
-        for (let item of pathAlteration.requiredItems) {
-            if (!this.hasItem(item)) {
-                playerHasRequiredItems = false;
-            }
-        }
-
-        let playerHasGivenItems = false;
-        for (let item of pathAlteration.givenItems) {
-            if (this.hasItem(item)) {
-                playerHasGivenItems = true;
-            }
-        }
-        
-        if (playerHasTakenItems && playerHasRequiredItems && !playerHasGivenItems) {
+        if (playerHasAllTakenItems && playerHasAllRequiredItems && !playerHasAllGivenItems) {
             return true;
         }
         
