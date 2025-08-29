@@ -120,16 +120,20 @@ class World {
     }
 
     showItemParagraphs(item) {
-        
+
+        item = this.items[item];
         let returnKey = this.position;
 
         if (this.position == "description-item") { // if user is already reading an item,
-            returnKey = this.positionRoom.paths[0]["default"].targetKey; // don't return to that item, return to what that item is returning to
+            let alterationRoom = this.getAlteration(this.positionRoom);
+            returnKey = alterationRoom.paths[0]["default"].targetKey; // don't return to that item, return to what that item is returning to
+            
         }
+        
 
         // otherwise it's the same hacky method as before.
         let continuePath = new Path("...", returnKey);
-        this.rooms["description-path"] = new Room('', item.paragraphs, [continuePath]); // should there be alterationItems?
+        this.rooms["description-item"] = new Room('', item.paragraphs, [continuePath]); // should there be alterationItems?
         this.moveTo("description-item");
     }
 
