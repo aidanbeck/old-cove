@@ -15,7 +15,9 @@ let items = {
     "shell": new Item("🐚 sea shell", ['You lift it up to your ear.','The familar sound of waves greets you like a call from an old friend.']),
 
     "pamphlet": new Item("📄 pamphlet", ["It outlines various library & summer reading programs."]),
-    "match": new Item("📍 match", ["One strike can set anything ablaze."])
+    "match": new Item("📍 match", ["One strike can set anything ablaze."]),
+
+    "glass shard": new Item("💠 glass shard", ["Pointy and dangerous."])
 
 }
 

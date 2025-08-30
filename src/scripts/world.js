@@ -71,6 +71,11 @@ class World {
         return alterations["default"];
     }
 
+    //getParagraphs
+    //getPositionRoom
+    //getPaths
+    // these kind of exist already
+
     /*
         retrieves an array of strings
         corresponding to the alteration paragraphs of the positionRoom.
@@ -100,6 +105,13 @@ class World {
 
         for (let path of alterationRoom.paths) {
             let alterationPath = this.getAlteration(path);
+
+            /* Don't return buttons with Empty keyword */
+            let promptIsEmpty = alterationPath.buttonPrompt == "Empty" || alterationPath.buttonPrompt == "";
+            if (promptIsEmpty) {
+                continue;
+            }
+
             alterationPaths.push(alterationPath);
         }
         return alterationPaths;
