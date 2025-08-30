@@ -1,26 +1,420 @@
 {
     "rooms": {
-        "a road": {
+        "rock cave": {
             "default": {
-                "givenLocation": "a road",
+                "givenLocation": "rock cave",
                 "paragraphs": [
                     {
-                        "default": "It's a road!"
+                        "default": "It is too dark to see. The air is cold and still."
+                    },
+                    {
+                        "default": "You feel around in a panic, finding the ground after a moment."
+                    },
+                    {
+                        "default": "It feels like stone."
                     }
                 ],
                 "paths": [
                     {
                         "default": {
-                            "buttonPrompt": "Walk to the lighthouse.",
-                            "targetKey": "lighthouse",
+                            "buttonPrompt": "Stumble left.",
+                            "targetKey": "rock cave 3",
                             "paragraphs": [
                                 {
-                                    "default": "You walk to the lighthouse."
+                                    "default": "The floor slopes downwards as you cautiously inch forward."
                                 }
                             ],
                             "signals": [],
                             "requiredItems": [],
                             "givenItems": [],
+                            "takenItems": []
+                        }
+                    },
+                    {
+                        "default": {
+                            "buttonPrompt": "Stumble right.",
+                            "targetKey": "rock cave 2",
+                            "paragraphs": [
+                                {
+                                    "default": "You feel your way against the ground, clinging to any surface you can find."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    }
+                ]
+            }
+        },
+        "rock cave 2": {
+            "default": {
+                "givenLocation": "rock cave",
+                "paragraphs": [
+                    {
+                        "default": "There is light!"
+                    },
+                    {
+                        "default": "The edges of the cave are dim but visible. Ahead is a gradual climb leading to a small opening. It glows white from the sky behind it."
+                    }
+                ],
+                "paths": [
+                    {
+                        "default": {
+                            "buttonPrompt": "Climb.",
+                            "targetKey": "sandy beach",
+                            "paragraphs": [
+                                {
+                                    "default": "You scamper up the rocks and past the threshold, emerging into the open."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    },
+                    {
+                        "default": {
+                            "buttonPrompt": "Descend.",
+                            "targetKey": "rock cave",
+                            "paragraphs": [
+                                {
+                                    "default": "You walk back into the darkness."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    }
+                ]
+            }
+        },
+        "rock cave 3": {
+            "default": {
+                "givenLocation": "rock cave",
+                "paragraphs": [
+                    {
+                        "default": "You extend your foot to feel the ground ahead of you, but are met only with air. You bend your leg to feel the extent of the dropoff, but you cannot feel the bottom."
+                    },
+                    {
+                        "default": "You drop a nearby rock over the side and hear it knock against the sides of the cavern."
+                    },
+                    {
+                        "default": "Each knock sounds farther and farther away."
+                    }
+                ],
+                "paths": [
+                    {
+                        "default": {
+                            "buttonPrompt": "Turn around.",
+                            "targetKey": "rock cave",
+                            "paragraphs": [
+                                {
+                                    "default": "You return, moving with even more caution."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    },
+                    {
+                        "default": {
+                            "buttonPrompt": "Descend.",
+                            "targetKey": "rock cave 4",
+                            "paragraphs": [],
+                            "signals": [],
+                            "requiredItems": [
+                                "rope"
+                            ],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    }
+                ]
+            }
+        },
+        "sandy beach": {
+            "default": {
+                "givenLocation": "sandy beach",
+                "paragraphs": [
+                    {
+                        "default": "The wind flows over the beach and carries the smell of sea salt. A strip of sand runs between a tall cliff and crashing waves."
+                    },
+                    {
+                        "default": "Rock Cave is embedded in the cliff. On a large rock near the entrance, a conch shell sits propped up as if it were displayed there."
+                    }
+                ],
+                "paths": [
+                    {
+                        "default": {
+                            "buttonPrompt": "Walk along the beach.",
+                            "targetKey": "sandy beach 2",
+                            "paragraphs": [
+                                {
+                                    "default": "As you walk along the sea, you notice something poking out of the waters in the distance."
+                                },
+                                {
+                                    "default": "You squint, but you can't make it out from here."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    },
+                    {
+                        "default": {
+                            "buttonPrompt": "Take the seashell.",
+                            "targetKey": "sandy beach",
+                            "paragraphs": [
+                                {
+                                    "default": "It's beautiful."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [
+                                "shell"
+                            ],
+                            "takenItems": []
+                        }
+                    },
+                    {
+                        "default": {
+                            "buttonPrompt": "Enter the cave.",
+                            "targetKey": "rock cave 2",
+                            "paragraphs": [],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    }
+                ]
+            }
+        },
+        "sandy beach 2": {
+            "default": {
+                "givenLocation": "sandy beach",
+                "paragraphs": [
+                    {
+                        "default": "The cliff veers away from the ocean and the beach widens. In the distance, you can see a lighthouse over a large hill. Overgrown with shrubs and driftwood, a trail zig-zags to the top."
+                    },
+                    {
+                        "default": "On the beach, an old sailboat lays on its side. Piles of sand have accumulated at its base, all but burying it."
+                    }
+                ],
+                "paths": [
+                    {
+                        "default": {
+                            "buttonPrompt": "Follow the trail.",
+                            "targetKey": "a road",
+                            "paragraphs": [
+                                {
+                                    "default": "Excited to reunite with civilization, you climb the hill."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    },
+                    {
+                        "default": {
+                            "buttonPrompt": "Investigate the boat.",
+                            "targetKey": "ol' reliable",
+                            "paragraphs": [
+                                {
+                                    "default": "You brush a thin layer of sand off the side of its stern."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    },
+                    {
+                        "default": {
+                            "buttonPrompt": "Head towards Rock Cave.",
+                            "targetKey": "sandy beach",
+                            "paragraphs": [],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    }
+                ]
+            }
+        },
+        "ol' reliable": {
+            "default": {
+                "givenLocation": "ol' reliable",
+                "paragraphs": [
+                    {
+                        "default": "Written on the stern in faded paint is the ship's name: \"ol' reliable\". It remains mostly intact despite its situation."
+                    },
+                    {
+                        "default": "The cabin door is locked, and through the window you can see it's filled with sand that covers most of its contents. However, an old axe still seems salvageable."
+                    }
+                ],
+                "paths": [
+                    {
+                        "default": {
+                            "buttonPrompt": "Salvage axe.",
+                            "targetKey": "ol' reliable",
+                            "paragraphs": [
+                                {
+                                    "default": "You unlock the door. With your bare hands, you dig it out of the sand."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [
+                                "key"
+                            ],
+                            "givenItems": [
+                                "axe"
+                            ],
+                            "takenItems": []
+                        }
+                    },
+                    {
+                        "default": {
+                            "buttonPrompt": "Return to the beach",
+                            "targetKey": "sandy beach 2",
+                            "paragraphs": [],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    }
+                ]
+            }
+        },
+        "a road": {
+            "default": {
+                "givenLocation": "a road",
+                "paragraphs": [
+                    {
+                        "default": "At the top of the hill, the trail connect to a dirt road. It doesn't look like anyone has been here in a long time. The road continues towards the lighthouse, passing a tent marked with a red cross."
+                    }
+                ],
+                "paths": [
+                    {
+                        "default": {
+                            "buttonPrompt": "Enter the infirmary tent",
+                            "targetKey": "infirmary tent",
+                            "paragraphs": [
+                                {
+                                    "default": "You push open the flaps and duck into the tent."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    },
+                    {
+                        "default": {
+                            "buttonPrompt": "Walk to the lighthouse",
+                            "targetKey": "lighthouse",
+                            "paragraphs": [
+                                {
+                                    "default": "You begin walking towards it, before stopping in shock. The light has turned on."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    }
+                ]
+            }
+        },
+        "infirmary tent": {
+            "default": {
+                "givenLocation": "infirmary tent",
+                "paragraphs": [
+                    {
+                        "default": "Small single bunks line the sides of the tent, each with a trunk beneath it. An old coat hangs on the closest bed post. You might be able to find some supplies."
+                    }
+                ],
+                "paths": [
+                    {
+                        "default": {
+                            "buttonPrompt": "Exit the tent.",
+                            "targetKey": "a road",
+                            "paragraphs": [
+                                {
+                                    "default": "You're happy to be out of there."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    },
+                    {
+                        "default": {
+                            "buttonPrompt": "Search the cabinet",
+                            "targetKey": "infirmary tent",
+                            "paragraphs": [
+                                {
+                                    "default": "You discover a bandage."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [
+                                "bandage"
+                            ],
+                            "takenItems": []
+                        }
+                    },
+                    {
+                        "default": {
+                            "buttonPrompt": "Search the trunks",
+                            "targetKey": "infirmary tent",
+                            "paragraphs": [
+                                {
+                                    "default": "You discover an envelope containing a letter. It's familiar."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [
+                                "envelope"
+                            ],
+                            "takenItems": []
+                        }
+                    },
+                    {
+                        "default": {
+                            "buttonPrompt": "Search the coat.",
+                            "targetKey": "infirmary tent",
+                            "paragraphs": [
+                                {
+                                    "default": "You search the pockets. In the last one you check, you find a key."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [
+                                "key"
+                            ],
                             "takenItems": []
                         }
                     }
@@ -48,11 +442,7 @@
                         "default": {
                             "buttonPrompt": "Return to the road.",
                             "targetKey": "a road",
-                            "paragraphs": [
-                                {
-                                    "default": "You walk back down the road."
-                                }
-                            ],
+                            "paragraphs": [],
                             "signals": [],
                             "requiredItems": [],
                             "givenItems": [],
@@ -65,7 +455,7 @@
                             "targetKey": "lighthouse",
                             "paragraphs": [
                                 {
-                                    "default": "You swing the axe at the door— it doesn't budge. You try again, harder this time, and it cracks."
+                                    "default": "You swing the axe at the door- it doesn't budge. You try again, harder this time, and it cracks."
                                 },
                                 {
                                     "default": "The axe head snaps from the end of the handle, embedding itself in the door as it lurches wide open."
@@ -79,10 +469,21 @@
                             "takenItems": [
                                 "axe"
                             ]
+                        }
+                    },
+                    {
+                        "default": {
+                            "buttonPrompt": "Empty",
+                            "targetKey": "lighthouse",
+                            "paragraphs": [],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
                         },
                         "breakIn": {
                             "buttonPrompt": "Enter.",
-                            "targetKey": "living room",
+                            "targetKey": "lighthouse 2",
                             "paragraphs": [
                                 {
                                     "default": "You hesitate before walking inside."
@@ -97,47 +498,56 @@
                 ]
             }
         },
-        "living room": {
+        "lighthouse 2": {
             "default": {
                 "givenLocation": "lighthouse",
                 "paragraphs": [
                     {
-                        "default": "It's a beautiful living room."
+                        "default": "There is a table inside with a hammer and a handwritten note."
                     }
                 ],
                 "paths": [
                     {
                         "default": {
-                            "buttonPrompt": "Leave the room.",
+                            "buttonPrompt": "Exit.",
                             "targetKey": "lighthouse",
-                            "paragraphs": [
-                                {
-                                    "default": "You leave."
-                                }
-                            ],
+                            "paragraphs": [],
                             "signals": [],
                             "requiredItems": [],
                             "givenItems": [],
                             "takenItems": []
                         }
-                    }
-                ]
-            },
-            "flashback": {
-                "givenLocation": "lighthouse",
-                "paragraphs": [
-                    {
-                        "default": "The paint still smells-new."
-                    }
-                ],
-                "paths": [
+                    },
                     {
                         "default": {
-                            "buttonPrompt": "Leave the newly painted room",
-                            "targetKey": "lighthouse",
+                            "buttonPrompt": "Take Hammer",
+                            "targetKey": "lighthouse 2",
                             "paragraphs": [
                                 {
-                                    "default": "You leave."
+                                    "default": "Maybe you could fix the door?"
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [
+                                "hammer"
+                            ],
+                            "takenItems": []
+                        }
+                    },
+                    {
+                        "default": {
+                            "buttonPrompt": "Read Note",
+                            "targetKey": "lighthouse 2",
+                            "paragraphs": [
+                                {
+                                    "default": "It says..."
+                                },
+                                {
+                                    "default": "\"Thank you for playing my demo! My deadline is in 10 minutes, so that's all there is for now -Developer\""
+                                },
+                                {
+                                    "default": "What a strange thing to find."
                                 }
                             ],
                             "signals": [],

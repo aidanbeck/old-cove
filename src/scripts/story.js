@@ -21,7 +21,7 @@ let items = {
 
 }
 
-let gameWorld = new World(rooms, items, [], ["axe", "match", "key"], ["lighthouse"], "lighthouse");
+let gameWorld = new World(rooms, items, [], [], ["rock cave"], "rock cave");
 
 function printRoom() {
     let roomAlteration = gameWorld.getAlteration(gameWorld.positionRoom);
