@@ -32,7 +32,7 @@ let newRoom = new Room("library", [newPara], [newPath]);
 let newPara2 = new Paragraph("It's the outside! The library is nearby.");
 newPara2.addAlteration("burned", "The fresh outside air is overwhelmed by smoke.");
 let newPath2 = new Path("enter the library", "library", [], [], ["key"], [], []);
-newPath2.addAlteration("burned", "enter the flame-covered door", "library", [], [], ["axe"], [], []);
+newPath2.addAlteration("burned", "enter the flame-covered door", "library", [], [], ["axe", "key"], [], []);
 let newPath3 = new Path("set library on fire", "outside", [], ["burned"], [], [], ["match"]); //evil!
 newPath3.addAlteration("burned","Empty","outside", [], [], [], [], []);
 let newRoom2 = new Room("outside", [newPara2], [newPath2, newPath3]);

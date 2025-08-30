@@ -65,7 +65,7 @@ class World {
     getAlteration(alterations) { // retrieves the proper alteration of a Room, Path, or Paragraph
         for (let signal of this.signals) {
             if (signal in alterations) { // if corresponding alteration exists
-                return alterations[signal]; // !!! does not account for competing alterations
+                return alterations[signal]; // !!! does not account for competing signals
             }
         }
         return alterations["default"];

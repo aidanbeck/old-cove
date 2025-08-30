@@ -26,17 +26,35 @@ function Options(props) {
       return <div key={index} className={optionClass} onClick={() => handleChange("option", index)}>{path.buttonPrompt}</div>
     }
 
+
+    /* Create string of requirements */
+    let requiredItemStrings = [];
+    for (let item of path.requiredItems) {
+      requiredItemStrings.push(world.items[item].name);
+    }
+    for (let item of path.takenItems) {
+      requiredItemStrings.push(world.items[item].name);
+    }
+    let requirementsList = [];
+    for (let i = 0; i < requiredItemStrings.length; i++) {
+      requirementsList.push(requiredItemStrings[i]);
+      let isLastItem = i == requiredItemStrings.length - 1;
+      let isOnlyItem = requiredItemStrings.length == 1;
+      if (!isLastItem && !isOnlyItem ) { // if item isn't the last, and isn't the only
+        requirementsList.push(", ");
+      }
+    }
+
+
     /* Creates options with requirements. */
     let playerHasAllRequiredItems = world.playerHasItems(path.requiredItems);
     let playerHasAllTakenItems = world.playerHasItems(path.takenItems);
     if (playerHasAllRequiredItems && playerHasAllTakenItems) { // player has everything needed
-      return <div key={index} className={optionClass} onClick={() => handleChange("option", index)}><span>Use {path.requiredItems[0]}.</span><hr/> {path.buttonPrompt}</div>;
+      return <div key={index} className={optionClass} onClick={() => handleChange("option", index)}><span>Use {requirementsList}.</span><hr/> {path.buttonPrompt}</div>;
     } else { // player doesn't have a required item, they should come back.
-      lockedOptionsJSX[lockedOptionsJSX.length] = <div key={index} className={optionClass + " locked"}><span>Requires {path.requiredItems[0]}.</span><hr/> {path.buttonPrompt}</div>;
+      lockedOptionsJSX[lockedOptionsJSX.length] = <div key={index} className={optionClass + " locked"}><span>Requires {requirementsList}.</span><hr/> {path.buttonPrompt}</div>;
       return;
     }
-    // !!! this displays path.requiredItems[0] for testing, but it should not in release! This block needs to account for multiple items, some required and some taken
-    // it also needs to use the item key to get the actual item!
     
   });
 
