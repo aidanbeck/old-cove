@@ -21,28 +21,7 @@ let items = {
 
 }
 
-// library
-let newPara = new Paragraph("It's the library!");
-newPara.addAlteration("burned", "Oh no! The library burned down!");
-let newPath = new Path("exit the door", "outside", [], [], [], ["pamphlet"], []);
-newPath.addAlteration("burned", "exit the window", "outside", [], ["getCut"], ["axe"], ["glass shard"], []);
-let newRoom = new Room("library", [newPara], [newPath]);
-
-// outside
-let newPara2 = new Paragraph("It's the outside! The library is nearby.");
-newPara2.addAlteration("burned", "The fresh outside air is overwhelmed by smoke.");
-let newPath2 = new Path("enter the library", "library", [], [], ["key"], [], []);
-newPath2.addAlteration("burned", "enter the flame-covered door", "library", [], [], ["axe", "key"], [], []);
-let newPath3 = new Path("set library on fire", "outside", [], ["burned"], [], [], ["match"]); //evil!
-newPath3.addAlteration("burned","Empty","outside", [], [], [], [], []);
-let newRoom2 = new Room("outside", [newPara2], [newPath2, newPath3]);
-
-let roomies = {
-    "library": newRoom,
-    "outside": newRoom2
-}
-
-let gameWorld = new World(roomies, items, [], ["axe", "match", "key"], ["outside"], "outside");
+let gameWorld = new World(rooms, items, [], ["axe", "match", "key"], ["lighthouse"], "lighthouse");
 
 function printRoom() {
     let roomAlteration = gameWorld.getAlteration(gameWorld.positionRoom);

@@ -1,11 +1,35 @@
 {
     "rooms": {
+        "a road": {
+            "default": {
+                "givenLocation": "a road",
+                "paragraphs": [
+                    {
+                        "default": "It's a road!"
+                    }
+                ],
+                "paths": [
+                    {
+                        "default": {
+                            "buttonPrompt": "Walk to the lighthouse.",
+                            "targetKey": "lighthouse",
+                            "paragraphs": [
+                                {
+                                    "default": "You walk to the lighthouse."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    }
+                ]
+            }
+        },
         "lighthouse": {
             "default": {
-                "key": "lighthouse",
-                "givenLocations": [
-                    "lighthouse"
-                ],
+                "givenLocation": "lighthouse",
                 "paragraphs": [
                     {
                         "default": "The lighthouse sits on the edge of a cliff, defiantly piercing the seascape behind it."
@@ -22,15 +46,14 @@
                 "paths": [
                     {
                         "default": {
-                            "targetKey": "a road",
                             "buttonPrompt": "Return to the road.",
+                            "targetKey": "a road",
                             "paragraphs": [
                                 {
                                     "default": "You walk back down the road."
                                 }
                             ],
-                            "changeSignals": [],
-                            "limit": null,
+                            "signals": [],
                             "requiredItems": [],
                             "givenItems": [],
                             "takenItems": []
@@ -38,8 +61,8 @@
                     },
                     {
                         "default": {
-                            "targetKey": "lighthouse",
                             "buttonPrompt": "Force it open.",
+                            "targetKey": "lighthouse",
                             "paragraphs": [
                                 {
                                     "default": "You swing the axe at the door— it doesn't budge. You try again, harder this time, and it cracks."
@@ -48,10 +71,9 @@
                                     "default": "The axe head snaps from the end of the handle, embedding itself in the door as it lurches wide open."
                                 }
                             ],
-                            "changeSignals": [
+                            "signals": [
                                 "breakIn"
                             ],
-                            "limit": 1,
                             "requiredItems": [],
                             "givenItems": [],
                             "takenItems": [
@@ -59,15 +81,14 @@
                             ]
                         },
                         "breakIn": {
-                            "targetKey": "lighthouse 2",
                             "buttonPrompt": "Enter.",
+                            "targetKey": "living room",
                             "paragraphs": [
                                 {
                                     "default": "You hesitate before walking inside."
                                 }
                             ],
-                            "changeSignals": [],
-                            "limit": null,
+                            "signals": [],
                             "requiredItems": [],
                             "givenItems": [],
                             "takenItems": []
@@ -78,10 +99,7 @@
         },
         "living room": {
             "default": {
-                "key": "living room",
-                "givenLocations": [
-                    "lighthouse"
-                ],
+                "givenLocation": "lighthouse",
                 "paragraphs": [
                     {
                         "default": "It's a beautiful living room."
@@ -90,15 +108,14 @@
                 "paths": [
                     {
                         "default": {
-                            "targetKey": "lighthouse",
                             "buttonPrompt": "Leave the room.",
+                            "targetKey": "lighthouse",
                             "paragraphs": [
                                 {
                                     "default": "You leave."
                                 }
                             ],
-                            "changeSignals": [],
-                            "limit": null,
+                            "signals": [],
                             "requiredItems": [],
                             "givenItems": [],
                             "takenItems": []
@@ -107,10 +124,7 @@
                 ]
             },
             "flashback": {
-                "key": "living room",
-                "givenLocations": [
-                    "lighthouse"
-                ],
+                "givenLocation": "lighthouse",
                 "paragraphs": [
                     {
                         "default": "The paint still smells-new."
@@ -119,15 +133,14 @@
                 "paths": [
                     {
                         "default": {
-                            "targetKey": "lighthouse",
                             "buttonPrompt": "Leave the newly painted room",
+                            "targetKey": "lighthouse",
                             "paragraphs": [
                                 {
                                     "default": "You leave."
                                 }
                             ],
-                            "changeSignals": [],
-                            "limit": null,
+                            "signals": [],
                             "requiredItems": [],
                             "givenItems": [],
                             "takenItems": []
