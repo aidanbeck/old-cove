@@ -143,7 +143,7 @@ class World {
         let returnKey = this.position;
 
         if (this.position == "description-item") { // if user is already reading an item,
-            returnKey = this.getCurrentPaths()[0]["default"].targetKey; // don't return to that item, return to what that item is returning to
+            returnKey = this.getCurrentPaths()[0].targetKey; // don't return to that item, return to what that item is returning to
         }
         
 
