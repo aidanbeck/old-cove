@@ -129,7 +129,7 @@ class World {
         if (path.paragraphs.length == 0) { return; } // don't describe if path has no description.
 
         let returnKey = path.targetKey; // room returned to after description
-        new Path("Continue.", returnKey);
+        let continuePath = new Path("Continue.", returnKey);
         this.rooms["description-path"] = new Room('', path.paragraphs, [continuePath]); // create a new room with the paragraphs and a simple continue.
         this.moveTo("description-path");
 
