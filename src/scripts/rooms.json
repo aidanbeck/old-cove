@@ -289,7 +289,7 @@
                     },
                     {
                         "default": {
-                            "buttonPrompt": "Return to the beach",
+                            "buttonPrompt": "Return to the beach.",
                             "targetKey": "sandy beach 2",
                             "paragraphs": [],
                             "signals": [],
@@ -306,13 +306,13 @@
                 "givenLocation": "a road",
                 "paragraphs": [
                     {
-                        "default": "At the top of the hill, the trail connect to a dirt road. It doesn't look like anyone has been here in a long time. The road continues towards the lighthouse, passing a tent marked with a red cross."
+                        "default": "At the top of the hill, the trail connects to a dirt road. It doesn't look like anyone has been here in a long time. The road continues towards the lighthouse, passing a tent marked with a red cross."
                     }
                 ],
                 "paths": [
                     {
                         "default": {
-                            "buttonPrompt": "Enter the infirmary tent",
+                            "buttonPrompt": "Enter the infirmary tent.",
                             "targetKey": "infirmary tent",
                             "paragraphs": [
                                 {
@@ -327,11 +327,26 @@
                     },
                     {
                         "default": {
-                            "buttonPrompt": "Walk to the lighthouse",
+                            "buttonPrompt": "Walk to the lighthouse.",
                             "targetKey": "lighthouse",
                             "paragraphs": [
                                 {
                                     "default": "You begin walking towards it, before stopping in shock. The light has turned on."
+                                }
+                            ],
+                            "signals": [],
+                            "requiredItems": [],
+                            "givenItems": [],
+                            "takenItems": []
+                        }
+                    },
+                    {
+                        "default": {
+                            "buttonPrompt": "Head down the trail.",
+                            "targetKey": "sandy beach 2",
+                            "paragraphs": [
+                                {
+                                    "default": "It's easier on the way down."
                                 }
                             ],
                             "signals": [],
@@ -369,7 +384,7 @@
                     },
                     {
                         "default": {
-                            "buttonPrompt": "Search the cabinet",
+                            "buttonPrompt": "Search the cabinet.",
                             "targetKey": "infirmary tent",
                             "paragraphs": [
                                 {
@@ -520,7 +535,7 @@
                     },
                     {
                         "default": {
-                            "buttonPrompt": "Take Hammer",
+                            "buttonPrompt": "Take Hammer.",
                             "targetKey": "lighthouse 2",
                             "paragraphs": [
                                 {
@@ -537,14 +552,14 @@
                     },
                     {
                         "default": {
-                            "buttonPrompt": "Read Note",
+                            "buttonPrompt": "Read Note.",
                             "targetKey": "lighthouse 2",
                             "paragraphs": [
                                 {
                                     "default": "It says..."
                                 },
                                 {
-                                    "default": "\"Thank you for playing my demo! My deadline is in 10 minutes, so that's all there is for now -Developer\""
+                                    "default": "\"Thank you for playing my demo! My deadline is in 10 minutes, so that's all there is for now -Developer\"."
                                 },
                                 {
                                     "default": "What a strange thing to find."
