@@ -58,8 +58,7 @@ class World {
         this.locations = locations; // a list of titles/ids the user has collected and can revisit
         this.lastLocation = ''; // this is the last *collected* id/title the player *visited*. It exists to highlight their most recently visited location.
         this.positon = position; // the targetKey of the room the user is in
-        this.positionRoom; // a reference to the room object the user is currently in.
-        this.moveTo(position); // updates positionRoom and adds location if it is needed
+        this.moveTo(position); // adds location if it is needed
     }
 
     getAlteration(alterations) { // retrieves the proper alteration of a Room, Path, or Paragraph
@@ -71,20 +70,19 @@ class World {
         return alterations["default"];
     }
 
-    //getPositionRoom
     //getParagraphs
     //getPaths
     // these kind of exist already
 
     getCurrentRoom() {
-        let positionRoom = this.positionRoom; // inhabited room
+        let positionRoom = this.rooms[this.position]; // inhabited room
         let alterationRoom = this.getAlteration(positionRoom); // proper alteration of inhabited room
         return alterationRoom;
     }
 
     /*
         retrieves an array of strings
-        corresponding to the alteration paragraphs of the positionRoom.
+        corresponding to the alteration paragraphs of the inhabited room.
         a "getter" for what paragraphs should be displayed on screen for external use.
     */
     getCurrentParagraphs() {
@@ -101,7 +99,7 @@ class World {
 
     /*
         retrieves an array of paths
-        corresponding to the alteration paths of positionRoom
+        corresponding to the alteration paths of the inhabited room
         a "getter" for what paths should be displayed on screen for external use
         identical to getCurrentParagraphs except for variable names, could they be combined into a "getAlterations" method?
     */
@@ -179,7 +177,6 @@ class World {
 
     moveTo(roomKey) {
         this.position = roomKey;
-        this.positionRoom = this.rooms[roomKey];
         this.giveLocation(this.getCurrentRoom().givenLocation);
     }
 
