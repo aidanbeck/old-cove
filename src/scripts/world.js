@@ -3,25 +3,25 @@ class Item {
         this.name = name;
         this.paragraphs = [];
         for (let i = 0; i < paragraphs.length; i++) {
-            this.paragraphs[i] = new Paragraph(paragraphs[i]); // does not currently allow for alternate items- might add later.
+            this.paragraphs[i] = new Paragraph(paragraphs[i]); // does not currently allow for variant items- might add later.
         }
     }
 }
 
 class Paragraph {
     constructor(text) {
-        this.addAlteration("default", text);
+        this.addVariant("default", text);
     }
-    addAlteration(signal, text) {
+    addVariant(signal, text) {
         this[signal] = text;
     }
 }
 
 class Path {
     constructor(buttonPrompt="prompt", targetKey='', paragraphs=[], signals=[], requiredItems=[], givenItems=[], takenItems=[]) {
-        this.addAlteration("default", buttonPrompt, targetKey, paragraphs, signals, requiredItems, givenItems, takenItems);
+        this.addVariant("default", buttonPrompt, targetKey, paragraphs, signals, requiredItems, givenItems, takenItems);
     }
-    addAlteration(signal, buttonPrompt="prompt", targetKey='', paragraphs=[], signals=[], requiredItems=[], givenItems=[], takenItems=[]) {
+    addVariant(signal, buttonPrompt="prompt", targetKey='', paragraphs=[], signals=[], requiredItems=[], givenItems=[], takenItems=[]) {
         this[signal] = {};
         this[signal].buttonPrompt = buttonPrompt;
         this[signal].targetKey = targetKey; // key of the room button moves to
@@ -35,9 +35,9 @@ class Path {
 
 class Room {
     constructor(givenLocation = '', paragraphs=[], paths=[]) {
-        this.addAlteration("default", givenLocation, paragraphs, paths);
+        this.addVariant("default", givenLocation, paragraphs, paths);
     }
-    addAlteration(signal, givenLocation = '', paragraphs=[], paths=[]) {
+    addVariant(signal, givenLocation = '', paragraphs=[], paths=[]) {
         this[signal] = {};
         this[signal].givenLocation = givenLocation;
         this[signal].paragraphs = paragraphs;
@@ -61,68 +61,68 @@ class World {
         this.moveTo(position); // adds location if it is needed
     }
 
-    getAlteration(alterations) { // retrieves the proper alteration of a Room, Path, or Paragraph
+    getVariant(variants) { // retrieves the proper variant of a Room, Path, or Paragraph, determined by state signals
         for (let signal of this.signals) {
-            if (signal in alterations) { // if corresponding alteration exists
-                return alterations[signal]; // !!! does not account for competing signals
+            if (signal in variants) { // if corresponding variant exists
+                return variants[signal]; // !!! does not account for competing signals
             }
         }
-        return alterations["default"];
+        return variants["default"];
     }
 
     //getParagraphs
     //getPaths
     // these kind of exist already
 
-    getCurrentRoom() {
+    getRoom() { // get room variant of player's position
         let positionRoom = this.rooms[this.position]; // inhabited room
-        let alterationRoom = this.getAlteration(positionRoom); // proper alteration of inhabited room
-        return alterationRoom;
+        let roomVariant = this.getVariant(positionRoom); // proper variant of inhabited room
+        return roomVariant;
     }
 
     /*
         retrieves an array of strings
-        corresponding to the alteration paragraphs of the inhabited room.
+        corresponding to the paragraphs of the inhabited room.
+        each paragraph is the variant determined by state signals.
         a "getter" for what paragraphs should be displayed on screen for external use.
     */
-    getCurrentParagraphs() {
+    getParagraphs() {
 
-        let alterationRoom = this.getCurrentRoom();
-        let alterationParagraphs = [];
+        let roomVariant = this.getRoom();
+        let paragraphs = []; // correct variant of each paragraph
 
-        for (let paragraph of alterationRoom.paragraphs) {
-            let alterationParagraph = this.getAlteration(paragraph);
-            alterationParagraphs.push(alterationParagraph);
+        for (let paragraph of roomVariant.paragraphs) {
+            let paragraphVariant = this.getVariant(paragraph);
+            paragraphs.push(paragraphVariant);
         }
-        return alterationParagraphs;
+        return paragraphs;
     }
 
     /*
         retrieves an array of paths
-        corresponding to the alteration paths of the inhabited room
+        corresponding to the paths of the inhabited room
+        each path is the variant determined by state signals
         a "getter" for what paths should be displayed on screen for external use
-        identical to getCurrentParagraphs except for variable names, could they be combined into a "getAlterations" method?
     */
-    getCurrentPaths() {
-        let alterationRoom = this.getCurrentRoom();
-        let alterationPaths = [];
+    getPaths() {
+        let roomVariant = this.getRoom();
+        let paths = []; // correct variant of each path
 
-        for (let path of alterationRoom.paths) {
-            let alterationPath = this.getAlteration(path);
+        for (let path of roomVariant.paths) {
+            let pathVariant = this.getVariant(path);
 
             /* Don't return buttons with Empty keyword */
-            let promptIsEmpty = alterationPath.buttonPrompt == "Empty" || alterationPath.buttonPrompt == "";
+            let promptIsEmpty = pathVariant.buttonPrompt == "Empty" || pathVariant.buttonPrompt == "";
             if (promptIsEmpty) {
                 continue;
             }
 
-            alterationPaths.push(alterationPath);
+            paths.push(pathVariant);
         }
-        return alterationPaths;
+        return paths;
     }
 
-    showPathParagraphs(path) { // recieve path alteration via getCurrentPaths
-        // let alterationPath = this.getAlteration(path);
+    showPathParagraphs(path) { // recieve path variant (get via getPaths)
 
         if (path.paragraphs.length == 0) { return; } // don't describe if path has no description.
 
@@ -141,13 +141,13 @@ class World {
         let returnKey = this.position;
 
         if (this.position == "description-item") { // if user is already reading an item,
-            returnKey = this.getCurrentPaths()[0].targetKey; // don't return to that item, return to what that item is returning to
+            returnKey = this.getPaths()[0].targetKey; // don't return to that item, return to what that item is returning to
         }
         
 
         // otherwise it's the same hacky method as before.
         let continuePath = new Path("...", returnKey);
-        this.rooms["description-item"] = new Room('', item.paragraphs, [continuePath]); // should there be alterationItems?
+        this.rooms["description-item"] = new Room('', item.paragraphs, [continuePath]);
         this.moveTo("description-item");
     }
 
@@ -177,7 +177,7 @@ class World {
 
     moveTo(roomKey) {
         this.position = roomKey;
-        this.giveLocation(this.getCurrentRoom().givenLocation);
+        this.giveLocation(this.getRoom().givenLocation);
     }
 
     playerHasItems(items) { // returns true if player has all items of an input set
@@ -191,7 +191,7 @@ class World {
         return playerHasAllInputItems;
     }
     isValidPath(pathIndex) { // true if user and path meet all requirements to select the path
-        let path = this.getCurrentPaths()[pathIndex];
+        let path = this.getPaths()[pathIndex];
 
         // Get Conditionals
         let playerHasAllTakenItems = this.playerHasItems(path.takenItems);
@@ -205,7 +205,7 @@ class World {
         return false;
     }
     choosePath(index) {
-        let path = this.getCurrentPaths()[index];
+        let path = this.getPaths()[index];
         let pathHasItemsToGive = path.givenItems.length > 0;
         let pathHasSignalsToGive = path.signals.length > 0;
 

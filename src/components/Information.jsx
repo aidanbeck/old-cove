@@ -6,7 +6,7 @@ function Information(props) {
 
     let { handleChange, world } = props;
     let { locations, lastLocation, items, inventory} = world;
-    let paragraphs = world.getCurrentParagraphs();
+    let paragraphs = world.getParagraphs();
     
     return (
         <div id="information">

@@ -1,7 +1,7 @@
 function Options(props) {
 
   let { world, handleChange } = props;
-  let paths = world.getCurrentPaths();
+  let paths = world.getPaths();
 
   let lockedOptionsJSX = []; // jsx for unselectable options.
   let optionsJSX = paths.map( (path, index) => {
