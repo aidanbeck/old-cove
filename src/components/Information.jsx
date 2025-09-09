@@ -5,12 +5,12 @@ import Items from './Items';
 function Information(props) {
 
     let { handleChange, world } = props;
-    let { locations, lastLocation, items, inventory} = world;
+    let { locations, selectedLocation, items, inventory} = world;
     let paragraphs = world.getParagraphs();
     
     return (
         <div id="information">
-            <Locations locations={locations} currentLocation={lastLocation} handleChange={handleChange}/>
+            <Locations locations={locations} currentLocation={selectedLocation} handleChange={handleChange}/>
             <Description paragraphs={paragraphs}/>
             <Items items={items} inventory={inventory} paragraphs={paragraphs} handleChange={handleChange}/>
         </div>

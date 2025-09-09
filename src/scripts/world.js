@@ -49,15 +49,16 @@ class World {
     constructor(rooms = {}, items={}, signals=[], inventory=[], locations=[], position) {
 
         //STATIC
-        this.rooms = rooms; // object of rooms objects. Not an array, the keys are used to identify each room.
-        this.items = items; // object of item objects. Keys are used to identify each item.
+        this.rooms = rooms; // object of rooms objects. Keys are used to identify each room.
+        this.items = items; // object of item objects.  Keys are used to identify each item.
 
         //DYNAMIC
         this.signals = signals; // array of state-changing signal strings. 
         this.inventory = inventory; // array of item key strings.
         this.locations = locations; // a list of titles/ids the user has collected and can revisit
-        this.lastLocation = ''; // this is the last *collected* id/title the player *visited*. It exists to highlight their most recently visited location.
-        this.positon = position; // the targetKey of the room the user is in
+        this.positon = position; // the key of the room the user is in
+        this.selectedLocation = '';
+        this.selectedItem = ''; // TODO replace hacky item selection system with this variable. Can use this to render an item instead of a room if it isn't blank.
         this.moveTo(position); // adds location if it is needed
     }
 
@@ -168,7 +169,7 @@ class World {
 
         if (key == '') { return; } // block empty location strings
 
-        this.lastLocation = key;
+        this.selectedLocation = key;
 
         if (this.hasLocation(key)) { return; } // block duplicate location strings
 
