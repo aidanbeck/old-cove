@@ -33,6 +33,7 @@ function Game() {
 
     if (type == "item") {
       w.showItemParagraphs(value);
+      w.selectedItem = value;
     }
     
     forceRender({});

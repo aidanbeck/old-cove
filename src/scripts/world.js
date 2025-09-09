@@ -58,7 +58,7 @@ class World {
         this.locations = locations; // a list of titles/ids the user has collected and can revisit
         this.positon = position; // the key of the room the user is in
         this.selectedLocation = '';
-        this.selectedItem = ''; // TODO replace hacky item selection system with this variable. Can use this to render an item instead of a room if it isn't blank.
+        this.selectedItem = ''; // TODO use this to render an item instead of a room if it isn't blank, this gets rid of the hacky showItemParagraphs
         this.moveTo(position); // adds location if it is needed
     }
 
@@ -178,6 +178,7 @@ class World {
 
     moveTo(roomKey) {
         this.position = roomKey;
+        this.selectedItem = ''; // wipe selected item when player moves (TODO refactor when items can have multiple rooms)
         this.giveLocation(this.getRoom().givenLocation);
     }
 
