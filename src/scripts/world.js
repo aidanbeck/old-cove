@@ -1,52 +1,62 @@
 class Item {
-    constructor(name, paragraphs=["This item doesn't have a description."]) { // takes strings for paragraphs input, not actual Paragraph classes
+    constructor(name, paragraphs = ["This item doesn't have a description."]) { // takes strings for input, not actual Paragraph classes (for now)
         this.name = name;
         this.paragraphs = [];
         for (let i = 0; i < paragraphs.length; i++) {
-            this.paragraphs[i] = new Paragraph(paragraphs[i]); // does not currently allow for variant items- might add later.
+            this.paragraphs[i] = new Paragraph(paragraphs[i]);
         }
+        // TODO: items should contain one or more rooms for their descriptions.
     }
 }
 
 class Paragraph {
     constructor(text) {
-        this.addVariant("default", text);
+        this.default = text;
+        this.variants = {};
     }
     addVariant(signal, text) {
-        this[signal] = text;
+        let variant = new Paragraph(text);
+        this.variants[signal] = variant.default;
     }
 }
 
 class Path {
-    constructor(buttonPrompt="prompt", targetKey='', paragraphs=[], signals=[], requiredItems=[], givenItems=[], takenItems=[]) {
-        this.addVariant("default", buttonPrompt, targetKey, paragraphs, signals, requiredItems, givenItems, takenItems);
+    constructor(buttonPrompt = "prompt", targetRoomKey = '', paragraphs = [], signals = [], requiredItems = [], givenItems = [], takenItems = []) {
+        this.default = {
+            buttonPrompt,
+            targetRoomKey,
+            paragraphs,
+            signals,
+            requiredItems,
+            givenItems,
+            takenItems
+        }
+        this.variants = {};
     }
-    addVariant(signal, buttonPrompt="prompt", targetKey='', paragraphs=[], signals=[], requiredItems=[], givenItems=[], takenItems=[]) {
-        this[signal] = {};
-        this[signal].buttonPrompt = buttonPrompt;
-        this[signal].targetKey = targetKey; // key of the room button moves to
-        this[signal].paragraphs = paragraphs;
-        this[signal].signals = signals;
-        this[signal].requiredItems = requiredItems;
-        this[signal].givenItems = givenItems;
-        this[signal].takenItems = takenItems;
+    addVariant(signal, buttonPrompt = "prompt", targetRoomKey = '', paragraphs = [], signals = [], requiredItems = [], givenItems = [], takenItems = []) {
+        let variant = new Path(buttonPrompt, targetRoomKey, paragraphs, signals, requiredItems, givenItems, takenItems);
+        this.variants[signal] = variant.default;
     }
 }
 
 class Room {
-    constructor(givenLocation = '', paragraphs=[], paths=[]) {
-        this.addVariant("default", givenLocation, paragraphs, paths);
+    constructor(givenLocation = '', paragraphs = [], paths = []) {
+        this.default = {
+            givenLocation,
+            paragraphs,
+            paths
+        }
+        this.variants = {};
+        
     }
-    addVariant(signal, givenLocation = '', paragraphs=[], paths=[]) {
-        this[signal] = {};
-        this[signal].givenLocation = givenLocation;
-        this[signal].paragraphs = paragraphs;
-        this[signal].paths = paths;
+    addVariant(signal, givenLocation = '', paragraphs = [], paths = []) {
+        let variant = new Room(givenLocation, paragraphs, paths);
+        this.variants[signal] = variant.default;
     }
 }
 
 class World {
-    constructor(rooms = {}, items={}, signals=[], inventory=[], locations=[], position) {
+    constructor(rooms = {}, items = {}, signals = [], inventory = [], locations = [], position) {
 
         //STATIC
         this.rooms = rooms; // object of rooms objects. Keys are used to identify each room.
@@ -55,37 +65,36 @@ class World {
         //DYNAMIC
         this.signals = signals; // array of state-changing signal strings. 
         this.inventory = inventory; // array of item key strings.
-        this.locations = locations; // a list of titles/ids the user has collected and can revisit
+        this.locations = locations; // a list of keys the user has collected and can fast travel to
         this.positon = position; // the key of the room the user is in
         this.selectedLocation = '';
         this.selectedItem = ''; // TODO use this to render an item instead of a room if it isn't blank, this gets rid of the hacky showItemParagraphs
         this.moveTo(position); // adds location if it is needed
     }
 
-    getVariant(variants) { // retrieves the proper variant of a Room, Path, or Paragraph, determined by state signals
+    // uses state signals to return the proper Room/Path/Paragraph variant
+    getVariant(object) {
         for (let signal of this.signals) {
-            if (signal in variants) { // if corresponding variant exists
-                return variants[signal]; // !!! does not account for competing signals
+            if (signal in object.variants) { // if corresponding variant exists
+                return object.variants[signal]; // !!! does not account for competing signals
             }
         }
-        return variants["default"];
+        return object.default; // if no signals match, return default variant.
     }
 
-    //getParagraphs
-    //getPaths
-    // these kind of exist already
-
-    getRoom() { // get room variant of player's position
+    /*
+        returns the room the player is inhabiting.
+        uses state signals to determine proper variant.
+    */
+    getRoom() {
         let positionRoom = this.rooms[this.position]; // inhabited room
         let roomVariant = this.getVariant(positionRoom); // proper variant of inhabited room
         return roomVariant;
     }
 
     /*
-        retrieves an array of strings
-        corresponding to the paragraphs of the inhabited room.
-        each paragraph is the variant determined by state signals.
-        a "getter" for what paragraphs should be displayed on screen for external use.
+        returns the strings of the current room's paragraphs.
+        uses state signals to determine proper variants.
     */
     getParagraphs() {
 
@@ -100,10 +109,8 @@ class World {
     }
 
     /*
-        retrieves an array of paths
-        corresponding to the paths of the inhabited room
-        each path is the variant determined by state signals
-        a "getter" for what paths should be displayed on screen for external use
+        returns the current room's paths.
+        uses state signals to determine proper variants.
     */
     getPaths() {
         let roomVariant = this.getRoom();
@@ -127,7 +134,7 @@ class World {
 
         if (path.paragraphs.length == 0) { return; } // don't describe if path has no description.
 
-        let returnKey = path.targetKey; // room returned to after description
+        let returnKey = path.targetRoomKey; // room returned to after description
         let continuePath = new Path("Continue.", returnKey);
         this.rooms["description-path"] = new Room('', path.paragraphs, [continuePath]); // create a new room with the paragraphs and a simple continue.
         this.moveTo("description-path");
@@ -142,9 +149,9 @@ class World {
         let returnKey = this.position;
 
         if (this.position == "description-item") { // if user is already reading an item,
-            returnKey = this.getPaths()[0].targetKey; // don't return to that item, return to what that item is returning to
+            returnKey = this.getPaths()[0].targetRoomKey; // don't return to that item, return to what that item is returning to
         }
-        
+
 
         // otherwise it's the same hacky method as before.
         let continuePath = new Path("...", returnKey);
@@ -203,7 +210,7 @@ class World {
         if (playerHasAllTakenItems && playerHasAllRequiredItems && !playerHasAllGivenItems) {
             return true;
         }
-        
+
         return false;
     }
     choosePath(index) {
@@ -219,7 +226,7 @@ class World {
             // take items
             for (let itemKey of path.takenItems) {
                 let itemIndex = this.inventory.indexOf(itemKey)
-                this.inventory.splice(itemIndex,1);
+                this.inventory.splice(itemIndex, 1);
             }
 
             //give signals
@@ -228,13 +235,13 @@ class World {
                     this.signals.push(signal);
                 }
             }
-            
+
             if (path.paragraphs.length > 0) {
                 this.showPathParagraphs(path); // describe action of path, then return to room once continue pressed.
             } else {
-                this.moveTo(path.targetKey); // move without description.
+                this.moveTo(path.targetRoomKey); // move without description.
             }
-            
+
         }
     }
 }
