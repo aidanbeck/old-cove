@@ -1,7 +1,6 @@
 function Options(props) {
 
-  let { world, handleChange } = props;
-  let paths = world.getPaths();
+  let { paths, items, playerHasItems, handleChange } = props;
 
   let lockedOptionsJSX = []; // jsx for unselectable options.
   let optionsJSX = paths.map( (path, index) => {
@@ -13,7 +12,7 @@ function Options(props) {
     }
 
     /* Creates options that are crossed out */
-    let playerHasAllGivenItems = world.playerHasItems(path.givenItems);
+    let playerHasAllGivenItems = playerHasItems(path.givenItems);
     // !!! I should add another way for elements to be crossed out, emulating the "limit" feature, but with signals!
     if (playerHasAllGivenItems && path.givenItems.length > 0) { // cross out the element.
       lockedOptionsJSX[lockedOptionsJSX.length] = <div key={index} className={optionClass + " locked"}><strike>{path.buttonPrompt}</strike></div>;
@@ -30,10 +29,10 @@ function Options(props) {
     /* Create string of requirements */
     let requiredItemStrings = [];
     for (let item of path.requiredItems) {
-      requiredItemStrings.push(world.items[item].name);
+      requiredItemStrings.push(items[item].name);
     }
     for (let item of path.takenItems) {
-      requiredItemStrings.push(world.items[item].name);
+      requiredItemStrings.push(items[item].name);
     }
     let requirementsList = [];
     for (let i = 0; i < requiredItemStrings.length; i++) {
@@ -47,8 +46,8 @@ function Options(props) {
 
 
     /* Creates options with requirements. */
-    let playerHasAllRequiredItems = world.playerHasItems(path.requiredItems);
-    let playerHasAllTakenItems = world.playerHasItems(path.takenItems);
+    let playerHasAllRequiredItems = playerHasItems(path.requiredItems);
+    let playerHasAllTakenItems = playerHasItems(path.takenItems);
     if (playerHasAllRequiredItems && playerHasAllTakenItems) { // player has everything needed
       return <div key={index} className={optionClass} onClick={() => handleChange("option", index)}><span>Use {requirementsList}.</span><hr/> {path.buttonPrompt}</div>;
     } else { // player doesn't have a required item, they should come back.

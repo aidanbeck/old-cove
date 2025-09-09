@@ -38,11 +38,17 @@ function Game() {
     forceRender({});
   }
 
+  const playerHasItems = (itemKeys) => { // wrapper for world.playerHasItems(). Without this transfers the function but not the inventory information, so it would break.
+    return worldRef.current.playerHasItems(itemKeys);
+  }
+
+  // let world = worldRef.current;
+
   return (
     <div id="playScreen">
       <h1><Link id="backToTitle" to='/'>Old Cove</Link></h1>
       <Information world={worldRef.current} handleChange={handleChange}/>
-      <Options world={worldRef.current} handleChange={handleChange}/>
+      <Options paths={worldRef.current.getPaths()} items={worldRef.current.items} playerHasItems={playerHasItems} handleChange={handleChange}/>
     </div>
   )
 }
