@@ -1,23 +1,22 @@
 import { Item, Paragraph, Path, Room, World } from './world.js';
 import { customSyntax, build } from './syntax.js';
 
-// TODO read source .txt files
+/*
+    Import all .txt files in ./rooms/ folder as raw text.
+    To my understanding, this Vite feature bundles the JS into the build itself. It might affect download speeds.
+    Once the story is complete, I may refactor to use JSON files that can be loaded per area.
+    For now, it maximizes iteration speed since I can edit or create room files without even adding file names to the project.
+*/
+const roomFiles = import.meta.glob('./rooms/*.txt', { query: '?raw', import: 'default', eager: true });
 
-let inputFilePaths = [
-    "rooms/demo.txt",
-    "rooms/hospital.txt"
-];
+let roomSyntaxInput = '';
 
-let input = '';
-
-for (let inputFilePath of inputFilePaths) {
-    input += fs.readFileSync(inputFilePath,'utf-8');
-    input += '\n';
+for (let roomFileText of Object.values(roomFiles)) {
+    roomSyntaxInput += roomFileText;
+    roomSyntaxInput += '\n';
 }
 
-
-let rooms = build(input, customSyntax);
-
+let rooms = build(roomSyntaxInput, customSyntax).rooms; // .rooms is clunky, perhaps syntaxlor should export differently.
 
 let items = {
     "axe": new Item("🪓 dull axe", ["You hold its wooden handle carefully to avoid splinters."]),
@@ -36,23 +35,4 @@ let items = {
 
 }
 
-let gameWorld = new World(rooms, items, [], [], ["rock cave"], "rock cave");
-
-function printRoom() {
-    let roomAlteration = gameWorld.getAlteration(gameWorld.positionRoom);
-    let paragraph0 = gameWorld.getAlteration(roomAlteration.paragraphs[0]);
-    let prompts = roomAlteration.paths;
-    console.log(paragraph0);
-    console.log(gameWorld.inventory);
-    console.log(gameWorld.signals);
-    console.log("\n");
-}
-
-// printRoom();
-// gameWorld.choosePath(1);
-// printRoom();
-// gameWorld.choosePath(0);
-// printRoom();
-
-
-export default gameWorld;
+export default new World(rooms, items, [], [], ["rock cave"], "rock cave");
