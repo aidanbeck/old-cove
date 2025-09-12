@@ -56,7 +56,7 @@ class Room {
 }
 
 class World {
-    constructor(rooms = {}, items = {}, signals = [], inventory = [], locations = [], position) {
+    constructor(rooms = {}, items = {}, position, inventory = [], signals = [],  locations = []) {
 
         //STATIC
         this.rooms = rooms; // object of rooms objects. Keys are used to identify each room.
@@ -69,6 +69,7 @@ class World {
         this.positon = position; // the key of the room the user is in
         this.selectedLocation = '';
         this.selectedItem = ''; // TODO use this to render an item instead of a room if it isn't blank, this gets rid of the hacky showItemParagraphs
+        
         this.moveTo(position); // adds location if it is needed
     }
 

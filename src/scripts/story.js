@@ -35,4 +35,5 @@ let items = {
 
 }
 
-export default new World(rooms, items, [], [], ["rock cave"], "rock cave");
+
+export default new World(rooms, items, "rock cave");
