@@ -16,7 +16,7 @@ for (let roomFileText of Object.values(roomFiles)) {
     roomSyntaxInput += '\n';
 }
 
-let rooms = build(roomSyntaxInput, customSyntax).rooms; // .rooms is clunky, perhaps syntaxlor should export differently.
+let rooms = build(roomSyntaxInput, customSyntax);
 
 let items = {
     "axe": new Item("🪓 dull axe", ["You hold its wooden handle carefully to avoid splinters."]),

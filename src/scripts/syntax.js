@@ -36,8 +36,7 @@ function origin(commands, syntax) {
 }
 
 function final(object) {
-    delete object.build;
-    return object;
+    return object.rooms; // ignore build/room structure & just return rooms
 }
 
 // Helper Functions
