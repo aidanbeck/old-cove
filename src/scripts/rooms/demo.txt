@@ -1,0 +1,105 @@
+& ROCK CAVE
+
+#rock cave %rock cave
+ It is too dark to see. The air is cold and still.
+ You feel around in a panic, finding the ground after a moment.
+ It feels like stone.
+*Stumble left. > rock cave 3
+ The floor slopes downwards as you cautiously inch forward.
+*Stumble right. > rock cave 2
+ You feel your way against the ground, clinging to any surface you can find.
+
+#rock cave 2 %rock cave
+ There is light!
+ The edges of the cave are dim but visible. Ahead is a gradual climb leading to a small opening. It glows white from the sky behind it.
+*Climb. > sandy beach
+ You scamper up the rocks and past the threshold, emerging into the open.
+*Descend. > rock cave
+ You walk back into the darkness.
+
+#rock cave 3 %rock cave
+ You extend your foot to feel the ground ahead of you, but are met only with air. You bend your leg to feel the extent of the dropoff, but you cannot feel the bottom.
+ You drop a nearby rock over the side and hear it knock against the sides of the cavern.
+ Each knock sounds farther and farther away.
+*Turn around. > rock cave
+ You return, moving with even more caution.
+*Descend. > rock cave 4 $rope
+& Rock cave 4 does not exist yet!
+
+
+& SANDY BEACH
+
+#sandy beach %sandy beach
+ The wind flows over the beach and carries the smell of sea salt. A strip of sand runs between a tall cliff and crashing waves.
+ Rock Cave is embedded in the cliff. On a large rock near the entrance, a conch shell sits propped up as if it were displayed there.
+*Walk along the beach. > sandy beach 2
+ As you walk along the sea, you notice something poking out of the waters in the distance.
+ You squint, but you can't make it out from here.
+*Take the seashell. +shell
+ It's beautiful.
+ & Do I need to add an arrow or is it automatic?
+*Enter the cave. > rock cave 2
+
+#sandy beach 2 %sandy beach
+ The cliff veers away from the ocean and the beach widens. In the distance, you can see a lighthouse over a large hill. Overgrown with shrubs and driftwood, a trail zig`-zags to the top.
+ On the beach, an old sailboat lays on its side. Piles of sand have accumulated at its base, all but burying it.
+*Follow the trail. > a road
+ Excited to reunite with civilization, you climb the hill.
+*Investigate the boat. > ol' reliable
+ You brush a thin layer of sand off the side of its stern.
+*Head towards Rock Cave. > sandy beach
+
+#ol' reliable %ol' reliable
+ Written on the stern in faded paint is the ship's name: "ol' reliable". It remains mostly intact despite its situation.
+ The cabin door is locked, and through the window you can see it's filled with sand that covers most of its contents. However, an old axe still seems salvageable.
+*Salvage axe. $key +axe
+ You unlock the door. With your bare hands, you dig it out of the sand.
+*Return to the beach. > sandy beach 2
+
+
+& UPPER AREA
+
+#a road %a road
+At the top of the hill, the trail connects to a dirt road. It doesn't look like anyone has been here in a long time. The road continues towards the lighthouse, passing a tent marked with a red cross.
+*Enter the infirmary tent. > infirmary tent
+ You push open the flaps and duck into the tent.
+*Walk to the lighthouse. > lighthouse
+ You begin walking towards it, before stopping in shock. The light has turned on.
+*Head down the trail. > sandy beach 2
+ It's easier on the way down.
+
+#infirmary tent %infirmary tent
+ Small single bunks line the sides of the tent, each with a trunk beneath it. An old coat hangs on the closest bed post. You might be able to find some supplies.
+*Exit the tent. > a road
+ You're happy to be out of there.
+*Search the cabinet. +bandage
+ You discover a bandage.
+*Search the trunks +envelope
+ You discover an envelope containing a letter. It's familiar.
+*Search the coat. +key
+ You search the pockets. In the last one you check, you find a key.
+
+
+& LIGHTHOUSE
+
+#lighthouse %lighthouse
+ The lighthouse sits on the edge of a cliff, defiantly piercing the seascape behind it.
+ You try the door, but it seems jammed. ~breakIn The door is wide open, the head of an axe embedded into its front.
+ Empty ~breakIn What used to be a handle is now splinters on the ground.
+*Return to the road. > a road
+*Force it open. -axe @breakIn
+ You swing the axe at the door`- it doesn't budge. You try again, harder this time, and it cracks.
+ The axe head snaps from the end of the handle, embedding itself in the door as it lurches wide open.
+*Empty
+*Enter. > lighthouse 2 ~breakIn
+ You hesitate before walking inside.
+
+#lighthouse 2 %lighthouse
+ There is a table inside with a hammer and a handwritten note.
+*Exit. > lighthouse
+*Take Hammer. +hammer
+ Maybe you could fix the door?
+*Read Note.
+ It says...
+ "Thank you for playing my demo! My deadline is in 10 minutes, so that's all there is for now `-Developer".
+ What a strange thing to find.

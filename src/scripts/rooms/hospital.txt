@@ -1,0 +1,40 @@
+& HOSPITAL
+
+#hospital %hospital
+The two`-story hospital lies silent. Grass seeps through the gravel parking lot and ivy climbs up the structure.
+The front door is chained closed with a padlock. You give it a tug, but it doesn't budge.
+~breakPadlock Loose chains hang from the front door's handles, no longer blocking access.
+* Circle around the hospital. > hospital side
+ Every window on the first floor is barred with metal.
+* Break the chain. $bolt cutters @breakPadlock
+ The chain snaps with a clink.
+* Enter. > hospital floor1 ~breakPadlock
+ You push open the heavy rusted doors.
+
+#hospital side %hospital
+ By the dumpsters, a fire escape clings to the side of the hospital.
+ & could be better to have to bring the ladder down first.
+* Climb. > hospital roof
+ You carefully ascend as the escape creaks under your weight.
+ The second floor window has been hastily boarded shut, but the stairs continue to the roof.
+* Search the dumpsters. +rope
+ Sifting through the garbage almost makes you puke.
+ Despite this, you manage find some discarded rope.
+* Return to the front. > hospital
+
+#hospital roof %hospital
+ The concrete roof is flat, featuring little more than a skylight and some air conditioning units.
+ Peering down through the skylight, you can see into the main hallway of the top floor.
+ ~breakSkylight Beneath the shattered skylight, glass shards cover the hallway of the top floor.
+ Empty
+ ~placedHospitalRope A dirty rope dangles into the dim building.
+* Break glass. @breakSkylight $axe
+ You throw your axe into the skylight.
+ The glass fractures into a million pieces, tumbling down with your axe into the hospital.
+* Lower a rope. ~breakSkylight @placedHospitalRope -rope
+ You fasten the rope to one of the air conditioning units, pull it tight, and fling the remaining rope down the skylight.
+* Descend down the rope. > hospital floor2 ~placedHospitalRope @footInjury
+ You carefully 
+* Empty
+* Retrieve the rope. ~placedHospitalRope +rope
+ & needs to UNplace the hospital rope!
