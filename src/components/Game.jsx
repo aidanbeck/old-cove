@@ -3,7 +3,10 @@ import { useState, useRef } from 'react';
 import Information from './Information';
 import Options from './Options';
 import world from '../scripts/story';
+import SaveData from '../scripts/saveData';
 import '../styles/play.css';
+
+let gameSave = new SaveData('test-save', world);
 
 function Game() {
 
@@ -36,6 +39,7 @@ function Game() {
       w.selectedItem = value;
     }
     
+    gameSave.update(w);
     forceRender({});
   }
 
