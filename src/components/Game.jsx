@@ -8,7 +8,23 @@ import '../styles/play.css';
 
 let gameSave = new SaveData('auto-save', world);
 
+function wipeSave() {
+  gameSave = null;
+  localStorage.removeItem('auto-save');
+  // This is a hacky way of setting the world back to it's default state.
+  // Should this be a method within world instead?
+  world.position = "rock cave";
+  world.inventory = [];
+  world.locations = ["rock cave"];
+  world.selectedLocation = "rock cave";
+  world.signals = [];
+}
+
 function Game() {
+
+  if (gameSave === null) {
+    gameSave = new SaveData('auto-save', world);
+  }
 
   /*
     Uses useRef instead of useState, this way world can keeps its methods
@@ -59,3 +75,4 @@ function Game() {
 }
 
 export default Game;
+export { wipeSave };
