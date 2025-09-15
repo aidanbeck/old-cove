@@ -1,19 +1,20 @@
 class SaveData {
-    constructor(title = "save", world) {
+    constructor(key = "save", world) {
 
-        this.title = title;
+        this.key = key;
 
         this.data = {
             position: world.position,
             inventory: world.inventory,
+            locations: world.locations,
             signals: world.signals,
             dateCreated: new Date(),
             dateUpdated: new Date()
         }
 
-        if (saveExists(title)) {
-            console.log(`save "${title}" already exists. Loading...`);
-            this.data = loadData(title, world).data;
+        if (saveExists(key)) {
+            this.data = loadData(key, world).data;
+            console.log(`save "${key}" already exists. Data:`, this.data);
         }
 
     }
@@ -28,6 +29,7 @@ class SaveData {
 
         this.position = world.position;
         this.inventory = world.inventory;
+        this.locations = world.locations;
         this.signals = world.signals;
         this.dateUpdated = new Date();
 
@@ -36,29 +38,34 @@ class SaveData {
 
     save() {
         let saveString = JSON.stringify(this);
-        localStorage.setItem(this.title, saveString);
-        console.log(`saved to "${this.title}":`, saveString);
+        localStorage.setItem(this.key, saveString);
+        console.log(`saved to "${this.key}".`);
+    }
+
+    delete() {
+        localStorage.removeItem(this.key);
     }
 }
 
-function saveExists(title = "") {
-    let data = localStorage.getItem(title);
+function saveExists(key = "") {
+    let data = localStorage.getItem(key);
     if (data) {
         return true;
     }
     return false;
 }
 
-function loadData(title = "", world) {
+function loadData(key = "", world) {
 
-    let dataString = localStorage.getItem(title);
+    let dataString = localStorage.getItem(key);
     let data = JSON.parse(dataString);
 
-    world.position = data["position"];
-    world.inventory = data["inventory"];
-    world.signals = data.signals; // test if . notation works
+    world.position = data.position;
+    world.inventory = data.inventory;
+    world.locations = data.locations;
+    world.signals = data.signals;
 
-    console.log(`loaded save: ${title}.`);
+    console.log(`loaded save: ${key}.`);
 
     return data;
 }

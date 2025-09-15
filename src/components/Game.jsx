@@ -6,7 +6,7 @@ import world from '../scripts/story';
 import SaveData from '../scripts/saveData';
 import '../styles/play.css';
 
-let gameSave = new SaveData('test-save', world);
+let gameSave = new SaveData('auto-save', world);
 
 function Game() {
 
