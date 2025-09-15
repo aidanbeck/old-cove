@@ -13,7 +13,7 @@ class SaveData {
         }
 
         if (saveExists(key)) {
-            this.data = loadData(key, world).data;
+            this.data = loadData(key, world);
             console.log(`save "${key}" already exists. Data:`, this.data);
         }
 
@@ -27,11 +27,11 @@ class SaveData {
         */
         if (world.position == "description-path" || world.position == "description-item") { return; }
 
-        this.position = world.position;
-        this.inventory = world.inventory;
-        this.locations = world.locations;
-        this.signals = world.signals;
-        this.dateUpdated = new Date();
+        this.data.position = world.position;
+        this.data.inventory = world.inventory;
+        this.data.locations = world.locations;
+        this.data.signals = world.signals;
+        this.data.dateUpdated = new Date();
 
         this.save(); // every time?
     }
@@ -39,7 +39,7 @@ class SaveData {
     save() {
         let saveString = JSON.stringify(this);
         localStorage.setItem(this.key, saveString);
-        console.log(`saved to "${this.key}".`);
+        console.log(`saved to "${this.key}" at ${this.data.dateUpdated}.`);
     }
 
     delete() {
@@ -57,8 +57,8 @@ function saveExists(key = "") {
 
 function loadData(key = "", world) {
 
-    let dataString = localStorage.getItem(key);
-    let data = JSON.parse(dataString);
+    let saveString = localStorage.getItem(key);
+    let data = JSON.parse(saveString).data;
 
     world.position = data.position;
     world.inventory = data.inventory;
