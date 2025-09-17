@@ -36,7 +36,8 @@ function oppositeSignals(world) {
     Things Behaviors can Create:
     - semi-random events
     - binary states (power, weather, tide, daylight)
-    - time & weather states could affect descriptions often
+    - increment new values declared in "world"
+     - time & weather states could affect descriptions often
 
     It would be cleaner to make signals a more complicated data type with these capabilities built in,
     or add syntax to support conditionals and item detection and everything else I might want.
@@ -44,3 +45,9 @@ function oppositeSignals(world) {
     If I try to account for everything, I will spend significant time on meaningless implementations and will still miss some functionality.
     This is hacky but very dynamic. Designing Old Cove will teach me what kind of functionality is important to build in for my next project.
 */
+
+export default [
+    libraryDoorOpen,
+    hasItemSignals,
+    oppositeSignals
+];
