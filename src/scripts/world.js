@@ -232,9 +232,17 @@ class World {
             }
 
             //give signals
-            for (let signal of path.signals) {
+            for (let signal of path.addSignals) {
                 if (!this.signals.includes(signal)) {
                     this.signals.push(signal);
+                }
+            }
+
+            //remove signals
+            for (let signal of path.removeSignals) {
+                if (this.signals.includes(signal)) {
+                    let signalIndex = this.signals.indexOf(signal);
+                    this.signals.splice(signalIndex, 1);
                 }
             }
 
