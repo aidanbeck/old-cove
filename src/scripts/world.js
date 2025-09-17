@@ -226,8 +226,6 @@ class World {
         let playerHasAllTakenSignals = this.playerHasSignals(path.takenSignals);
         let playerHasAllGivenSignals = this.playerHasSignals(path.givenSignals) && path.givenSignals.length > 0;
 
-        console.log(playerHasAllTakenSignals);
-
         if (
             playerHasAllTakenItems
             && playerHasAllRequiredItems
@@ -237,7 +235,6 @@ class World {
         ) {
             return true;
         }
-
         return false;
     }
     choosePath(index) {

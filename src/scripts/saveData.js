@@ -65,7 +65,7 @@ function loadData(key = "", world) {
     world.locations = data.locations;
     world.signals = data.signals;
 
-    console.log(`loaded save: ${key}.`);
+    // console.log(`loaded save: ${key}.`);
 
     return data;
 }
