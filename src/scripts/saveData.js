@@ -39,7 +39,7 @@ class SaveData {
     save() {
         let saveString = JSON.stringify(this);
         localStorage.setItem(this.key, saveString);
-        console.log(`saved to "${this.key}" at ${this.data.dateUpdated}.`);
+        //console.log(`saved to "${this.key}" at ${this.data.dateUpdated}.`);
     }
 
     delete() {

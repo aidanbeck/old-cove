@@ -1,6 +1,6 @@
 function Options(props) {
 
-  let { paths, items, playerHasItems, handleChange } = props;
+  let { paths, items, playerHasItems, playerHasSignals, handleChange } = props;
 
   let lockedOptionsJSX = []; // jsx for unselectable options.
   let optionsJSX = paths.map( (path, index) => {
@@ -12,9 +12,17 @@ function Options(props) {
     }
 
     /* Creates options that are crossed out */
-    let playerHasAllGivenItems = playerHasItems(path.givenItems);
-    // !!! I should add another way for elements to be crossed out, emulating the "limit" feature, but with signals!
-    if (playerHasAllGivenItems && path.givenItems.length > 0) { // cross out the element.
+    let cantGiveItems = playerHasItems(path.givenItems) && path.givenItems.length > 0;
+    let cantTakeSignals = !playerHasSignals(path.takenSignals) && path.takenSignals.length > 0;
+    let cantGiveSignals = playerHasSignals(path.givenSignals) && path.givenSignals.length > 0;
+
+    let somethingNeedsToHappen = path.givenItems.length > 0 || path.takenSignals.length > 0 || path.givenSignals.length > 0;
+    let cantDoSomething = (cantGiveItems || cantTakeSignals || cantGiveSignals);
+
+    console.log(path.buttonPrompt, somethingNeedsToHappen, cantGiveItems, cantTakeSignals, cantGiveSignals);
+
+
+    if (somethingNeedsToHappen && cantDoSomething) { // cross out the element.
       lockedOptionsJSX[lockedOptionsJSX.length] = <div key={index} className={optionClass + " locked"}><strike>{path.buttonPrompt}</strike></div>;
       return;
     }

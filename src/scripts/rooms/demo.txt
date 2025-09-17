@@ -104,5 +104,5 @@ At the top of the hill, the trail connects to a dirt road. It doesn't look like 
  "Thank you for playing my demo! My deadline is in 10 minutes, so that's all there is for now `-Developer".
  What a strange thing to find.
 *Empty
-* Fix Door. <breakIn ~breakIn $hammer
+* Fix Door. <breakIn $hammer
 All patched up.

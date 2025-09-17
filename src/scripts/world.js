@@ -161,6 +161,9 @@ class World {
         this.moveTo("description-item");
     }
 
+    hasSignal(signal) {
+        return this.signals.includes(signal);
+    }
     hasItem(itemKey) {
         return this.inventory.includes(itemKey);
     }
@@ -191,9 +194,9 @@ class World {
         this.giveLocation(this.getRoom().givenLocation);
     }
 
-    playerHasItems(items) { // returns true if player has all items of an input set
+    playerHasItems(inputItems) { // returns true if player has all items of an input set
         let playerHasAllInputItems = true;
-        for (let item of items) {
+        for (let item of inputItems) {
             if (!this.hasItem(item)) {
                 playerHasAllInputItems = false;
             }
@@ -201,15 +204,37 @@ class World {
 
         return playerHasAllInputItems;
     }
+    playerHasSignals(inputSignals) {
+        let playerHasAllInputSignals = true;
+        for (let signal of inputSignals) {
+            if (!this.hasSignal(signal)) {
+                playerHasAllInputSignals = false;
+            }
+        }
+
+        return playerHasAllInputSignals;
+    }
     isValidPath(pathIndex) { // true if user and path meet all requirements to select the path
+
         let path = this.getPaths()[pathIndex];
 
         // Get Conditionals
         let playerHasAllTakenItems = this.playerHasItems(path.takenItems);
         let playerHasAllRequiredItems = this.playerHasItems(path.requiredItems);
         let playerHasAllGivenItems = this.playerHasItems(path.givenItems) && path.givenItems.length > 0;
+        
+        let playerHasAllTakenSignals = this.playerHasSignals(path.takenSignals);
+        let playerHasAllGivenSignals = this.playerHasSignals(path.givenSignals) && path.givenSignals.length > 0;
 
-        if (playerHasAllTakenItems && playerHasAllRequiredItems && !playerHasAllGivenItems) {
+        console.log(playerHasAllTakenSignals);
+
+        if (
+            playerHasAllTakenItems
+            && playerHasAllRequiredItems
+            && !playerHasAllGivenItems
+            && playerHasAllTakenSignals
+            && !playerHasAllGivenSignals
+        ) {
             return true;
         }
 

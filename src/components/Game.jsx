@@ -62,6 +62,9 @@ function Game() {
   const playerHasItems = (itemKeys) => { // wrapper for world.playerHasItems(). Without this transfers the function but not the inventory information, so it would break.
     return worldRef.current.playerHasItems(itemKeys);
   }
+    const playerHasSignals = (signal) => { // <- ^ this seems hacky, should the paths themselves carry these methods? that way they can all be passed?
+    return worldRef.current.playerHasSignals(signal);
+  }
 
   // let world = worldRef.current;
 
@@ -69,7 +72,7 @@ function Game() {
     <div id="playScreen">
       <h1><Link id="backToTitle" to='/'>Old Cove</Link></h1>
       <Information world={worldRef.current} handleChange={handleChange}/>
-      <Options paths={worldRef.current.getPaths()} items={worldRef.current.items} playerHasItems={playerHasItems} handleChange={handleChange}/>
+      <Options paths={worldRef.current.getPaths()} items={worldRef.current.items} playerHasItems={playerHasItems} playerHasSignals={playerHasSignals} handleChange={handleChange}/>
     </div>
   )
 }
