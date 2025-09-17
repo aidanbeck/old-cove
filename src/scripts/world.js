@@ -21,13 +21,13 @@ class Paragraph {
 }
 
 class Path {
-    constructor(buttonPrompt = "prompt", targetRoomKey = '', paragraphs = [], addSignals = [], removeSignals = [], requiredItems = [], givenItems = [], takenItems = []) {
+    constructor(buttonPrompt = "prompt", targetRoomKey = '', paragraphs = [], givenSignals = [], takenSignals = [], requiredItems = [], givenItems = [], takenItems = []) {
         this.default = {
             buttonPrompt,
             targetRoomKey,
             paragraphs,
-            addSignals,
-            removeSignals,
+            givenSignals,
+            takenSignals,
             requiredItems,
             givenItems,
             takenItems
@@ -234,14 +234,14 @@ class World {
             }
 
             //give signals
-            for (let signal of path.addSignals) {
+            for (let signal of path.givenSignals) {
                 if (!this.signals.includes(signal)) {
                     this.signals.push(signal);
                 }
             }
 
             //remove signals
-            for (let signal of path.removeSignals) {
+            for (let signal of path.takenSignals) {
                 if (this.signals.includes(signal)) {
                     let signalIndex = this.signals.indexOf(signal);
                     this.signals.splice(signalIndex, 1);
