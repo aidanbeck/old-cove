@@ -21,12 +21,13 @@ class Paragraph {
 }
 
 class Path {
-    constructor(buttonPrompt = "prompt", targetRoomKey = '', paragraphs = [], signals = [], requiredItems = [], givenItems = [], takenItems = []) {
+    constructor(buttonPrompt = "prompt", targetRoomKey = '', paragraphs = [], addSignals = [], removeSignals = [], requiredItems = [], givenItems = [], takenItems = []) {
         this.default = {
             buttonPrompt,
             targetRoomKey,
             paragraphs,
-            signals,
+            addSignals,
+            removeSignals,
             requiredItems,
             givenItems,
             takenItems
