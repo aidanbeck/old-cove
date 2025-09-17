@@ -1,5 +1,3 @@
-import GoogleAd from './GoogleAd'
-
 function Options(props) {
 
   let { paths, items, playerHasItems, playerHasSignals, handleChange } = props;
@@ -73,7 +71,6 @@ function Options(props) {
     <div id="options">
       {optionsJSX}
       {lockedOptionsJSX}
-      <GoogleAd/>
     </div>
   );
 }
