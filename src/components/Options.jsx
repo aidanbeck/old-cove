@@ -11,16 +11,18 @@ function Options(props) {
       optionClass = "option finalOption"; // add the 'finalOption' class.
     }
 
-    /* Creates options that are crossed out */
+    /*
+      Creates options that are crossed out.
+      This segment makes me feel sick and greasy inside.
+      I feel like it should cross out only if NOTHING can be done.
+      I'm going to leave this sick and twisted code to haunt this file until I refactor it into a "World" method.
+    */
     let cantGiveItems = playerHasItems(path.givenItems) && path.givenItems.length > 0;
     let cantTakeSignals = !playerHasSignals(path.takenSignals) && path.takenSignals.length > 0;
     let cantGiveSignals = playerHasSignals(path.givenSignals) && path.givenSignals.length > 0;
 
     let somethingNeedsToHappen = path.givenItems.length > 0 || path.takenSignals.length > 0 || path.givenSignals.length > 0;
     let cantDoSomething = (cantGiveItems || cantTakeSignals || cantGiveSignals);
-
-    console.log(path.buttonPrompt, somethingNeedsToHappen, cantGiveItems, cantTakeSignals, cantGiveSignals);
-
 
     if (somethingNeedsToHappen && cantDoSomething) { // cross out the element.
       lockedOptionsJSX[lockedOptionsJSX.length] = <div key={index} className={optionClass + " locked"}><strike>{path.buttonPrompt}</strike></div>;
