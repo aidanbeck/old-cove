@@ -225,6 +225,8 @@ class World {
             //give items
             if (pathHasItemsToGive) { this.giveItems(path.givenItems); }
 
+            // !!! should these following blocks be independent methods?
+
             // take items
             for (let itemKey of path.takenItems) {
                 let itemIndex = this.inventory.indexOf(itemKey)
