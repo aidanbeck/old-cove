@@ -76,11 +76,19 @@ class World {
 
     // uses state signals to return the proper Room/Path/Paragraph variant
     getVariant(object) {
-        for (let signal of this.signals) {
-            if (signal in object.variants) { // if corresponding variant exists
-                return object.variants[signal]; // !!! does not account for competing signals
+
+        /*
+            Get a reverse list of variant keys.
+            It's reversed to make sure the variant most recently defined in syntax has priority.
+        */
+        let variantKeys = Object.keys(object.variants).reverse();
+
+        for (let key of variantKeys) { // cycle through all variants
+            if (this.signals.includes(key)) { // if corresponding signal exists
+                return object.variants[key];
             }
         }
+
         return object.default; // if no signals match, return default variant.
     }
 

@@ -72,7 +72,7 @@ At the top of the hill, the trail connects to a dirt road. It doesn't look like 
  Small single bunks line the sides of the tent, each with a trunk beneath it. An old coat hangs on the closest bed post. You might be able to find some supplies.
 *Exit the tent. > a road
  You're happy to be out of there.
-*Search the cabinet. +bandage
+*Search the cabinet. +bandage @gotBandage
  You discover a bandage.
 *Search the trunks +envelope
  You discover an envelope containing a letter. It's familiar.
@@ -85,7 +85,7 @@ At the top of the hill, the trail connects to a dirt road. It doesn't look like 
 #lighthouse %lighthouse
  The lighthouse sits on the edge of a cliff, defiantly piercing the seascape behind it.
  You try the door, but it seems jammed. ~breakIn The door is wide open, the head of an axe embedded into its front.
- Empty ~breakIn What used to be a handle is now splinters on the ground.
+ Empty ~breakIn What used to be a handle is now splinters on the ground. ~gotBandage this message has priority
 *Return to the road. > a road
 *Force it open. -axe @breakIn
  You swing the axe at the door`- it doesn't budge. You try again, harder this time, and it cracks.
