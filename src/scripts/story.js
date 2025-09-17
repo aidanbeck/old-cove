@@ -31,9 +31,10 @@ let items = {
     "pamphlet": new Item("📄 pamphlet", ["It outlines various library & summer reading programs."]),
     "match": new Item("📍 match", ["One strike can set anything ablaze."]),
 
-    "glass shard": new Item("💠 glass shard", ["Pointy and dangerous."])
+    "glass shard": new Item("💠 glass shard", ["Pointy and dangerous."]),
+    "bolt cutters": new Item("X bolt cutters", ['default description'])
 
 }
 
 
-export default new World(rooms, items, "rock cave");
+export default new World(rooms, items, "hospital", ["axe"]);

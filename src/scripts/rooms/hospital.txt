@@ -1,40 +1,121 @@
 & HOSPITAL
 
-#hospital %hospital
-The two`-story hospital lies silent. Grass seeps through the gravel parking lot and ivy climbs up the structure.
-The front door is chained closed with a padlock. You give it a tug, but it doesn't budge.
-~breakPadlock Loose chains hang from the front door's handles, no longer blocking access.
-* Circle around the hospital. > hospital side
- Every window on the first floor is barred with metal.
-* Break the chain. $bolt cutters @breakPadlock
- The chain snaps with a clink.
-* Enter. > hospital floor1 ~breakPadlock
- You push open the heavy rusted doors.
 
-#hospital side %hospital
- By the dumpsters, a fire escape clings to the side of the hospital.
- & could be better to have to bring the ladder down first.
-* Climb. > hospital roof
- You carefully ascend as the escape creaks under your weight.
- The second floor window has been hastily boarded shut, but the stairs continue to the roof.
-* Search the dumpsters. +rope
- Sifting through the garbage almost makes you puke.
- Despite this, you manage find some discarded rope.
+# hospital % hospital
+
+ The front Door.
+
+* Circle around the hospital. > hospital side
+
+* Break the chain. $bolt cutters @breakPadlock
+
+* Enter. > hospital floor 1 ~breakPadlock
+
+
+# hospital side % hospital
+
+ The side of the building.
+
+* Climb up the fire escape. > hospital roof
+
+* Search dumpsters. +rope
+ Found rope.
+
 * Return to the front. > hospital
 
-#hospital roof %hospital
- The concrete roof is flat, featuring little more than a skylight and some air conditioning units.
- Peering down through the skylight, you can see into the main hallway of the top floor.
- ~breakSkylight Beneath the shattered skylight, glass shards cover the hallway of the top floor.
- Empty
- ~placedHospitalRope A dirty rope dangles into the dim building.
-* Break glass. @breakSkylight $axe
+
+# hospital roof % hospital
+
+ The roof.
+ There is a skylight. ~breakSkyLight There is a shattered skylight.
+ Empty ~placedHospitalRope A dirty rope dangles into the dim building.
+
+* Break glass. $axe @breakSkyLight
  You throw your axe into the skylight.
- The glass fractures into a million pieces, tumbling down with your axe into the hospital.
-* Lower a rope. ~breakSkylight @placedHospitalRope -rope
- You fasten the rope to one of the air conditioning units, pull it tight, and fling the remaining rope down the skylight.
-* Descend down the rope. > hospital floor2 ~placedHospitalRope @footInjury
- You carefully 
+ It fractures into a million pieces.
+
 * Empty
-* Retrieve the rope. ~placedHospitalRope +rope
- & needs to UNplace the hospital rope!
+* Lower a rope. ~breakSkyLight -rope @placedHospitalRope
+ You fasten the rope to one of the air conditioning units, pull it tight, and fling the remaining length into the dark structure.
+* Retrieve the rope. ~placedHospitalRope +rope <placedHospitalRope
+ You pull the rope up.
+
+* Empty
+* Descend into the hospital. ~placedHospitalRope > hospital floor 2
+
+* Climb down the fire escape. > hospital side
+
+
+# hospital floor 2 % hospital
+
+ The second floor.
+ Empty ~breakSkyLight Shattered glass covers the floor.
+
+* Enter Dr. Malcom's office > hospital office $key
+
+* Walk downstairs. > hospital floor 1
+
+* Empty
+* Climb up rope. ~placedHospitalRope > hospital roof
+
+
+# hospital office % hospital
+& TODO
+
+
+# hospital floor 1 % hospital
+
+ The first floor. The stairway down to the basement has caved in.
+ The front door is still locked on the other side. ~breakPadlock Empty
+& This SHOULD be a way to render something only if the signal is absent, but it doesn't work.
+& I will find out why the Empty codeword is rendering and fix it.
+
+* Enter the elevator. > hospital elevator
+ The doors are slightly ajar. You squeeze through them.
+
+* Exit hospital. @breakSkyLight
+* Exit hospital. > hospital ~breakPadlock
+& Above is an example of how to cross out an option. It tries to give a signal you already have.
+& I'd actually just make a @crossOut signal that the player is given to start with
+
+* Walk upstairs. > hospital floor 2
+
+
+# hospital elevator % hospital
+ The elevator shaft descends downwards into the morgue. The cabin is suspended above, swaying slightly above your head.
+ There is a small platform to stand on. Some tools were left there.
+
+* Take bolt cutters. +bolt cutters
+ You take them.
+
+* Lower a rope. @placedElevatorRope -rope
+ You fasten the rope to the side of the shaft.
+* Retrieve the rope. ~placedElevatorRope <placedElevatorRope +rope
+ You pull the rope up.
+
+* Empty
+* Descend into the morgue ~placedElevatorRope > hospital morgue
+
+* Exit Elevator > hospital floor 1
+
+
+# hospital morgue % hospital
+ On the bed...
+ It's Dr. Malcom...
+
+* Search his pockets. +key
+ You feel sick.
+ You find his key.
+
+* Empty
+* Climb up rope ~placedElevatorRope > hospital elevator
+
+
+# hospital office % hospital
+ Dr. Malcom's office.
+
+* Read Note
+ Demo Complete!
+ I will add more flavor.
+
+* Exit office. > hospital floor 2
