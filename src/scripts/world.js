@@ -218,7 +218,7 @@ class World {
     choosePath(index) {
         let path = this.getPaths()[index];
         let pathHasItemsToGive = path.givenItems.length > 0;
-        let pathHasSignalsToGive = path.signals.length > 0;
+        let pathHasSignalsToGive = path.givenSignals.length > 0;
 
         if (this.isValidPath(index)) {
 

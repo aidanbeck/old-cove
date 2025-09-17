@@ -7,7 +7,8 @@ customSyntax.addRule("%", setGivenLocation);
 customSyntax.addRule("*", addPath);
 customSyntax.addRule("~", addVariant);
 customSyntax.addRule(">", setTargetRoomKey);
-customSyntax.addRule("@", addSignal);
+customSyntax.addRule("@", addGivenSignal);
+customSyntax.addRule("<", addTakenSignal);
 customSyntax.addRule("$", addRequiredItem);
 customSyntax.addRule("-", addTakenItem);
 customSyntax.addRule("+", addGivenItem);
@@ -102,7 +103,7 @@ function addVariant(input, object) { // This is a monster and should be refactor
         
         // Copy the newly created "default" path over as an alternate of the path before it.
         let originalPath = roomContainingPaths.paths.at(originalPathIndex);
-        originalPath.addVariant(input, pathVariant.buttonPrompt, pathVariant.targetRoomKey, pathVariant.paragraphs, pathVariant.signals, pathVariant.requiredItems, pathVariant.givenItems, pathVariant.takenItems);
+        originalPath.addVariant(input, pathVariant.buttonPrompt, pathVariant.targetRoomKey, pathVariant.paragraphs, pathVariant.givenSignals, pathVariant.takenSignals, pathVariant.requiredItems, pathVariant.givenItems, pathVariant.takenItems);
 
         roomContainingPaths.paths.pop(); // remove temporary path variant's unique spot
 
@@ -147,8 +148,12 @@ function setTargetRoomKey(input, object) {
     getLatestPath(object).targetRoomKey = input;
 }
 
-function addSignal(input, object) {
-    getLatestPath(object).signals.push(input);
+function addGivenSignal(input, object) {
+    getLatestPath(object).givenSignals.push(input);
+}
+
+function addTakenSignal(input, object) {
+    getLatestPath(object).takenSignals.push(input);
 }
 
 function addRequiredItem(input, object) {
