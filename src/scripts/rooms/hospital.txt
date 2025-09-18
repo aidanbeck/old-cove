@@ -76,7 +76,7 @@
 * Exit hospital. @breakSkyLight
 * Exit hospital. > hospital ~breakPadlock
 & Above is an example of how to cross out an option. It tries to give a signal you already have.
-& I'd actually just make a @crossOut signal that the player is given to start with
+& I'd actually just make a crossOut signal that the player is given to start with
 
 * Walk upstairs. > hospital floor 2
 

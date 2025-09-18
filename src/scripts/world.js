@@ -113,7 +113,9 @@ class World {
 
         for (let paragraph of roomVariant.paragraphs) {
             let paragraphVariant = this.getVariant(paragraph);
-            paragraphs.push(paragraphVariant);
+            if (paragraph != "Empty" && paragraph != "") { // if paragraph exists
+                paragraphs.push(paragraphVariant);
+            }
         }
         return paragraphs;
     }

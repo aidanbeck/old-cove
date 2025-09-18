@@ -85,6 +85,7 @@ function addVariant(input, object) { // This is a monster and should be refactor
         let firstSpace = input.indexOf(' ');
         let signal = input.slice(0,firstSpace); //string before the first space, the signal
         let alteredString = input.slice(firstSpace).trim(); //string trimmed after the first space, the rest of the text
+        if (alteredString == "Empty") { alteredString = "" }; // wipe paragraph if using "Empty" keyword
         let mostRecentParagraph = getLatest(object).paragraphs.at(-1); // the most recent paragraph object
         mostRecentParagraph.addVariant(signal, alteredString);
 
