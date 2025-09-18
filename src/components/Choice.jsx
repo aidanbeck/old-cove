@@ -18,7 +18,7 @@ function ItemList({items, entryWord}) {
 
 function Choice(props) {
 
-    let { prompt, requiredItems, takenItems, givenItems, faded, crossedOut, wide, handleChange } = props;
+    let { index, prompt, requiredItems, takenItems, givenItems, faded, crossedOut, wide, handleChange } = props;
 
 
     let promptJSX = <div>{prompt}</div>
@@ -55,7 +55,7 @@ function Choice(props) {
     // might need to recieve index as a prop to know what self is when clicked
 
     return (
-        <div id="choice" className={classes}>
+        <div id="choice" className={classes} onClick={() => handleChange("option", index)}>
             <ItemList items={requiredItems} entryWord="Requires "/>
             <ItemList items={takenItems} entryWord="Use "/>
             {promptJSX}          

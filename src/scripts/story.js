@@ -32,7 +32,7 @@ let items = {
     "match": new Item("📍 match", ["One strike can set anything ablaze."]),
 
     "glass shard": new Item("💠 glass shard", ["Pointy and dangerous."]),
-    "bolt cutters": new Item("X bolt cutters", ['default description'])
+    "bolt cutters": new Item("🔧 bolt cutters", ['default description'])
 
 }
 

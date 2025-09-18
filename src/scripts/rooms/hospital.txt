@@ -37,7 +37,7 @@
 * Empty
 * Lower a rope. ~breakSkyLight -rope @placedHospitalRope
  You fasten the rope to one of the air conditioning units, pull it tight, and fling the remaining length into the dark structure.
-* Retrieve the rope. ~placedHospitalRope +rope <placedHospitalRope
+* (`+🧵) Retrieve the rope. ~placedHospitalRope +rope <placedHospitalRope
  You pull the rope up.
 
 * Empty
@@ -90,7 +90,7 @@
 
 * Lower a rope. @placedElevatorRope -rope
  You fasten the rope to the side of the shaft.
-* Retrieve the rope. ~placedElevatorRope <placedElevatorRope +rope
+* Retrieve the 🧵rope. ~placedElevatorRope <placedElevatorRope +rope
  You pull the rope up.
 
 * Empty

@@ -12,23 +12,20 @@ function Choices(props) {
         let requiredItemStrings = getItemStrings(path.requiredItems, items);
         let takenItemStrings = getItemStrings(path.takenItems, items);
 
-        // fade out if player does not have required/taken items.
-        let faded = !playerHasItems(path.requiredItems) || !playerHasItems(path.takenItems);
-
         let crossedOut = 
-        playerHasItems(path.givenItems)
-        || playerHasSignals(path.givenSignals)
-        || !playerHasSignals(path.takenSignals);
-        
-        // already has given items
-        // already has given signals
-        // doesn't have taken signals
-        // needs a hasItems & hasSignals function !!
+        ( playerHasItems(path.givenItems) && path.givenItems.length > 0 ) // already has given items
+        || ( playerHasSignals(path.givenSignals) && path.givenSignals.length > 0 )  // already has given signals
+        || ( !playerHasSignals(path.takenSignals) && path.takenSignals.length > 0); // doesn't have taken signals
 
-        let wide = paths.length % 2 !== 0 && index == paths.length - 1; // widen if option is the last of an odd number.
+        // fade out if player does not have required/taken items.
+        let faded = !playerHasItems(path.requiredItems) || !playerHasItems(path.takenItems) || crossedOut;
+        
+        // widen if option is the last of an odd number.
+        let wide = paths.length % 2 !== 0 && index == paths.length - 1;
 
         return <Choice 
             key={index}
+            index={index}
             prompt={prompt}
             requiredItems={requiredItemStrings}
             takenItems={takenItemStrings}

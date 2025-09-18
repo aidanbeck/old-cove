@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useRef } from 'react';
 import Information from './Information';
-import Options from './Options';
 import Choices from './Choices';
 import GoogleAd from './GoogleAd';
 
@@ -76,7 +75,6 @@ function Game() {
     <div id="playScreen">
       <h1><Link id="backToTitle" to='/'>Old Cove</Link></h1>
       <Information world={worldRef.current} handleChange={handleChange}/>
-      <Options paths={worldRef.current.getPaths()} items={worldRef.current.items} playerHasItems={playerHasItems} playerHasSignals={playerHasSignals} handleChange={handleChange}/>
       <Choices paths={worldRef.current.getPaths()} items={worldRef.current.items} playerHasItems={playerHasItems} playerHasSignals={playerHasSignals} handleChange={handleChange}/>
       {/* <GoogleAd/> */}
     </div>
