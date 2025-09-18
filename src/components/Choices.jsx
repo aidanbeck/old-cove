@@ -2,7 +2,7 @@ import Choice from './Choice';
 
 function Choices(props) {
 
-    let { paths, items, playerHasItems, playerHasSignals, handleChange } = props;
+    let { paths, items, lastPosition, playerHasItems, playerHasSignals, handleChange } = props;
 
     let buttonPromptsJSX = paths.map( (path, index) => {
         
@@ -23,6 +23,9 @@ function Choices(props) {
         // widen if option is the last of an odd number.
         let wide = paths.length % 2 !== 0 && index == paths.length - 1;
 
+        // rewind if path's targetKey is the player's last position
+        let rewind = (lastPosition == path.targetRoomKey && lastPosition != '');
+
         return <Choice 
             key={index}
             index={index}
@@ -32,6 +35,7 @@ function Choices(props) {
             faded={faded}
             crossedOut={crossedOut}
             wide={wide}
+            rewind={rewind}
             handleChange={handleChange}
         />
     });

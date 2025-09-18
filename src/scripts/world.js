@@ -68,6 +68,7 @@ class World {
         this.inventory = inventory; // array of item key strings.
         this.locations = locations; // a list of keys the user has collected and can fast travel to
         this.positon = position; // the key of the room the user is in
+        this.lastPosition = '';
         this.selectedLocation = '';
         this.selectedItem = ''; // TODO use this to render an item instead of a room if it isn't blank, this gets rid of the hacky showItemParagraphs
         
@@ -166,7 +167,7 @@ class World {
 
 
         // otherwise it's the same hacky method as before.
-        let continuePath = new Path("...", returnKey);
+        let continuePath = new Path(" ", returnKey);
         this.rooms["description-item"] = new Room('', item.paragraphs, [continuePath]);
         this.moveTo("description-item");
     }
@@ -199,6 +200,9 @@ class World {
     }
 
     moveTo(roomKey) {
+        if (this.position != "description-path") { // this is not foolproof, it can break. but I need sleep. goodnight!
+            this.lastPosition = this.position; // prevent descriptions from overwriting lastPosition. description-path is hacky and it is spreading!!!
+        }
         this.position = roomKey;
         this.selectedItem = ''; // wipe selected item when player moves (TODO refactor when items can have multiple rooms)
         this.giveLocation(this.getRoom().givenLocation);

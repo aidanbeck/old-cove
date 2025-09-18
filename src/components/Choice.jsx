@@ -12,19 +12,22 @@ function itemIcons(itemStrings) {
     return iconString;
 }
 
+
+// ⏮  other contenders: ↩◀⮜
+
 function Choice(props) {
 
-    let { index, prompt, requiredItems, takenItems, givenItems, faded, crossedOut, wide, handleChange } = props;
+    let { index, prompt, requiredItems, takenItems, faded, crossedOut, wide, rewind, handleChange } = props;
 
 
     let promptJSX = <span>{prompt}</span>
-    crossedOut && (promptJSX = <span style={{ textDecoration: 'line-through' }}>{prompt}</span>);
-
+    let icons = itemIcons(requiredItems) + itemIcons(takenItems);
     let classes = "option";
+
+    crossedOut && (promptJSX = <span style={{ textDecoration: 'line-through' }}>{prompt}</span>);
     wide && (classes += " finalOption");
     faded && (classes += " locked");
-
-    let icons = itemIcons(requiredItems) + itemIcons(takenItems);
+    rewind && (icons += " ⏮ ");
 
     return (
         <div id="choice" className={classes} onClick={() => handleChange("option", index)}>

@@ -75,7 +75,7 @@ function Game() {
     <div id="playScreen">
       <h1><Link id="backToTitle" to='/'>Old Cove</Link></h1>
       <Information world={worldRef.current} handleChange={handleChange}/>
-      <Choices paths={worldRef.current.getPaths()} items={worldRef.current.items} playerHasItems={playerHasItems} playerHasSignals={playerHasSignals} handleChange={handleChange}/>
+      <Choices paths={worldRef.current.getPaths()} items={worldRef.current.items} lastPosition={worldRef.current.lastPosition} playerHasItems={playerHasItems} playerHasSignals={playerHasSignals} handleChange={handleChange}/>
       {/* <GoogleAd/> */}
     </div>
   )
