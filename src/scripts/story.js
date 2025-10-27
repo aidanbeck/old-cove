@@ -37,4 +37,4 @@ let items = {
 }
 
 
-export default new World(rooms, items, "hospital", ["axe"]);
+export default new World(rooms, items, "rock cave", ["axe"]);

@@ -1,4 +1,5 @@
 import Choice from './Choice';
+import '../styles/choices.css';
 
 function Choices(props) {
 

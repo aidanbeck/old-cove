@@ -1,0 +1,36 @@
+/*
+  Styles the individual button choices.
+  *Not* the container of buttons.
+*/
+.option {
+  width: 47.5%; /* leave 0.5 for horizontal space of margins & padding */
+  padding: 1%;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(0, 0, 0, 0.5);
+  text-shadow: 1px 1px 2px rgb(255, 255, 255, 0.8);
+  transition: background-color 0.25s;
+
+  text-align: center;
+}
+
+.option:hover:not(.locked) {
+  color: #213547;
+  background-color: rgba(235, 235, 235);
+  text-shadow: 1px 2px 2px rgb(0, 0, 0, 0.2);
+}
+
+.option > hr {
+  margin-bottom: 1%;
+  margin-top: 0%;
+}
+.finalOption {
+  width: 98%;
+  text-align: center;
+  /* I'm not sure if I like this */
+}
+
+.locked {
+  cursor: default;
+  opacity: 0.3;
+}

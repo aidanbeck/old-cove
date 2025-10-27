@@ -1,3 +1,5 @@
+import '../styles/sidebars.css';
+
 function Items(props) {
 
     let { items, inventory, selectedItem, handleChange } = props;

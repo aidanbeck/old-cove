@@ -1,3 +1,5 @@
+import '../styles/sidebars.css';
+
 function Locations(props) {
 
   let { locations, currentLocation, handleChange } = props;

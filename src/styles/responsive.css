@@ -1,3 +1,6 @@
+/*
+    Creates breakpoints for different screen sizes.
+*/
 /* phones */
 @media only screen and (max-width: 600px) {
     #description { width: 100%; }
