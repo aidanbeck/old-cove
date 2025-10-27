@@ -66,8 +66,9 @@ class World {
         this.positon = position; // the key of the room the user is in
         this.lastPosition = '';
         this.selectedLocation = '';
-        this.selectedItem = ''; // TODO use this to render an item instead of a room if it isn't blank, this gets rid of the hacky showItemParagraphs
-        
+        this.itemPosition = ''; // TODO use this to render an item instead of a room if it isn't blank, this gets rid of the hacky showItemParagraphs
+        this.inspectingItem = false;
+
         this.moveTo(position); // adds location if it is needed
     }
 
@@ -94,8 +95,13 @@ class World {
         uses state signals to determine proper variant.
     */
     getRoom() {
-        let positionRoom = this.rooms[this.position]; // inhabited room
-        let roomVariant = this.getVariant(positionRoom); // proper variant of inhabited room
+        let roomVariants = this.rooms[this.position];
+
+        if (this.isInspectingItem()) {
+            roomVariants = this.rooms[this.itemPosition]; // redirect room if player is inspecting an item
+        }
+
+        let roomVariant = this.getVariant(roomVariants); // proper variant of inhabited room
         return roomVariant;
     }
 
@@ -136,6 +142,13 @@ class World {
 
             paths.push(pathVariant);
         }
+
+        if (this.isInspectingItem()) {
+            let returnPath = new Path("⏮", this.position);
+            let returnPathDefault = returnPath.default;
+            paths.push( returnPathDefault );
+        }
+
         return paths;
     }
 
@@ -150,22 +163,6 @@ class World {
 
         //this is messy, return to clean up if I have time.
         //could be more clean, but I have a deadline.
-    }
-
-    showItemParagraphs(item) {
-
-        item = this.items[item];
-        let returnKey = this.position;
-
-        if (this.position == "description-item") { // if user is already reading an item,
-            returnKey = this.getPaths()[0].targetRoomKey; // don't return to that item, return to what that item is returning to
-        }
-
-
-        // otherwise it's the same hacky method as before.
-        let continuePath = new Path(" ", returnKey);
-        this.rooms["description-item"] = new Room('', item.paragraphs, [continuePath]);
-        this.moveTo("description-item");
     }
 
     hasSignal(signal) {
@@ -200,8 +197,18 @@ class World {
             this.lastPosition = this.position; // prevent descriptions from overwriting lastPosition. description-path is hacky and it is spreading!!!
         }
         this.position = roomKey;
-        this.selectedItem = ''; // wipe selected item when player moves (TODO refactor when items can have multiple rooms)
+        this.itemPosition = ''; // wipe selected item when player moves (TODO refactor when items can have multiple rooms)
         this.giveLocation(this.getRoom().givenLocation);
+    }
+
+    inspectItem(itemKey) { // like moveTo, but for items
+
+        this.itemPosition = itemKey;
+        // this.moveTo(itemKey); // !!!temporary
+    }
+
+    isInspectingItem() {
+        return this.itemPosition != '';
     }
 
     playerHasItems(inputItems) { // returns true if player has all items of an input set

@@ -40,7 +40,6 @@ function origin(commands, syntax) {
 }
 
 function final(object) {
-    debugger;
     return { rooms: object.rooms, items: object.items} // ignore build/room structure, just return rooms and items
 }
 
@@ -60,6 +59,18 @@ function addItemType(input, object) {
     let itemKey = input.slice(0,firstSpace); //string before the first space, the item key
     let itemDisplay = input.slice(firstSpace).trim(); //string trimmed after the first space, the rest of the text
     object.items[itemKey] = new Item(itemDisplay, itemKey);
+    /*
+        I could have a "path" *into* the item itself
+        this would display before giving item options
+        it could also be used as a default to not actually give an item a room
+        you could define an item as
+
+        ]axe 🪓 dull axe
+        You hold its wooden handle carefully to avoid splinters.
+
+        and if the room "axe" doesn't exist, instead of "..." it will show the back arrow.
+        This lets me add a bit of flavor to taking the item out.
+    */
 }
 
 function addRoom(input, object) {

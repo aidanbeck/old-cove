@@ -54,7 +54,7 @@ function Game() {
     }
 
     if (type == "item") {
-      w.showItemParagraphs(value);
+      w.inspectItem(value);
       w.selectedItem = value;
     }
     
