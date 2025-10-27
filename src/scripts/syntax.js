@@ -1,5 +1,5 @@
 import { Syntax, build } from 'syntaxlor';
-import { Room, Path, Paragraph } from './world.js';
+import { Room, Path, Paragraph, Item } from './world.js';
 
 let customSyntax = new Syntax(origin, final, addParagraph, '&');
 customSyntax.addRule('#', addRoom);
@@ -12,6 +12,8 @@ customSyntax.addRule("<", addTakenSignal);
 customSyntax.addRule("$", addRequiredItem);
 customSyntax.addRule("-", addTakenItem);
 customSyntax.addRule("+", addGivenItem);
+customSyntax.addRule("]", addItemType);
+
 
 export { customSyntax, build };
 
@@ -27,7 +29,8 @@ function origin(commands, syntax) {
             latestEither: null, //reference to the most recent path OR room
             latestKey: null // string, used to get the path to the most recently created room.
         },
-        rooms: {}
+        rooms: {},
+        items: {}
         // should world variables be output here or just rooms?
         // should I separate build and output?
         // should just the rooms be output without having it wrapped in a rooms object?
@@ -37,7 +40,8 @@ function origin(commands, syntax) {
 }
 
 function final(object) {
-    return object.rooms; // ignore build/room structure & just return rooms
+    debugger;
+    return { rooms: object.rooms, items: object.items} // ignore build/room structure, just return rooms and items
 }
 
 // Helper Functions
@@ -49,6 +53,13 @@ function getLatestPath(object) {
 }
 function getLatest(object) {
     return object.build.latestEither;
+}
+
+function addItemType(input, object) {
+    let firstSpace = input.indexOf(' ');
+    let itemKey = input.slice(0,firstSpace); //string before the first space, the item key
+    let itemDisplay = input.slice(firstSpace).trim(); //string trimmed after the first space, the rest of the text
+    object.items[itemKey] = new Item(itemDisplay, itemKey);
 }
 
 function addRoom(input, object) {

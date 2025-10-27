@@ -10,6 +10,7 @@ function Items(props) {
             return <div key={index} className="item currentItem" onClick={() => handleChange("item", item)}>{items[item].name}</div>
         }
 
+        debugger;
         return <div key={index} className="item" onClick={() => handleChange("item", item)}>{items[item].name}</div>
     });
 

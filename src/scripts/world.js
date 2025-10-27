@@ -1,11 +1,7 @@
 class Item {
-    constructor(name, paragraphs = ["This item doesn't have a description."]) { // takes strings for input, not actual Paragraph classes (for now)
+    constructor(name, roomKey) { // takes strings for input, not actual Paragraph classes (for now)
         this.name = name;
-        this.paragraphs = [];
-        for (let i = 0; i < paragraphs.length; i++) {
-            this.paragraphs[i] = new Paragraph(paragraphs[i]);
-        }
-        // TODO: items should contain one or more rooms for their descriptions.
+        this.roomKey = roomKey;
     }
 }
 

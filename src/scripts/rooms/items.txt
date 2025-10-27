@@ -1,0 +1,70 @@
+]axe 🪓 dull axe
+#axe %axe
+You hold its wooden handle carefully to avoid splinters.
+
+
+]journal 📙 tattered journal
+#journal %journal
+the pages are nearly falling out on their own.
+* Open > journal 2
+
+#journal 2 %journal
+There are leaves pressed into the pages
+* Take leaves +bolt cutters
+
+
+]key 🔑 bronze key
+#key %key
+It shines, but you can't make out your reflection.
+
+
+]hammer 🔨 rusty hammer
+#hammer %hammer
+For when everything looks like a nail.
+
+
+]torch 🔦 torch
+#torch %torch
+Miraculously it still turns on.
+
+
+]envelope 📧 envelope
+#envelope %envelope
+"Dear..."
+You can't bear to read the rest.
+
+
+]bandage 🩹 bandage
+#bandage %bandage
+You can't get hurt in this game... can you?
+
+
+]rope 🧵 rope
+#rope %rope
+A long time ago, this was used to tie ships to the docks in the harbor.
+
+
+]shell 🐚 sea shell
+#shell %shell
+You lift it up to your ear.
+The familar sound of waves greets you like a call from an old friend.
+
+
+]pamphlet 📄 pamphlet
+#pamphlet %pamphlet
+It outlines various library & summer reading programs.
+
+
+]match 📍 match
+#match %match
+One strike can set anything ablaze.
+
+
+]glass shard 💠 glass shard
+#glass shard %glass shard
+Pointy and dangerous.
+
+
+]bolt cutters 🔧 bolt cutters
+#bolt cutters %bolt cutters
+It's stiff with rust, but still works.
