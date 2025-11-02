@@ -55,9 +55,9 @@ function getLatest(object) {
 }
 
 function addItemType(input, object) {
-    let firstSpace = input.indexOf(' ');
+    let firstSpace = input.indexOf(':');
     let itemKey = input.slice(0,firstSpace); //string before the first space, the item key
-    let itemDisplay = input.slice(firstSpace).trim(); //string trimmed after the first space, the rest of the text
+    let itemDisplay = input.slice(firstSpace+1).trim(); //string trimmed after the first space, the rest of the text
     object.items[itemKey] = new Item(itemDisplay, itemKey);
     /*
         I could have a "path" *into* the item itself
@@ -65,7 +65,8 @@ function addItemType(input, object) {
         it could also be used as a default to not actually give an item a room
         you could define an item as
 
-        ]axe 🪓 dull axe
+        ]axe: 🪓 dull axe
+        #axe %axe
         You hold its wooden handle carefully to avoid splinters.
 
         and if the room "axe" doesn't exist, instead of "..." it will show the back arrow.
