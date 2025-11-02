@@ -19,4 +19,4 @@ for (let roomFileText of Object.values(roomFiles)) {
 let compiled = build(roomSyntaxInput, customSyntax);
 
 
-export default new World(compiled.rooms, compiled.items, "rock cave", ["axe"]);
+export default new World(compiled.rooms, compiled.items, "rock cave", ["journal"]);

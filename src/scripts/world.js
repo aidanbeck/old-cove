@@ -53,7 +53,7 @@ class Room {
 }
 
 class World {
-    constructor(rooms = {}, items = {}, position, inventory = [], signals = [],  locations = []) {
+    constructor(rooms = {}, items = {}, position, inventoryItems = [], signals = [],  locations = []) {
 
         //STATIC
         this.rooms = rooms; // object of rooms objects. Keys are used to identify each room.
@@ -61,15 +61,22 @@ class World {
 
         //DYNAMIC
         this.signals = signals; // array of state-changing signal strings. 
-        this.inventory = inventory; // array of item key strings.
+        this.inventoryItems = inventoryItems; // array of item key strings.
         this.locations = locations; // a list of keys the user has collected and can fast travel to
-        this.positon = position; // the key of the room the user is in
-        this.lastPosition = '';
-        this.selectedLocation = '';
-        this.itemPosition = ''; // TODO use this to render an item instead of a room if it isn't blank, this gets rid of the hacky showItemParagraphs
-        this.inspectingItem = false;
+        
+        this.position = {
+            roomKey: position,
+            lastRoomKey: '',
+            itemKey: '',
+            lastItemKey: ''
+        }
 
-        this.moveTo(position); // adds location if it is needed
+        this.selected = {
+            location: '',
+            inventoryItem: ''
+        };
+
+        this.moveTo(this.position.roomKey); // adds location if it is needed
     }
 
     // uses state signals to return the proper Room/Path/Paragraph variant
@@ -95,10 +102,10 @@ class World {
         uses state signals to determine proper variant.
     */
     getRoom() {
-        let roomVariants = this.rooms[this.position];
+        let roomVariants = this.rooms[this.position.roomKey];
 
         if (this.isInspectingItem()) {
-            roomVariants = this.rooms[this.itemPosition]; // redirect room if player is inspecting an item
+            roomVariants = this.rooms[this.position.itemKey]; // redirect room if player is inspecting an item
         }
 
         let roomVariant = this.getVariant(roomVariants); // proper variant of inhabited room
@@ -144,9 +151,8 @@ class World {
         }
 
         if (this.isInspectingItem()) {
-            let returnPath = new Path("⏮", this.position);
-            let returnPathDefault = returnPath.default;
-            paths.push( returnPathDefault );
+            let returnPath = new Path("⏮", this.position.roomKey);
+            paths.push( this.getVariant(returnPath) );
         }
 
         return paths;
@@ -169,12 +175,12 @@ class World {
         return this.signals.includes(signal);
     }
     hasItem(itemKey) {
-        return this.inventory.includes(itemKey);
+        return this.inventoryItems.includes(itemKey);
     }
     giveItems(items) {
         for (let itemKey of items) {
             if (this.hasItem(itemKey)) { return; } // prevents having the same item twice
-            this.inventory.push(itemKey);
+            this.inventoryItems.push(itemKey);
         }
     }
 
@@ -193,22 +199,23 @@ class World {
     }
 
     moveTo(roomKey) {
-        if (this.position != "description-path") { // this is not foolproof, it can break. but I need sleep. goodnight!
-            this.lastPosition = this.position; // prevent descriptions from overwriting lastPosition. description-path is hacky and it is spreading!!!
+        if (this.position.roomKey != "description-path") { // this is not foolproof, it can break. but I need sleep. goodnight!
+            this.position.lastRoomKey = this.position.roomKey; // prevent descriptions from overwriting lastPosition. description-path is hacky and it is spreading!!!
         }
-        this.position = roomKey;
-        this.itemPosition = ''; // wipe selected item when player moves (TODO refactor when items can have multiple rooms)
+        this.position.roomKey = roomKey;
+        this.position.itemKey = ''; // wipe selected item when player moves (TODO refactor when items can have multiple rooms)
         this.giveLocation(this.getRoom().givenLocation);
     }
 
     inspectItem(itemKey) { // like moveTo, but for items
 
-        this.itemPosition = itemKey;
+        this.position.itemKey = itemKey;
+        this.selected.inventoryItem = itemKey;
         // this.moveTo(itemKey); // !!!temporary
     }
 
     isInspectingItem() {
-        return this.itemPosition != '';
+        return this.position.itemKey != '';
     }
 
     playerHasItems(inputItems) { // returns true if player has all items of an input set
@@ -268,8 +275,8 @@ class World {
 
             // take items
             for (let itemKey of path.takenItems) {
-                let itemIndex = this.inventory.indexOf(itemKey)
-                this.inventory.splice(itemIndex, 1);
+                let itemIndex = this.inventoryItems.indexOf(itemKey)
+                this.inventoryItems.splice(itemIndex, 1);
             }
 
             //give signals

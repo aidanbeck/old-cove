@@ -9,21 +9,22 @@ import SaveData from '../scripts/saveData';
 import '../styles/play.css';
 
 let gameSave = new SaveData('auto-save', world);
-let startingPosition = world.position;
+let startingPosition = world.position.location;
 
 function wipeSave() {
   gameSave = null;
   localStorage.removeItem('auto-save');
   // This is a hacky way of setting the world back to it's default state.
   // Should this be a method within world instead?
-  world.position = startingPosition;
-  world.inventory = ["axe"];
+  world.position.location = startingPosition;
+  world.inventoryItems = ["axe"];
   world.locations = [startingPosition];
-  world.selectedLocation = startingPosition;
+  world.selected.location = startingPosition;
   world.signals = [];
 }
 
 function Game() {
+    localStorage.removeItem('auto-save');
 
   if (gameSave === null) {
     gameSave = new SaveData('auto-save', world);
@@ -75,7 +76,7 @@ function Game() {
     <div id="playScreen">
       <h1><Link id="backToTitle" to='/'>Old Cove</Link></h1>
       <Information world={worldRef.current} handleChange={handleChange}/>
-      <Choices paths={worldRef.current.getPaths()} items={worldRef.current.items} lastPosition={worldRef.current.lastPosition} playerHasItems={playerHasItems} playerHasSignals={playerHasSignals} handleChange={handleChange}/>
+      <Choices paths={worldRef.current.getPaths()} items={worldRef.current.items} lastPosition={worldRef.current.position.lastLocation} playerHasItems={playerHasItems} playerHasSignals={playerHasSignals} handleChange={handleChange}/>
       {/* <GoogleAd/> */}
     </div>
   )
