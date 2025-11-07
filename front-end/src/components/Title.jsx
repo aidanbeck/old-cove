@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { wipeSave } from "./Game.jsx";
+import Credentials from "./Credentials.jsx";
 import '../styles/title-screen.css';
 
 function Title () {
@@ -12,6 +13,7 @@ function Title () {
                 <Link id="titleBegin" to='/play' onClick={wipeSave}>Begin The Story</Link><br/>
                 {saveExists && <span><Link id="titleContinue" to='/play'>Continue The Adventure</Link><br/></span>}
                 <Link id="titleAbout" to='/about'>About The Project</Link>
+                <Credentials/>
             </div> 
         </div>
     )
