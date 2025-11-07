@@ -1,4 +1,4 @@
-import '../styles/sidebars.css';
+import '../../styles/sidebars.css';
 
 function Locations(props) {
 

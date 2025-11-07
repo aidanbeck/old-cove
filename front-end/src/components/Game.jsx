@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useRef } from 'react';
-import Information from './Information';
-import Choices from './Choices';
+import Information from './Game/Information';
+import Choices from './Game/Choices';
 import GoogleAd from './GoogleAd';
 
 import world from '../scripts/story';

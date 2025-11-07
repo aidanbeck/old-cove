@@ -1,4 +1,4 @@
-import '../styles/sidebars.css';
+import '../../styles/sidebars.css';
 
 function Items(props) {
 
