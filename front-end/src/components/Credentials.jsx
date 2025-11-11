@@ -38,9 +38,24 @@ function submitData(event) {
         password: passwordElement.value
     }
 
-    const apiURL = 'https://localhost:8080';
+    const apiURL = '/api/user'; // !!! replace with actual url for deployment
 
-    console.log(newUser);
+    fetch(apiURL, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newUser),
+    })
+    
+    .then(response => response.json()) // Parse the JSON response
+    
+    .then(data => {
+        console.log(data);
+    }) // Handle the parsed data
+    
+    .catch(error => console.error('Error:', error)); // Handle any errors
+
 }
 
 export default Credentials;
