@@ -51,6 +51,10 @@ function submitData(event) {
         logIn(apiURL, userJSON);
     }
 
+    if (requestType == "Delete User") {
+        deleteUser(apiURL, userJSON);
+    }
+
 
 }
 
@@ -73,7 +77,28 @@ function signUp(apiURL, userJSON) {
 }
 
 function logIn(apiURL, userJSON) {
+    // This needs to work differently on the API end of things.
+    // It needs to use authentication.
+    // It need to grab users by their name and password, not id.
+    // I will make a temporary mockup for this.
+}
+
+function deleteUser(apiURL, userJSON) {
+    // This is for debug purposes.
+    // If this exists, it will be as an admin panel.
     
+    let userID = JSON.parse(userJSON).name; // input username as id;
+    apiURL += `/${userID}`;
+
+    fetch(apiURL, { method: 'DELETE' })
+    
+    .then(response => response.json()) // Parse the JSON response
+    
+    .then(data => {
+        console.log(data);
+    }) // Handle the parsed data
+    
+    .catch(error => console.error('Error:', error)); // Handle any errors
 }
 
 export default Credentials;
