@@ -20,7 +20,7 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public User getUser( @PathVariable int id ) {
         return userRepository.findById(id).orElse(null);
     }
@@ -30,13 +30,13 @@ public class UserController {
         return userRepository.save(user);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/id/{id}")
     public User updateUser( @PathVariable int id, @RequestBody User user) {
         user.setId(id);
         return userRepository.save(user);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/id/{id}")
     public User deleteUser( @PathVariable int id ) {
         User deletedUser = userRepository.findById(id).orElse(null);
         userRepository.deleteById(id);
