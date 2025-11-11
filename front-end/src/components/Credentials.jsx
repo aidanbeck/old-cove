@@ -7,7 +7,7 @@ function Credentials(props) {
     
     return (
         <div className="Credentials">
-            <form action={`/${endPoint}`} method="post" onSubmit={submit}>
+            <form action={`/${endPoint}`} method="post" onSubmit={submitData}>
                 <div className="formTitle">{title}</div>
 
                 <div className="credential">
@@ -26,9 +26,21 @@ function Credentials(props) {
     );
 }
 
-function submit(event) {
+function submitData(event) {
     event.preventDefault();
-    alert("test!");
+
+    let formElement = event.target;
+    let usernameElement = formElement.querySelector(`input[name="username"]`);
+    let passwordElement = formElement.querySelector(`input[name="password"]`);
+    
+    let newUser = {
+        name: usernameElement.value,
+        password: passwordElement.value
+    }
+
+    const apiURL = 'https://localhost:8080';
+
+    console.log(newUser);
 }
 
 export default Credentials;
