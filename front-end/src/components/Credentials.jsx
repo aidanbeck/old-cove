@@ -30,22 +30,37 @@ function submitData(event) {
     event.preventDefault();
 
     let formElement = event.target;
+    let titleElement = formElement.querySelector(`.formTitle`);
     let usernameElement = formElement.querySelector(`input[name="username"]`);
     let passwordElement = formElement.querySelector(`input[name="password"]`);
     
-    let newUser = {
+    let userData = {
         name: usernameElement.value,
         password: passwordElement.value
     }
 
-    const apiURL = '/api/user'; // !!! replace with actual url for deployment
+    let userJSON = JSON.stringify(userData);
+    const apiURL = '/api/user'; // !!! replace with actual url endpoint for deployment
+    let requestType = titleElement.innerHTML;
 
+    if (requestType == "Sign Up") {
+        signUp(apiURL, userJSON);
+    }
+
+    if (requestType == "Log In") {
+        logIn(apiURL, userJSON);
+    }
+
+
+}
+
+function signUp(apiURL, userJSON) {
     fetch(apiURL, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
     },
-    body: JSON.stringify(newUser),
+    body: userJSON,
     })
     
     .then(response => response.json()) // Parse the JSON response
@@ -55,7 +70,10 @@ function submitData(event) {
     }) // Handle the parsed data
     
     .catch(error => console.error('Error:', error)); // Handle any errors
+}
 
+function logIn(apiURL, userJSON) {
+    
 }
 
 export default Credentials;
