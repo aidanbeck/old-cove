@@ -81,6 +81,25 @@ function logIn(apiURL, userJSON) {
     // It needs to use authentication.
     // It need to grab users by their name and password, not id.
     // I will make a temporary mockup for this.
+
+    apiURL += `/login`;
+
+    fetch(apiURL, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: userJSON,
+    })
+    
+    .then(response => response.json()) // Parse the JSON response
+    
+    .then(data => {
+        console.log(data);
+    }) // Handle the parsed data
+    
+    .catch(error => console.error('Error:', error)); // Handle any errors
+
 }
 
 function deleteUser(apiURL, userJSON) {
@@ -88,7 +107,7 @@ function deleteUser(apiURL, userJSON) {
     // If this exists, it will be as an admin panel.
     
     let userID = JSON.parse(userJSON).name; // input username as id;
-    apiURL += `/${userID}`;
+    apiURL += `/id/${userID}`;
 
     fetch(apiURL, { method: 'DELETE' })
     

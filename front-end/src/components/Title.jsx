@@ -13,7 +13,7 @@ function Title () {
                 <Link id="titleBegin" to='/play' onClick={wipeSave}>Begin The Story</Link><br/>
                 {saveExists && <span><Link id="titleContinue" to='/play'>Continue The Adventure</Link><br/></span>}
                 <Link id="titleAbout" to='/about'>About The Project</Link>
-                <Credentials title="Sign Up" endPoint="user" error="No Error!"/>
+                <Credentials title="Log In" endPoint="user" error="No Error!"/>
             </div> 
         </div>
     )
