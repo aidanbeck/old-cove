@@ -5,15 +5,21 @@ import '../styles/title-screen.css';
 
 function Title () {
     let saveExists = localStorage.getItem("auto-save") !== null;
+
+    const formTitle = "Log In";
+
     return (
 
         <div id="titleScreen">
             <div id="titleElements">
                 <div id="titleName">Old Cove</div>
-                <Link id="titleBegin" to='/play' onClick={wipeSave}>Begin The Story</Link><br/>
-                {saveExists && <span><Link id="titleContinue" to='/play'>Continue The Adventure</Link><br/></span>}
-                <Link id="titleAbout" to='/about'>About The Project</Link>
-                <Credentials title="Delete Account" endPoint="user" error="No Error!"/>
+                
+                <Link className="titleOption" to=''>Sign Up</Link><br/>
+                <Link className="titleOption" to=''>Log In</Link><br/>
+                <Link className="titleOption" to=''>Delete Account</Link><br/>
+                <Link className="titleOption" to='/about'>About The Project</Link><br/>
+                  
+                <Credentials title={formTitle} endPoint="user" error="No Error!"/>
             </div> 
         </div>
     )

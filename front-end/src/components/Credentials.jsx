@@ -40,7 +40,7 @@ function submitData(event) {
     }
 
     let userJSON = JSON.stringify(userData);
-    const apiURL = '/api/user'; // !!! replace with actual url endpoint for deployment
+    const apiURL = '/api/users'; // !!! replace with actual url endpoint for deployment
     let requestType = titleElement.innerHTML;
 
     if (requestType == "Sign Up") {

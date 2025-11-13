@@ -53,7 +53,7 @@
     font-size: 12.5vh;
 }
 
-#titleBegin, #titleAbout, #titleContinue {
+.titleOption {
     font-size: 4.1vh;
     font-weight: 600;
     color: white;
@@ -64,7 +64,7 @@
     transition: all 0.5s ease-out;
 }
 
-#titleBegin:hover, #titleAbout:hover, #titleContinue:hover {
+.titleOption:hover {
     /* glow, underline, and move to the right when selected */
     text-decoration-line:underline;
     text-shadow: 0 0 2px #fff;
