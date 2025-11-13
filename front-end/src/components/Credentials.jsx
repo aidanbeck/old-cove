@@ -5,6 +5,8 @@ function Credentials(props) {
 
     let { title, endPoint, error } = props;
     
+    if (title == "empty") { return; }
+    
     return (
         <div className="Credentials">
             <form action={`/${endPoint}`} method="post" onSubmit={submitData}>
