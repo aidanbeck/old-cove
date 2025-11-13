@@ -6,6 +6,7 @@ import '../styles/title-screen.css';
 
 function Title () {
     const [formTitle, setFormTitle] = useState("empty");
+    const [errorMessage, setErrorMessage] = useState("");
 
     return (
 
@@ -18,7 +19,7 @@ function Title () {
                 <Link className="titleOption" to='' onClick={() => setFormTitle("Delete Account")}>Delete Account</Link><br/>
                 <Link className="titleOption" to='/about'>About The Project</Link><br/>
 
-                <Credentials title={formTitle} endPoint="user" error="No Error!"/>
+                <Credentials title={formTitle} endPoint="user" errorMessage={errorMessage} setErrorMessage={setErrorMessage}/>
             </div> 
         </div>
     )

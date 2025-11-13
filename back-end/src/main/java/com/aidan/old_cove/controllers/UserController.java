@@ -3,6 +3,8 @@ package com.aidan.old_cove.controllers;
 import com.aidan.old_cove.models.User;
 import com.aidan.old_cove.repositories.UserRepository;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class UserController {
             }
         }
 
-        return null; // cannot find user with that name.
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found.");
     }
 
     // C R U D
@@ -56,7 +58,7 @@ public class UserController {
             return user;
         }
 
-        return null;
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Incorrect password.");
     }
 
     // Update Save Game
@@ -81,10 +83,9 @@ public class UserController {
 
             int deleteUserId = user.getId();
             userRepository.deleteById(deleteUserId);
-            return user; // deleted user
-            // !!! Operation succeeds, but it sends an internal error. Likely because "user" no longer exists.
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, name + " has been deleted!");
         }
 
-        return null; // could not delete user
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Incorrect password.");
     }
 }

@@ -7,7 +7,7 @@ function Credentials(props) {
 
     const navigate = useNavigate();
 
-    let { title, endPoint, error } = props;
+    let { title, endPoint, errorMessage, setErrorMessage } = props;
 
     const submitData = (event) => {
         event.preventDefault();
@@ -27,11 +27,11 @@ function Credentials(props) {
         let requestType = titleElement.innerHTML;
 
         if (requestType == "Sign Up") {
-            signUp(apiURL, userJSON, navigate);
+            signUp(apiURL, userJSON, navigate, setErrorMessage);
         }
 
         if (requestType == "Log In") {
-            logIn(apiURL, userJSON, navigate);
+            logIn(apiURL, userJSON, navigate, setErrorMessage);
         }
 
         if (requestType == "Save Game") {
@@ -39,7 +39,7 @@ function Credentials(props) {
         }
 
         if (requestType == "Delete Account") {
-            deleteUser(apiURL, userJSON);
+            deleteUser(apiURL, userJSON, setErrorMessage);
         }
 
     }
@@ -61,14 +61,14 @@ function Credentials(props) {
                     <label for="password">Password </label>
                     <input className="field" type="password" id="password" name="password" required/>
                 </div>
-                <div className="feedback">{error}</div>
+                <div className="feedback">{errorMessage}</div>
                 <input className="option" type="submit" value="Submit"/>
             </form>
         </div>
     );
 }
 
-function signUp(apiURL, userJSON, navigate) {
+function signUp(apiURL, userJSON, navigate, setErrorMessage) {
     fetch(apiURL, {
         method: 'POST',
         headers: {
@@ -80,16 +80,18 @@ function signUp(apiURL, userJSON, navigate) {
     .then(response => response.json()) // Parse the JSON response
     
     .then(data => {
-        console.log(data);
+        if ("error" in data) {
+            setErrorMessage(data.message);
+        } else {
+            // LOAD DATA
+            navigate('/play');
+        }
     }) // Handle the parsed data
     
     .catch(error => console.error('Error:', error)); // Handle any errors
-
-    // if successful
-    navigate('/play');
 }
 
-function logIn(apiURL, userJSON, navigate) {
+function logIn(apiURL, userJSON, navigate, setErrorMessage) {
 
     let user = JSON.parse(userJSON);
 
@@ -106,13 +108,16 @@ function logIn(apiURL, userJSON, navigate) {
     .then(response => response.json()) // Parse the JSON response
     
     .then(data => {
-        console.log(data);
+        if ("error" in data) {
+            setErrorMessage(data.message);
+        } else {
+            // LOAD DATA
+            navigate('/play');
+        }
     }) // Handle the parsed data
     
     .catch(error => console.error('Error:', error)); // Handle any errors
 
-    // if successful
-    navigate('/play');
 }
 
 // Used within main gameplay loop, not here!
@@ -133,13 +138,13 @@ function updateUser(apiURL, userJSON) {
     .then(response => response.json()) // Parse the JSON response
     
     .then(data => {
-        console.log(data);
+        console.log(data); // !!! is any response needed?
     }) // Handle the parsed data
     
     .catch(error => console.error('Error:', error)); // Handle any errors
 }
 
-function deleteUser(apiURL, userJSON) {
+function deleteUser(apiURL, userJSON, setErrorMessage) {
 
     let user = JSON.parse(userJSON);
 
@@ -156,10 +161,12 @@ function deleteUser(apiURL, userJSON) {
     .then(response => response.json()) // Parse the JSON response
     
     .then(data => {
-        console.log(data);
+        if ("error" in data) {
+            setErrorMessage(data.message);
+        }
     }) // Handle the parsed data
     
-    .catch(error => console.error('Error:', error)); // Handle any errors
+    .catch(error => console.error(error)); // Handle any errors
 
 }
 
