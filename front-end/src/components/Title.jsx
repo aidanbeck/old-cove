@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { wipeSave } from "./Game.jsx";
 import { useState } from "react";
 import Credentials from "./Credentials.jsx";
 import '../styles/title-screen.css';

@@ -5,30 +5,9 @@ import Choices from './Game/Choices';
 import GoogleAd from './GoogleAd';
 
 import world from '../scripts/story';
-import SaveData from '../scripts/saveData';
 import '../styles/play.css';
 
-let gameSave = new SaveData('auto-save', world);
-let startingPosition = world.position.location;
-
-function wipeSave() {
-  gameSave = null;
-  localStorage.removeItem('auto-save');
-  // This is a hacky way of setting the world back to it's default state.
-  // Should this be a method within world instead?
-  world.position.location = startingPosition;
-  world.inventoryItems = ["axe"];
-  world.locations = [startingPosition];
-  world.selected.location = startingPosition;
-  world.signals = [];
-}
-
 function Game() {
-    localStorage.removeItem('auto-save');
-
-  if (gameSave === null) {
-    gameSave = new SaveData('auto-save', world);
-  }
 
   /*
     Uses useRef instead of useState, this way world can keeps its methods
@@ -59,7 +38,6 @@ function Game() {
       w.selectedItem = value;
     }
     
-    gameSave.update(w);
     forceRender({});
   }
 
@@ -83,4 +61,3 @@ function Game() {
 }
 
 export default Game;
-export { wipeSave };
