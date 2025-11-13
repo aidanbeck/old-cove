@@ -24,10 +24,11 @@ function wipeSave() {
 }
 
 function Game() {
-    // localStorage.removeItem('auto-save');
+    localStorage.removeItem('auto-save');
 
-  gameSave = new SaveData('auto-save', world);
-  
+  if (gameSave === null) {
+    gameSave = new SaveData('auto-save', world);
+  }
 
   /*
     Uses useRef instead of useState, this way world can keeps its methods
@@ -59,7 +60,6 @@ function Game() {
     }
     
     gameSave.update(w);
-    gameSave = new SaveData('auto-save', world);
     forceRender({});
   }
 
