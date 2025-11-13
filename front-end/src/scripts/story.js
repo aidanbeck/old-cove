@@ -19,4 +19,16 @@ for (let roomFileText of Object.values(roomFiles)) {
 let compiled = build(roomSyntaxInput, customSyntax);
 
 
-export default new World(compiled.rooms, compiled.items, "rock cave", ["journal"]);
+function getWorldFromUserJSON(userJSON) {
+    let user = JSON.parse(userJSON);
+
+    if (user.position == null) {
+        console.log("position is null.");
+        user.position = "rock cave"; // set default position
+    }
+
+    return new World(compiled.rooms, compiled.items, user.position, user.inventoryItems, user.signals, user.locations);
+}
+
+
+export default getWorldFromUserJSON;
