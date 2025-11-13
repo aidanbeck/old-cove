@@ -81,15 +81,16 @@ function logIn(apiURL, userJSON) {
     // It needs to use authentication.
     // It need to grab users by their name and password, not id.
     // I will make a temporary mockup for this.
+    let user = JSON.parse(userJSON);
 
-    apiURL += `/login`;
+    apiURL += `/${user.name}`;
 
     fetch(apiURL, {
         method: 'GET',
         headers: {
+            'Authorization': user.password,
             'Content-Type': 'application/json',
-        },
-        body: userJSON,
+        }
     })
     
     .then(response => response.json()) // Parse the JSON response

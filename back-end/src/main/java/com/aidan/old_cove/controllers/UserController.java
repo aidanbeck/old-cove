@@ -20,19 +20,16 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/login")
-    public User getUserByName ( @PathVariable String name, @RequestBody User requestedUser ) {
+    @GetMapping("/{name}")
+    public User getUserByNameAndPassword ( @PathVariable String name, @RequestHeader("Authorization") String password ) {
         List<User> Users = getAllUsers();
 
         for (User user : Users) { // baby authentication, use something better.
 
             String userName = user.getName();
             String userPassword = user.getPassword();
-            String requestedUserName = requestedUser.getName();
-            String requestedUserPassword = requestedUser.getPassword();
 
-
-            if (userName.equals(requestedUserName) && userPassword.equals(requestedUserPassword)) {
+            if (userName.equals(name) && userPassword.equals(password)) {
                 return userRepository.findById(user.getId()).orElse(null);
             }
         }
