@@ -52,7 +52,7 @@ function submitData(event) {
     }
 
     if (requestType == "Update User") {
-        logIn(apiURL, userJSON);
+        updateUser(apiURL, userJSON);
     }
 
     if (requestType == "Delete User") {
@@ -108,10 +108,6 @@ function updateUser(apiURL, userJSON) {
 
     let user = JSON.parse(userJSON);
     apiURL += `/${user.name}`;
-
-    user.signals.push("DEBUG SIGNAL");
-
-    userJSON = JSON.stringify(user);
 
     fetch(apiURL, {
         method: 'PUT',

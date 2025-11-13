@@ -39,11 +39,13 @@ public class UserController {
 
     // C R U D
 
+    // Create Account
     @PostMapping
     User addUser( @RequestBody User user ) {
         return userRepository.save(user);
     }
 
+    // Log in
     @GetMapping("/{name}")
     public User getUserByNameAndPassword ( @PathVariable String name, @RequestHeader("Authorization") String password ) {
 
@@ -57,12 +59,18 @@ public class UserController {
         return null;
     }
 
-    @PutMapping("/id/{id}")
-    public User updateUser( @PathVariable int id, @RequestBody User user) {
-        user.setId(id);
-        return userRepository.save(user);
+    // Update Save Game
+    @PutMapping("/{name}")
+    public User updateUser( @PathVariable String name, @RequestHeader("Authorization") String password, @RequestBody User userData) {
+
+        User oldData = findUserByName(name);
+        int id = oldData.getId();
+
+        userData.setId(id);
+        return userRepository.save(userData);
     }
 
+    // Delete Account (refactor!)
     @DeleteMapping("/id/{id}")
     public User deleteUser( @PathVariable int id ) {
         User deletedUser = userRepository.findById(id).orElse(null);
