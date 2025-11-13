@@ -10,7 +10,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false, unique = true)
     private String name;
+
     private String password; //PLACEHOLDER - NEED TO ENCRYPT!!!
      private int logInCount;
     // timeCreated

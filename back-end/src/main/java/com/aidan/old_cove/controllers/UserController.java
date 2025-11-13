@@ -44,7 +44,19 @@ public class UserController {
     // Create Account
     @PostMapping
     User addUser( @RequestBody User user ) {
-        return userRepository.save(user);
+
+        String name = user.getName();
+
+        try {
+            findUserByName(name);
+        } catch(Exception e) {
+            // user does not exist, can create
+            return userRepository.save(user);
+        }
+
+        //user exists, cannot create
+        throw new ResponseStatusException(HttpStatus.CONFLICT, "Username '" + name + "' has already been used.");
+
     }
 
     // Log in
