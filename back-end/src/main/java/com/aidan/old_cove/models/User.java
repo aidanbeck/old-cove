@@ -12,7 +12,7 @@ public class User {
 
     private String name;
     private String password; //PLACEHOLDER - NEED TO ENCRYPT!!!
-    private int logInCount;
+     private int logInCount;
     // timeCreated
     // timeLastLogIn
 

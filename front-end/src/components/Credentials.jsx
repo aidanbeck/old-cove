@@ -1,9 +1,49 @@
+import { useNavigate } from 'react-router-dom';
+
 import '../styles/choices.css';
 import '../styles/credentials.css';
 
 function Credentials(props) {
 
+    const navigate = useNavigate();
+
     let { title, endPoint, error } = props;
+
+    const submitData = (event) => {
+        event.preventDefault();
+
+        let formElement = event.target;
+        let titleElement = formElement.querySelector(`.formTitle`);
+        let usernameElement = formElement.querySelector(`input[name="username"]`);
+        let passwordElement = formElement.querySelector(`input[name="password"]`);
+        
+        let userData = {
+            name: usernameElement.value,
+            password: passwordElement.value
+        }
+
+        let userJSON = JSON.stringify(userData);
+        const apiURL = '/api/users'; // !!! replace with actual url endpoint for deployment
+        let requestType = titleElement.innerHTML;
+
+        if (requestType == "Sign Up") {
+            signUp(apiURL, userJSON, navigate);
+        }
+
+        if (requestType == "Log In") {
+            logIn(apiURL, userJSON, navigate);
+        }
+
+        if (requestType == "Save Game") {
+            updateUser(apiURL, userJSON);
+        }
+
+        if (requestType == "Delete Account") {
+            deleteUser(apiURL, userJSON);
+        }
+
+    }
+
     
     if (title == "empty") { return; }
     
@@ -28,43 +68,7 @@ function Credentials(props) {
     );
 }
 
-function submitData(event) {
-    event.preventDefault();
-
-    let formElement = event.target;
-    let titleElement = formElement.querySelector(`.formTitle`);
-    let usernameElement = formElement.querySelector(`input[name="username"]`);
-    let passwordElement = formElement.querySelector(`input[name="password"]`);
-    
-    let userData = {
-        name: usernameElement.value,
-        password: passwordElement.value
-    }
-
-    let userJSON = JSON.stringify(userData);
-    const apiURL = '/api/users'; // !!! replace with actual url endpoint for deployment
-    let requestType = titleElement.innerHTML;
-
-    if (requestType == "Sign Up") {
-        signUp(apiURL, userJSON);
-    }
-
-    if (requestType == "Log In") {
-        logIn(apiURL, userJSON);
-    }
-
-    if (requestType == "Save Game") {
-        updateUser(apiURL, userJSON);
-    }
-
-    if (requestType == "Delete Account") {
-        deleteUser(apiURL, userJSON);
-    }
-
-
-}
-
-function signUp(apiURL, userJSON) {
+function signUp(apiURL, userJSON, navigate) {
     fetch(apiURL, {
         method: 'POST',
         headers: {
@@ -80,9 +84,12 @@ function signUp(apiURL, userJSON) {
     }) // Handle the parsed data
     
     .catch(error => console.error('Error:', error)); // Handle any errors
+
+    // if successful
+    navigate('/play');
 }
 
-function logIn(apiURL, userJSON) {
+function logIn(apiURL, userJSON, navigate) {
 
     let user = JSON.parse(userJSON);
 
@@ -103,6 +110,9 @@ function logIn(apiURL, userJSON) {
     }) // Handle the parsed data
     
     .catch(error => console.error('Error:', error)); // Handle any errors
+
+    // if successful
+    navigate('/play');
 }
 
 // Used within main gameplay loop, not here!

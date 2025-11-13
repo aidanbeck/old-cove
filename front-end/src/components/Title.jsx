@@ -5,8 +5,6 @@ import Credentials from "./Credentials.jsx";
 import '../styles/title-screen.css';
 
 function Title () {
-    let saveExists = localStorage.getItem("auto-save") !== null;
-
     const [formTitle, setFormTitle] = useState("empty");
 
     return (

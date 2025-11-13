@@ -70,7 +70,7 @@ public class UserController {
         return userRepository.save(userData);
     }
 
-    // Delete Account (refactor!)
+    // Delete Account
     @DeleteMapping("/{name}")
     public User deleteUser( @PathVariable String name, @RequestHeader("Authorization") String password ) {
 
