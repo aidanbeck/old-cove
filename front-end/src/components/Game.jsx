@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useRef } from 'react';
+import { useLocation } from "react-router-dom";
 import Information from './Game/Information';
 import Choices from './Game/Choices';
 import GoogleAd from './GoogleAd';
@@ -9,22 +10,10 @@ import '../styles/play.css';
 
 function Game() {
 
-  let debugUser = {
-    "id": 28,
-    "name": "aidanbeck",
-    "password": "root",
-    "logInCount": 0,
-    "position": "rock cave 3",
-    "signals": [],
-    "inventoryItems": [
-      "journal",
-      "axe"
-    ],
-    "locations": [
-      "rock cave",
-      "sandy beach"
-    ]
-  };
+  const location = useLocation();
+  const { userData } = location.state || {}; // safely access state
+
+  let debugUser = userData;
   let debugJSON = JSON.stringify(debugUser);
 
   /*
