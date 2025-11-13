@@ -1,5 +1,6 @@
 package com.aidan.old_cove.models;
 
+import com.aidan.old_cove.models.Activity;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -13,10 +14,10 @@ public class User {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Activity activity;
+
     private String password; //PLACEHOLDER - NEED TO ENCRYPT!!!
-     private int logInCount;
-    // timeCreated
-    // timeLastLogIn
 
     // Save Data
     // Exists here for MVP- but will have its own table if expanded.
@@ -30,7 +31,6 @@ public class User {
     public User(String name, String password) {
         this.name = name;
         this.password = password;
-        this.logInCount = 0;
         this.position = "";
     }
 
@@ -56,14 +56,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public int getLogInCount() {
-        return logInCount;
-    }
-
-    public void setLogInCount(int logInCount) {
-        this.logInCount = logInCount;
     }
 
     public String getPosition() {
@@ -96,5 +88,15 @@ public class User {
 
     public void setLocations(List<String> locations) {
         this.locations = locations;
+    }
+
+    // ORM
+    public Activity getActivity() { return activity; }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+        if (activity != null) {
+            activity.setUser(this); // ensures two-way linking
+        }
     }
 }
