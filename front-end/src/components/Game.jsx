@@ -43,6 +43,7 @@ function Game() {
       w.selectedItem = value;
     }
     
+    updateUser(userData, w);
     forceRender({});
   }
 
@@ -63,6 +64,37 @@ function Game() {
       {/* <GoogleAd/> */}
     </div>
   )
+}
+
+function updateUser(userData, worldData) {
+
+    let apiURL = `/api/users/${userData.name}`;
+
+    if (worldData.position.roomKey == "description-path") { return; }
+
+    userData.position = worldData.position.roomKey;
+    userData.signals = worldData.signals;
+    userData.inventoryItems = worldData.inventoryItems;
+    userData.locations = worldData.locations;
+
+    let userJSON = JSON.stringify(userData);
+
+    fetch(apiURL, {
+        method: 'PUT',
+        headers: {
+            'Authorization': userData.password,
+            'Content-Type': 'application/json',
+        },
+        body: userJSON,
+    })
+
+    .then(response => response.json()) // Parse the JSON response
+    
+    .then(data => {
+        // console.log(data); // !!! is any response needed?
+    }) // Handle the parsed data
+    
+    .catch(error => console.error('Error:', error)); // Handle any errors
 }
 
 export default Game;
