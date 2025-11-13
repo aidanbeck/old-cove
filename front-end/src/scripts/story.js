@@ -21,9 +21,11 @@ let compiled = build(roomSyntaxInput, customSyntax);
 
 function getWorldFromUser(user) {
 
-    if (user.position == null) {
-        user.position = "rock cave"; // set default position
-    }
+    // set defaults
+    (!user.position && (user.position = "rock cave"));
+    (!user.inventoryItems && (user.inventoryItems = []));
+    (!user.signals && (user.signals = []));
+    (!user.locations && (user.locations = []));
 
     return new World(compiled.rooms, compiled.items, user.position, user.inventoryItems, user.signals, user.locations);
 }
