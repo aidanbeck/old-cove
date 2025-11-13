@@ -68,7 +68,7 @@ function Game() {
 
 function updateUser(userData, worldData) {
 
-    let apiURL = `/api/users/${userData.name}`;
+    let apiURL = `/api/users/${userData.name}/testMove`;
 
     if (worldData.position.roomKey == "description-path") { return; }
 

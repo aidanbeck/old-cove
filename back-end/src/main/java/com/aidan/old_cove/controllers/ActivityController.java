@@ -1,10 +1,12 @@
 package com.aidan.old_cove.controllers;
 
 import com.aidan.old_cove.models.Activity;
+import com.aidan.old_cove.models.User;
 import com.aidan.old_cove.repositories.ActivityRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.aidan.old_cove.repositories.UserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 

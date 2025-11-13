@@ -84,7 +84,7 @@ function signUp(apiURL, userJSON, navigate, setErrorMessage) {
             setErrorMessage(data.message);
         } else {
             // LOAD DATA
-            console.log(data);
+            // console.log(data);
             navigate("/play", { state: { userData: data } });
         }
     }) // Handle the parsed data

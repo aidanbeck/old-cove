@@ -14,9 +14,6 @@ public class User {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Activity activity;
-
     private String password; //PLACEHOLDER - NEED TO ENCRYPT!!!
 
     // Save Data
@@ -88,15 +85,5 @@ public class User {
 
     public void setLocations(List<String> locations) {
         this.locations = locations;
-    }
-
-    // ORM
-    public Activity getActivity() { return activity; }
-
-    public void setActivity(Activity activity) {
-        this.activity = activity;
-        if (activity != null) {
-            activity.setUser(this); // ensures two-way linking
-        }
     }
 }

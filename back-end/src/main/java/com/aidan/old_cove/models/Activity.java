@@ -15,7 +15,7 @@ public class Activity {
     private int id;
 
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     private int logInCount;
@@ -24,7 +24,7 @@ public class Activity {
     private LocalDateTime dateCreated;
     private LocalDateTime lastLogIn;
 
-    @ElementCollection private List<Integer> moves; // history of moves taken
+    @ElementCollection private List<String> moves; // history of moves taken
 
     public Activity() {
         this.dateCreated = LocalDateTime.now();
@@ -71,7 +71,8 @@ public class Activity {
         lastLogIn = LocalDateTime.now();
     }
 
-    public void addMove(int move) {
+    public void addMove(String move) {
+        moveCount++;
         moves.add(move);
     }
 }

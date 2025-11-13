@@ -1,6 +1,7 @@
 package com.aidan.old_cove.controllers;
 
 import com.aidan.old_cove.models.User;
+import com.aidan.old_cove.models.Activity;
 import com.aidan.old_cove.repositories.UserRepository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -46,12 +47,13 @@ public class UserController {
     User addUser( @RequestBody User user ) {
 
         String name = user.getName();
+        User newUser = new User(user.getName(), user.getPassword());
 
         try {
             findUserByName(name);
         } catch(Exception e) {
             // user does not exist, can create
-            return userRepository.save(user);
+            return userRepository.save(newUser);
         }
 
         //user exists, cannot create
@@ -67,6 +69,8 @@ public class UserController {
         String userPassword = user.getPassword();
 
         if (userPassword.equals(password)) {
+
+            //user.getActivity().logIn(); // increment counts
             return user;
         }
 
@@ -74,10 +78,11 @@ public class UserController {
     }
 
     // Update Save Game
-    @PutMapping("/{name}")
-    public User updateUser( @PathVariable String name, @RequestHeader("Authorization") String password, @RequestBody User userData) {
+    @PutMapping("/{name}/{move}")
+    public User updateUser( @PathVariable String name, @PathVariable String move, @RequestHeader("Authorization") String password, @RequestBody User userData) {
 
         User oldData = findUserByName(name);
+        //oldData.getActivity().addMove(move);
         int id = oldData.getId();
 
         userData.setId(id);
