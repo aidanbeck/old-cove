@@ -51,11 +51,11 @@ function submitData(event) {
         logIn(apiURL, userJSON);
     }
 
-    if (requestType == "Update User") {
+    if (requestType == "Save Game") {
         updateUser(apiURL, userJSON);
     }
 
-    if (requestType == "Delete User") {
+    if (requestType == "Delete Account") {
         deleteUser(apiURL, userJSON);
     }
 
@@ -128,13 +128,18 @@ function updateUser(apiURL, userJSON) {
 }
 
 function deleteUser(apiURL, userJSON) {
-    // This is for debug purposes.
-    // If this exists, it will be as an admin panel.
-    
-    let userID = JSON.parse(userJSON).name; // input username as id;
-    apiURL += `/id/${userID}`;
 
-    fetch(apiURL, { method: 'DELETE' })
+    let user = JSON.parse(userJSON);
+
+    apiURL += `/${user.name}`;
+
+    fetch(apiURL, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': user.password,
+            'Content-Type': 'application/json',
+        }
+    })
     
     .then(response => response.json()) // Parse the JSON response
     
@@ -143,6 +148,7 @@ function deleteUser(apiURL, userJSON) {
     }) // Handle the parsed data
     
     .catch(error => console.error('Error:', error)); // Handle any errors
+
 }
 
 export default Credentials;

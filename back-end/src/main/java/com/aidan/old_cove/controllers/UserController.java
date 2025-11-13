@@ -71,12 +71,20 @@ public class UserController {
     }
 
     // Delete Account (refactor!)
-    @DeleteMapping("/id/{id}")
-    public User deleteUser( @PathVariable int id ) {
-        User deletedUser = userRepository.findById(id).orElse(null);
-        userRepository.deleteById(id);
-        return deletedUser;
+    @DeleteMapping("/{name}")
+    public User deleteUser( @PathVariable String name, @RequestHeader("Authorization") String password ) {
+
+        User user = findUserByName(name);
+        String userPassword = user.getPassword();
+
+        if (userPassword.equals(password)) {
+
+            int deleteUserId = user.getId();
+            userRepository.deleteById(deleteUserId);
+            return user; // deleted user
+            // !!! Operation succeeds, but it sends an internal error. Likely because "user" no longer exists.
+        }
+
+        return null; // could not delete user
     }
 }
-
-// TODO test these and commit!
