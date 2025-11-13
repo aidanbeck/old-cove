@@ -35,7 +35,7 @@ function Credentials(props) {
         }
 
         if (requestType == "Save Game") {
-            updateUser(apiURL, userJSON);
+            // updateUser(apiURL, userJSON);
         }
 
         if (requestType == "Delete Account") {
@@ -69,6 +69,7 @@ function Credentials(props) {
 }
 
 function signUp(apiURL, userJSON, navigate, setErrorMessage) {
+    localStorage.setItem('DATA', "");
     fetch(apiURL, {
         method: 'POST',
         headers: {
@@ -84,6 +85,7 @@ function signUp(apiURL, userJSON, navigate, setErrorMessage) {
             setErrorMessage(data.message);
         } else {
             // LOAD DATA
+            localStorage.setItem('DATA', JSON.stringify(data));
             navigate('/play');
         }
     }) // Handle the parsed data
@@ -92,7 +94,7 @@ function signUp(apiURL, userJSON, navigate, setErrorMessage) {
 }
 
 function logIn(apiURL, userJSON, navigate, setErrorMessage) {
-
+    localStorage.setItem('DATA', "");
     let user = JSON.parse(userJSON);
 
     apiURL += `/${user.name}`;
@@ -112,6 +114,7 @@ function logIn(apiURL, userJSON, navigate, setErrorMessage) {
             setErrorMessage(data.message);
         } else {
             // LOAD DATA
+            localStorage.setItem('DATA', JSON.stringify(data));
             navigate('/play');
         }
     }) // Handle the parsed data
@@ -120,29 +123,29 @@ function logIn(apiURL, userJSON, navigate, setErrorMessage) {
 
 }
 
-// Used within main gameplay loop, not here!
-function updateUser(apiURL, userJSON) {
+// // Used within main gameplay loop, not here!
+// function updateUser(apiURL, userJSON) {
 
-    let user = JSON.parse(userJSON);
-    apiURL += `/${user.name}`;
+//     let user = JSON.parse(userJSON);
+//     apiURL += `/${user.name}`;
 
-    fetch(apiURL, {
-        method: 'PUT',
-        headers: {
-            'Authorization': user.password,
-            'Content-Type': 'application/json',
-        },
-        body: userJSON,
-    })
+//     fetch(apiURL, {
+//         method: 'PUT',
+//         headers: {
+//             'Authorization': user.password,
+//             'Content-Type': 'application/json',
+//         },
+//         body: userJSON,
+//     })
 
-    .then(response => response.json()) // Parse the JSON response
+//     .then(response => response.json()) // Parse the JSON response
     
-    .then(data => {
-        console.log(data); // !!! is any response needed?
-    }) // Handle the parsed data
+//     .then(data => {
+//         console.log(data); // !!! is any response needed?
+//     }) // Handle the parsed data
     
-    .catch(error => console.error('Error:', error)); // Handle any errors
-}
+//     .catch(error => console.error('Error:', error)); // Handle any errors
+// }
 
 function deleteUser(apiURL, userJSON, setErrorMessage) {
 
