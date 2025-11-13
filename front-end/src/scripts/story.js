@@ -19,11 +19,9 @@ for (let roomFileText of Object.values(roomFiles)) {
 let compiled = build(roomSyntaxInput, customSyntax);
 
 
-function getWorldFromUserJSON(userJSON) {
-    let user = JSON.parse(userJSON);
+function getWorldFromUser(user) {
 
     if (user.position == null) {
-        console.log("position is null.");
         user.position = "rock cave"; // set default position
     }
 
@@ -31,4 +29,4 @@ function getWorldFromUserJSON(userJSON) {
 }
 
 
-export default getWorldFromUserJSON;
+export default getWorldFromUser;
