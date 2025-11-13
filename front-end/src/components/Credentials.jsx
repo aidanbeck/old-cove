@@ -51,6 +51,10 @@ function submitData(event) {
         logIn(apiURL, userJSON);
     }
 
+    if (requestType == "Update User") {
+        logIn(apiURL, userJSON);
+    }
+
     if (requestType == "Delete User") {
         deleteUser(apiURL, userJSON);
     }
@@ -60,11 +64,11 @@ function submitData(event) {
 
 function signUp(apiURL, userJSON) {
     fetch(apiURL, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: userJSON,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: userJSON,
     })
     
     .then(response => response.json()) // Parse the JSON response
@@ -77,10 +81,7 @@ function signUp(apiURL, userJSON) {
 }
 
 function logIn(apiURL, userJSON) {
-    // This needs to work differently on the API end of things.
-    // It needs to use authentication.
-    // It need to grab users by their name and password, not id.
-    // I will make a temporary mockup for this.
+
     let user = JSON.parse(userJSON);
 
     apiURL += `/${user.name}`;
@@ -100,7 +101,34 @@ function logIn(apiURL, userJSON) {
     }) // Handle the parsed data
     
     .catch(error => console.error('Error:', error)); // Handle any errors
+}
 
+// Used within main gameplay loop, not here!
+function updateUser(apiURL, userJSON) {
+
+    let user = JSON.parse(userJSON);
+    apiURL += `/${user.name}`;
+
+    user.signals.push("DEBUG SIGNAL");
+
+    userJSON = JSON.stringify(user);
+
+    fetch(apiURL, {
+        method: 'PUT',
+        headers: {
+            'Authorization': user.password,
+            'Content-Type': 'application/json',
+        },
+        body: userJSON,
+    })
+
+    .then(response => response.json()) // Parse the JSON response
+    
+    .then(data => {
+        console.log(data);
+    }) // Handle the parsed data
+    
+    .catch(error => console.error('Error:', error)); // Handle any errors
 }
 
 function deleteUser(apiURL, userJSON) {

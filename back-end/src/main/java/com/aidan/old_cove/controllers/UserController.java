@@ -20,30 +20,41 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/{name}")
-    public User getUserByNameAndPassword ( @PathVariable String name, @RequestHeader("Authorization") String password ) {
+    // Helper
+    private User findUserByName(String name) {
+
         List<User> Users = getAllUsers();
 
         for (User user : Users) { // baby authentication, use something better.
 
             String userName = user.getName();
-            String userPassword = user.getPassword();
 
-            if (userName.equals(name) && userPassword.equals(password)) {
-                return userRepository.findById(user.getId()).orElse(null);
+            if (userName.equals(name)) {
+                return user;
             }
         }
-        return null;
+
+        return null; // cannot find user with that name.
     }
 
-    @GetMapping("/id/{id}")
-    public User getUser( @PathVariable int id ) {
-        return userRepository.findById(id).orElse(null);
-    }
+    // C R U D
 
     @PostMapping
     User addUser( @RequestBody User user ) {
         return userRepository.save(user);
+    }
+
+    @GetMapping("/{name}")
+    public User getUserByNameAndPassword ( @PathVariable String name, @RequestHeader("Authorization") String password ) {
+
+        User user = findUserByName(name);
+        String userPassword = user.getPassword();
+
+        if (userPassword.equals(password)) {
+            return user;
+        }
+
+        return null;
     }
 
     @PutMapping("/id/{id}")
